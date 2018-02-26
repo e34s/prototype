@@ -179,9 +179,6 @@ public class FahrzeugsuchePage {
     public void selectSpecificModel(WebDriver driver, String specificModel) throws InterruptedException {
 
         List<WebElement> list = driver.findElements(By.className("table__item__info__content"));
-        System.out.println(list.size() + " items found");
-
-        System.out.println(list.get(0).getText());
 
         for (WebElement element : list) {
             if (element.getText().contains(specificModel)) {

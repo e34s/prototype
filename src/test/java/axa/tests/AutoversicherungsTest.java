@@ -10,6 +10,8 @@ import axa.utils.ExcelAdapter;
 import axa.pages.AngabenPage;
 import axa.pages.FahrzeugsuchePage;
 import io.qameta.allure.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
@@ -24,31 +26,8 @@ import java.util.concurrent.TimeUnit;
 public class AutoversicherungsTest extends TestBase {
 
 
-	@Test
-	@Description("my first allure test")
-	@TmsLink("axa-test-3")
-	public void test1() {
-		Assert.assertTrue(true);
-	}
-
-
-
-
-	@Test
-	@Description("my second allure test")
-	@Severity(SeverityLevel.CRITICAL)
-	@TmsLink("axa-test-2")
-	public void test2() {
-		Assert.assertTrue(false);
-	}
-
 	@Test(dataProvider="data", dataProviderClass = ExcelAdapter.class, enabled = true)
-	@Description("axa rechner test")
-	@Severity(SeverityLevel.CRITICAL)
-	@TmsLink("axa-test-1")
-	@Epic("Allure examples")
-	@Feature("Junit 4 support")
-	public void mytest1(String data_year, String data_month, String data_marke, String data_model,
+	public void axaTest(String data_year, String data_month, String data_marke, String data_model,
                         String data_schaltung, String data_treibstoff, String data_ps, String specificModel,
                         String data_zusatzausruestung, String data_besKontrollschild, String data_leasing,
                         String data_kilometer, String data_kaufjahr, String data_parkschaden, String data_notbrems,
@@ -61,7 +40,7 @@ public class AutoversicherungsTest extends TestBase {
         capability.setCapability("e34:l_testName", "Selenium Test");
         capability.setCapability("video", true);
         RemoteWebDriver driver = new RemoteWebDriver(new URL("https://vm-106.element34.net/wd/hub"), capability);
-        //RemoteWebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
+        //RemoteWebDriver driver = new ChromeDriver(capability);
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
