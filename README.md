@@ -1,5 +1,6 @@
 #AXA Selenium Test Prototype
 
+
 ### Page object location
 ```src > test > java > axa > pages```
 
@@ -18,6 +19,13 @@ You need to be in the main project directory, where the pom.xml fike is located:
 
 ``mvn -Dtests=AutoversicherungsTest clean test``
 
-Generate report:
+**Generate report:**
 
 ``allure serve target/surefire-reports``
+
+Note: currently multiple tests with dataprovider show up as one test in allure
+
+**Videos:**
+
+Videos are only available when running on Selenium Box but not locally. Selenium Box will be available for AXA around the end of March 2018. 
+
