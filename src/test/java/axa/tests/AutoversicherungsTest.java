@@ -6,6 +6,7 @@
 
 package axa.tests;
 
+import axa.pages.PraemiePage;
 import axa.utils.ExcelAdapter;
 import axa.pages.AngabenPage;
 import axa.pages.FahrzeugsuchePage;
@@ -15,6 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -22,9 +24,8 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 
-@Test
-public class AutoversicherungsTest extends TestBase {
 
+public class AutoversicherungsTest extends TestBase {
 
 	@Test(dataProvider="data", dataProviderClass = ExcelAdapter.class, enabled = true)
 	public void axaTest(String data_year, String data_month, String data_marke, String data_model,
@@ -33,14 +34,15 @@ public class AutoversicherungsTest extends TestBase {
                         String data_kilometer, String data_kaufjahr, String data_parkschaden, String data_notbrems,
                         String data_gebDatum, String data_nationalitaet, String data_plz, String data_geschlecht,
                         String data_entzug, String data_bisherigeVersicherer, String data_versicherer, String data_kuendigung,
-                        String data_schaden5Jahre) throws InterruptedException, MalformedURLException {
+                        String data_schaden5Jahre,
+						String data_sollBasic, String data_sollCompact) throws InterruptedException, MalformedURLException {
 
 		DesiredCapabilities capability = DesiredCapabilities.chrome();
 		capability.setCapability("e34:token", "72aa4d82");
         capability.setCapability("e34:l_testName", "Selenium Test");
         capability.setCapability("video", true);
-        RemoteWebDriver driver = new RemoteWebDriver(new URL("https://vm-106.element34.net/wd/hub"), capability);
-        //RemoteWebDriver driver = new ChromeDriver(capability);
+//        RemoteWebDriver driver = new RemoteWebDriver(new URL("https://vm-106.element34.net/wd/hub"), capability);
+        RemoteWebDriver driver = new ChromeDriver(capability);
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
@@ -76,7 +78,11 @@ public class AutoversicherungsTest extends TestBase {
 		angaben.setSchaden(data_schaden5Jahre);
 		angaben.clickWeiter();
 		Thread.sleep(3000);
-        System.out.println("Video URL - http://vm-106.element34.net/videos/" + driver.getSessionId() + ".mp4");
+        //System.out.println("Video URL - http://vm-106.element34.net/videos/" + driver.getSessionId() + ".mp4");
+
+		PraemiePage praemie = new PraemiePage(driver);
+		Assert.assertEquals(data_sollBasic, praemie.getBasicPraemie());
+		Assert.assertEquals(data_sollCompact, praemie.getBasicCompact());
 
 		driver.quit();
 	}
