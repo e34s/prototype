@@ -1,10 +1,11 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-
-<suite name="Parallel Test suite" verbose="1" >
-
-    <test name="Parallel tests for AXA" parallel="methods">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="3" name="Suite" parallel="tests">
+    <test name="FirstTest" thread-count="5" parallel="methods" >
+        <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="axa.tests.FactoryTest"/>
+            <class name="axa.tests.AutoversicherungsTest"/>
         </classes>
-    </test>
-</suite>
+    </test> <!-- First Test -->
+
+</suite> <!-- Suite -->
