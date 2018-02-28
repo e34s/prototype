@@ -10,17 +10,13 @@ import axa.pages.PraemiePage;
 import axa.utils.ExcelAdapter;
 import axa.pages.AngabenPage;
 import axa.pages.FahrzeugsuchePage;
-import io.qameta.allure.*;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 
@@ -35,6 +31,7 @@ public class AutoversicherungsTest extends TestBase {
                         String data_gebDatum, String data_nationalitaet, String data_plz, String data_geschlecht,
                         String data_entzug, String data_bisherigeVersicherer, String data_versicherer, String data_kuendigung,
                         String data_schaden5Jahre,
+						String data_kasko, String data_selbstbehaltAusserKollision, String data_selbstbehaltKollision,
 						String data_sollBasic, String data_sollCompact) throws InterruptedException, MalformedURLException {
 
 		DesiredCapabilities capability = DesiredCapabilities.chrome();
@@ -81,8 +78,18 @@ public class AutoversicherungsTest extends TestBase {
         //System.out.println("Video URL - http://vm-106.element34.net/videos/" + driver.getSessionId() + ".mp4");
 
 		PraemiePage praemie = new PraemiePage(driver);
-		Assert.assertEquals(data_sollBasic, praemie.getBasicPraemie());
-		Assert.assertEquals(data_sollCompact, praemie.getBasicCompact());
+		praemie.selectKasko(data_kasko);
+
+		if (data_kasko.contentEquals("Vollkasko")) {
+			praemie.selectSelbstbehaltausserKollision(data_selbstbehaltAusserKollision);
+			praemie.selectSelbstbehaltKollision(data_selbstbehaltKollision);
+		}
+		else if (data_kasko.contentEquals("Teilkasko")) {
+			praemie.selectTeilkaskoSelbstbehalt(data_selbstbehaltKollision);
+		}
+
+		Assert.assertEquals(praemie.getBasicPraemie(), data_sollBasic);
+		Assert.assertEquals(praemie.getBasicCompact(), data_sollCompact);
 
 		driver.quit();
 	}
