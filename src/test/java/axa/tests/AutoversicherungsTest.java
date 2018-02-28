@@ -76,7 +76,7 @@ public class AutoversicherungsTest extends TestBase {
 		angaben.setKuendigung(data_kuendigung);
 		angaben.setSchaden(data_schaden5Jahre);
 		angaben.clickWeiter();
-		Thread.sleep(3000);
+		//Thread.sleep(3000);
         //System.out.println("Video URL - http://vm-106.element34.net/videos/" + driver.getSessionId() + ".mp4");
 
 		PraemiePage praemie = new PraemiePage(driver);
@@ -84,7 +84,7 @@ public class AutoversicherungsTest extends TestBase {
 
 		praemie.selectErgaenzungen(data_mobility, data_mitgefuehrteSachen, data_unfallVersicherung, data_bonusSchutz, data_crashRecorder, driver);
 
-
+// so war es vorher
 //		praemie.selectMitgefuehrteSachen(data_mitgefuehrteSachen);
 //		praemie.selectUnfallversicherung(data_unfallVersicherung);
 //		praemie.selectBonusschutz(data_bonusSchutz);
