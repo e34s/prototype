@@ -82,13 +82,6 @@ public class AutoversicherungsTest extends TestBase {
 
 		praemie.selectErgaenzungen(data_mobility, data_mitgefuehrteSachen, data_unfallVersicherung, data_bonusSchutz, data_crashRecorder, driver);
 
-// so war es vorher
-//		praemie.selectMitgefuehrteSachen(data_mitgefuehrteSachen);
-//		praemie.selectUnfallversicherung(data_unfallVersicherung);
-//		praemie.selectBonusschutz(data_bonusSchutz);
-//		praemie.selectCrashrecorder(data_crashRecorder);
-
-
 		Thread.sleep(2500);
 		Assert.assertEquals(praemie.getBasicPraemie(), data_sollBasic);
 		Assert.assertEquals(praemie.getBasicCompact(), data_sollCompact);
