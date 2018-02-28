@@ -10,12 +10,14 @@ import axa.pages.PraemiePage;
 import axa.utils.ExcelAdapter;
 import axa.pages.AngabenPage;
 import axa.pages.FahrzeugsuchePage;
+import axa.utils.StatusListener;
 import axa.utils.TestBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -23,7 +25,7 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 
-
+@Listeners(StatusListener.class)
 public class AutoversicherungsTest extends TestBase {
 
 	@Test(dataProvider="data", dataProviderClass = ExcelAdapter.class, enabled = true)
