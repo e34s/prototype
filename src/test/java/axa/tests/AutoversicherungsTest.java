@@ -31,7 +31,7 @@ public class AutoversicherungsTest extends TestBase {
                         String data_kilometer, String data_kaufjahr, String data_parkschaden, String data_notbrems,
                         String data_gebDatum, String data_nationalitaet, String data_plz, String data_geschlecht,
                         String data_entzug, String data_bisherigeVersicherer, String data_versicherer, String data_kuendigung,
-                        String data_schaden5Jahre,
+                        String data_schaden5Jahre, String data_haftPflichtSchaden, String data_schadenJahr, String data_Diebstahl, String data_parkSchaden, String data_kollisionsSchaden, String data_kollisionsSchadenJahr,
 						String data_kasko, String data_selbstbehaltAusserKollision, String data_selbstbehaltKollision, String data_selbstbehaltTeilkasko,
 						String data_mobility, String data_mitgefuehrteSachen, String data_unfallVersicherung, String data_bonusSchutz, String data_crashRecorder,
 						String data_sollBasic, String data_sollCompact) throws InterruptedException, MalformedURLException {
@@ -74,10 +74,8 @@ public class AutoversicherungsTest extends TestBase {
 		angaben.setEntzug(data_entzug);
 		angaben.setBisherigerVersicherer(data_bisherigeVersicherer, data_versicherer, driver);
 		angaben.setKuendigung(data_kuendigung);
-		angaben.setSchaden(data_schaden5Jahre);
+		angaben.setSchaden(data_schaden5Jahre, data_haftPflichtSchaden, data_schadenJahr, data_Diebstahl, data_parkSchaden, data_kollisionsSchaden, data_kollisionsSchadenJahr);
 		angaben.clickWeiter();
-		//Thread.sleep(3000);
-        //System.out.println("Video URL - http://vm-106.element34.net/videos/" + driver.getSessionId() + ".mp4");
 
 		PraemiePage praemie = new PraemiePage(driver);
 		praemie.selectKasko(data_kasko, data_selbstbehaltAusserKollision, data_selbstbehaltKollision, data_selbstbehaltTeilkasko);
@@ -95,6 +93,7 @@ public class AutoversicherungsTest extends TestBase {
 		Assert.assertEquals(praemie.getBasicPraemie(), data_sollBasic);
 		Assert.assertEquals(praemie.getBasicCompact(), data_sollCompact);
 
+		System.out.println("Video URL - http://vm-106.element34.net/videos/" + driver.getSessionId() + ".mp4");
 		driver.quit();
 	}
 

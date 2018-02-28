@@ -18,6 +18,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AngabenPage {
 
+    private SchadenSection schadenSection;
+
     @FindBy(id="fl_zubehoer_content")
     private WebElement zubehoer;
 
@@ -97,6 +99,7 @@ public class AngabenPage {
     private WebElement weiterbutton;
 
     public AngabenPage(WebDriver driver) {
+        this.schadenSection = new SchadenSection(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -260,11 +263,18 @@ public class AngabenPage {
         }
     }
 
-    public void setSchaden(String data_schaden) throws InterruptedException {
+    public void setSchaden(String data_schaden, String data_haftPflichtSchaden, String data_schadenJahr, String data_Diebstahl, String data_parkSchaden, String data_kollisionsSchaden, String data_kollisionsSchadenJahr) throws InterruptedException {
 
         switch (data_schaden) {
             case "ja" :
                 schadenJa.click();
+
+                this.schadenSection.sethaftPflichtSchaden(data_haftPflichtSchaden);
+                this.schadenSection.setSchadenJahr(data_schadenJahr);
+                this.schadenSection.setDiebstahl(data_Diebstahl);
+                this.schadenSection.setParkschaden(data_parkSchaden);
+                this.schadenSection.setKollisionsSchaden(data_kollisionsSchaden);
+                this.schadenSection.setkollisionSchadenJahr(data_kollisionsSchadenJahr);
                 break;
 
             case "nein" :
@@ -275,6 +285,8 @@ public class AngabenPage {
                 System.out.println("your case does not exist");
         }
     }
+
+    //TODO: add Vertragsdetails
 
     public void clickWeiter() {
         weiterbutton.click();
