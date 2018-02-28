@@ -72,7 +72,7 @@ public class AutoversicherungsTest extends TestBase {
 		angaben.enterPLZ(data_plz);
 		angaben.setGeschlecht(data_geschlecht);
 		angaben.setEntzug(data_entzug);
-		angaben.setBisherigerVersicherer(data_bisherigeVersicherer, data_versicherer);
+		angaben.setBisherigerVersicherer(data_bisherigeVersicherer, data_versicherer, driver);
 		angaben.setKuendigung(data_kuendigung);
 		angaben.setSchaden(data_schaden5Jahre);
 		angaben.clickWeiter();

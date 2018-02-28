@@ -6,11 +6,14 @@
 
 package axa.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class AngabenPage {
@@ -219,12 +222,14 @@ public class AngabenPage {
     }
 
 
-    public void setBisherigerVersicherer(String data_bisherigerVersicherer, String data_versicherer) throws InterruptedException {
+    public void setBisherigerVersicherer(String data_bisherigerVersicherer, String data_versicherer, WebDriver driver) throws InterruptedException {
 
         switch (data_bisherigerVersicherer) {
             case "ja" :
                 bisherigerVersichererJa.click();
-                Thread.sleep(500);
+
+                WebDriverWait wait = new WebDriverWait(driver, 10);
+                wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("fl_hff_vorversicherer_name_content"))));
 
                 Select realSelect = new Select(versicherer);
                 realSelect.selectByVisibleText(data_versicherer);
