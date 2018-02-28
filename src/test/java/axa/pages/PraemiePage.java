@@ -6,11 +6,14 @@
 
 package axa.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class PraemiePage {
@@ -55,6 +58,7 @@ public class PraemiePage {
     }
 
 
+    //Prämien auslesen
     public String getBasicPraemie() {
         return praemiebasic.getText();
     }
@@ -63,28 +67,28 @@ public class PraemiePage {
         return praemiecompact.getText();
     }
 
+
+
+
+    //Kasko
     public void selectKasko(String data_kasko, String data_selbstbehaltAusserKollision, String data_selbstbehaltKollision, String data_selbstbehaltTeilkasko) throws InterruptedException {
 
 
         Select realSelect = new Select(kasko);
         realSelect.selectByVisibleText(data_kasko);
-        Thread.sleep(500);
 
 
         if (data_kasko.contentEquals("Vollkasko")) {
             this.selectSelbstbehaltausserKollision(data_selbstbehaltAusserKollision);
             this.selectSelbstbehaltKollision(data_selbstbehaltKollision);
-            Thread.sleep(500);
         }
         else if (data_kasko.contentEquals("Teilkasko")) {
             this.selectTeilkaskoSelbstbehalt(data_selbstbehaltTeilkasko);
-            Thread.sleep(500);
         }
     }
 
     public void selectSelbstbehaltausserKollision(String data_selbstbehalt) throws InterruptedException {
 
-        Thread.sleep(500);
         Select realSelect = new Select(selbstbehaltAusserKollision);
         realSelect.selectByVisibleText(data_selbstbehalt);
     }
@@ -92,7 +96,6 @@ public class PraemiePage {
     public void selectSelbstbehaltKollision(String data_selbstbehalt) throws InterruptedException {
 
         if(!data_selbstbehalt.contentEquals("NA")) {
-            Thread.sleep(500);
             Select realSelect = new Select(selbstbehaltKollision);
             realSelect.selectByVisibleText(data_selbstbehalt);
         }
@@ -101,34 +104,37 @@ public class PraemiePage {
     public void selectTeilkaskoSelbstbehalt(String data_selbstbehalt) throws InterruptedException {
 
         if(!data_selbstbehalt.contentEquals("NA")) {
-            Thread.sleep(500);
             Select realSelect = new Select(selbstbehaltTeilkasko);
             realSelect.selectByVisibleText(data_selbstbehalt);
         }
     }
 
+
+    //Ergänzungen
     public void selectMobility(String data_mobility) throws InterruptedException {
 
         if(!data_mobility.contentEquals("NA")) {
-            Thread.sleep(500);
             Select realSelect = new Select(mobility);
             realSelect.selectByVisibleText(data_mobility);
         }
     }
 
-    public void selectMitgefuehrteSachen(String data_mitgefuehrteSachen) throws InterruptedException {
+    public void selectMitgefuehrteSachen(String data_mitgefuehrteSachen, WebDriver driver) throws InterruptedException {
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
 
         if(!data_mitgefuehrteSachen.contentEquals("NA")) {
-            Thread.sleep(500);
             Select realSelect = new Select(mitgefuehrteSachen);
             realSelect.selectByVisibleText(data_mitgefuehrteSachen);
+            if (data_mitgefuehrteSachen.contentEquals("ja")) {
+                wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("lp_mitgefuehrte_sachen_leistungstext_basic"))));
+            }
         }
     }
 
     public void selectUnfallversicherung(String data_unfallversicherung) throws InterruptedException {
 
         if(!data_unfallversicherung.contentEquals("NA")) {
-            Thread.sleep(500);
             Select realSelect = new Select(unfallVersicherung);
             realSelect.selectByVisibleText(data_unfallversicherung);
         }
@@ -137,7 +143,6 @@ public class PraemiePage {
     public void selectBonusschutz(String data_bonusschutz) throws InterruptedException {
 
         if(!data_bonusschutz.contentEquals("NA")) {
-            Thread.sleep(500);
             Select realSelect = new Select(bonusschutz);
             realSelect.selectByVisibleText(data_bonusschutz);
         }
@@ -146,17 +151,16 @@ public class PraemiePage {
     public void selectCrashrecorder(String data_crashRecorder) throws InterruptedException {
 
         if(!data_crashRecorder.contentEquals("NA")) {
-            Thread.sleep(500);
             Select realSelect = new Select(crashrecorder);
             realSelect.selectByVisibleText(data_crashRecorder);
         }
     }
 
 
-    public void selectErgaenzungen(String data_mobility, String data_mitgefuehrteSachen, String data_unfallVersicherung, String data_bonusSchutz, String data_crashRecorder ) throws InterruptedException {
+    public void selectErgaenzungen(String data_mobility, String data_mitgefuehrteSachen, String data_unfallVersicherung, String data_bonusSchutz, String data_crashRecorder, WebDriver driver ) throws InterruptedException {
 
         this.selectMobility(data_mobility);
-        this.selectMitgefuehrteSachen(data_mitgefuehrteSachen);
+        this.selectMitgefuehrteSachen(data_mitgefuehrteSachen, driver);
         this.selectUnfallversicherung(data_unfallVersicherung);
         this.selectBonusschutz(data_bonusSchutz);
         this.selectCrashrecorder(data_crashRecorder);

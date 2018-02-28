@@ -11,7 +11,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -88,6 +90,10 @@ public class FahrzeugsuchePage {
 
 
     public int returnIndex(WebDriver driver, String value) throws InterruptedException {
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("fl_model_content"))));
+
         List<WebElement> optionElements = driver.findElement(By.id("fl_model")).findElements(By.tagName("option"));
         String optionIndex = "";
         for (WebElement optionElement : optionElements) {
@@ -101,13 +107,9 @@ public class FahrzeugsuchePage {
 
     public void selectModell(WebDriver driver, String dataModel) throws InterruptedException {
 
-        Thread.sleep(1000);
-
         int index  = returnIndex(driver, dataModel);
         Select realSelect = new Select(model);
         realSelect.selectByIndex(index);
-
-        Thread.sleep(500);
     }
 
     public void selectTreibstoff(String dataTreibstoff) throws InterruptedException {
