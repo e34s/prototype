@@ -17,6 +17,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 
@@ -31,17 +32,18 @@ public class AutoversicherungsTest extends TestBase {
                         String data_gebDatum, String data_nationalitaet, String data_plz, String data_geschlecht,
                         String data_entzug, String data_bisherigeVersicherer, String data_versicherer, String data_kuendigung,
                         String data_schaden5Jahre,
-						String data_kasko, String data_selbstbehaltAusserKollision, String data_selbstbehaltKollision,
+						String data_kasko, String data_selbstbehaltAusserKollision, String data_selbstbehaltKollision, String data_selbstbehaltTeilkasko,
+						String data_mobility, String data_mitgefuehrteSachen, String data_unfallVersicherung, String data_bonusSchutz, String data_crashRecorder,
 						String data_sollBasic, String data_sollCompact) throws InterruptedException, MalformedURLException {
 
 		DesiredCapabilities capability = DesiredCapabilities.chrome();
 		capability.setCapability("e34:token", "72aa4d82");
         capability.setCapability("e34:l_testName", "Selenium Test");
         capability.setCapability("video", true);
-//        RemoteWebDriver driver = new RemoteWebDriver(new URL("https://vm-106.element34.net/wd/hub"), capability);
-        RemoteWebDriver driver = new ChromeDriver(capability);
+        RemoteWebDriver driver = new RemoteWebDriver(new URL("https://vm-106.element34.net/wd/hub"), capability);
+//        RemoteWebDriver driver = new ChromeDriver(capability);
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
 
         FahrzeugsuchePage fahrzeugsuche = new FahrzeugsuchePage(driver);
@@ -78,16 +80,16 @@ public class AutoversicherungsTest extends TestBase {
         //System.out.println("Video URL - http://vm-106.element34.net/videos/" + driver.getSessionId() + ".mp4");
 
 		PraemiePage praemie = new PraemiePage(driver);
-		praemie.selectKasko(data_kasko);
+		praemie.selectKasko(data_kasko, data_selbstbehaltAusserKollision, data_selbstbehaltKollision, data_selbstbehaltTeilkasko);
 
-		if (data_kasko.contentEquals("Vollkasko")) {
-			praemie.selectSelbstbehaltausserKollision(data_selbstbehaltAusserKollision);
-			praemie.selectSelbstbehaltKollision(data_selbstbehaltKollision);
-		}
-		else if (data_kasko.contentEquals("Teilkasko")) {
-			praemie.selectTeilkaskoSelbstbehalt(data_selbstbehaltKollision);
-		}
+		praemie.selectMobility(data_mobility);
+		praemie.selectMitgefuehrteSachen(data_mitgefuehrteSachen);
+		praemie.selectUnfallversicherung(data_unfallVersicherung);
+		praemie.selectBonusschutz(data_bonusSchutz);
+		praemie.selectCrashrecorder(data_crashRecorder);
 
+
+		Thread.sleep(2500);
 		Assert.assertEquals(praemie.getBasicPraemie(), data_sollBasic);
 		Assert.assertEquals(praemie.getBasicCompact(), data_sollCompact);
 
