@@ -82,11 +82,13 @@ public class AutoversicherungsTest extends TestBase {
 		PraemiePage praemie = new PraemiePage(driver);
 		praemie.selectKasko(data_kasko, data_selbstbehaltAusserKollision, data_selbstbehaltKollision, data_selbstbehaltTeilkasko);
 
-		praemie.selectMobility(data_mobility);
-		praemie.selectMitgefuehrteSachen(data_mitgefuehrteSachen);
-		praemie.selectUnfallversicherung(data_unfallVersicherung);
-		praemie.selectBonusschutz(data_bonusSchutz);
-		praemie.selectCrashrecorder(data_crashRecorder);
+		praemie.selectErgaenzungen(data_mobility, data_mitgefuehrteSachen, data_unfallVersicherung, data_bonusSchutz, data_crashRecorder);
+
+
+//		praemie.selectMitgefuehrteSachen(data_mitgefuehrteSachen);
+//		praemie.selectUnfallversicherung(data_unfallVersicherung);
+//		praemie.selectBonusschutz(data_bonusSchutz);
+//		praemie.selectCrashrecorder(data_crashRecorder);
 
 
 		Thread.sleep(2500);

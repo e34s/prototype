@@ -151,4 +151,15 @@ public class PraemiePage {
             realSelect.selectByVisibleText(data_crashRecorder);
         }
     }
+
+
+    public void selectErgaenzungen(String data_mobility, String data_mitgefuehrteSachen, String data_unfallVersicherung, String data_bonusSchutz, String data_crashRecorder ) throws InterruptedException {
+
+        this.selectMobility(data_mobility);
+        this.selectMitgefuehrteSachen(data_mitgefuehrteSachen);
+        this.selectUnfallversicherung(data_unfallVersicherung);
+        this.selectBonusschutz(data_bonusSchutz);
+        this.selectCrashrecorder(data_crashRecorder);
+    }
+
 }
