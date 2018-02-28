@@ -9,6 +9,7 @@ import org.testng.annotations.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 public class TestBase {
 
@@ -57,6 +58,8 @@ public class TestBase {
 
         //Set Browser to ThreadLocalMap
         driver.set(new RemoteWebDriver(new URL("https://vm-106.element34.net/wd/hub"), capability));
+        driver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
     }
 
     public WebDriver getDriver() {

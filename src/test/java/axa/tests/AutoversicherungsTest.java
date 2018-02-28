@@ -6,7 +6,6 @@
 
 package axa.tests;
 
-import axa.BaseTestWithDriver;
 import axa.pages.PraemiePage;
 import axa.utils.ExcelAdapter;
 import axa.pages.AngabenPage;
@@ -43,13 +42,9 @@ public class AutoversicherungsTest extends TestBase {
 		capability.setCapability("e34:token", "72aa4d82");
         capability.setCapability("e34:l_testName", "Selenium Test");
         capability.setCapability("video", true);
-//        RemoteWebDriver driver = new RemoteWebDriver(new URL("https://vm-106.element34.net/wd/hub"), capability);
 //        RemoteWebDriver driver = new ChromeDriver(capability);
 
 		RemoteWebDriver driver = (RemoteWebDriver) getDriver();
-
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-
 
         FahrzeugsuchePage fahrzeugsuche = new FahrzeugsuchePage(driver);
 		fahrzeugsuche.loadPage(driver);
