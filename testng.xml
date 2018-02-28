@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Parallel Test suite" verbose="1" >
+
+    <test name="Parallel tests for AXA" parallel="methods">
+        <classes>
+            <class name="axa.tests.FactoryTest"/>
+        </classes>
+    </test>
+</suite>
