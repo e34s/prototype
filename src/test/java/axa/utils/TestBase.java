@@ -5,6 +5,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.annotations.*;
 
 import java.net.MalformedURLException;
@@ -42,10 +43,12 @@ public class TestBase {
 
     //Declare ThreadLocal Driver (ThreadLocalMap) for ThreadSafe Tests
     protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
+    protected static ThreadLocal<EventFiringWebDriver> firingWebDriver = new ThreadLocal<>();
 
     @BeforeMethod
     @Parameters(value={"browser"})
     public void setupTest (String browser) throws MalformedURLException {
+
         //Set DesiredCapabilities
         DesiredCapabilities capability = new DesiredCapabilities();
 
@@ -61,11 +64,16 @@ public class TestBase {
         driver.set(new RemoteWebDriver(new URL("https://vm-106.element34.net/wd/hub"), capability));
         driver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
+        firingWebDriver.set(new EventFiringWebDriver(driver.get()));
+        EventListener listener = new EventListener(driver.get());
+        firingWebDriver.get().register(listener);
+
     }
 
     public WebDriver getDriver() {
         //Get driver from ThreadLocalMap
-        return driver.get();
+        //return driver.get();
+        return firingWebDriver.get();
     }
 
     @AfterMethod

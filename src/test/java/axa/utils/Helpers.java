@@ -7,7 +7,7 @@
 package axa.utils;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.io.File;
 
@@ -40,7 +40,7 @@ public class Helpers {
         jse.executeScript("arguments[0].style.border='2px solid red'", element);
     }
 
-    public static void screenshot(RemoteWebDriver driver) {
+    public static void screenshot(EventFiringWebDriver driver) {
         File tmp = driver.getScreenshotAs(OutputType.FILE);
         File ss = new File(SCREENSHOT_DIRECTORY + System.currentTimeMillis() + ".png");
         tmp.renameTo(ss);
