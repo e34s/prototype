@@ -18,7 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AngabenPage {
 
-    private SchadenSection schadenSection;
+    private AngabenPageSchadenSection angabenPageSchadenSection;
 
     @FindBy(id="fl_zubehoer_content")
     private WebElement zubehoer;
@@ -99,17 +99,17 @@ public class AngabenPage {
     private WebElement weiterbutton;
 
     public AngabenPage(WebDriver driver) {
-        this.schadenSection = new SchadenSection(driver);
+        this.angabenPageSchadenSection = new AngabenPageSchadenSection(driver);
         PageFactory.initElements(driver, this);
     }
 
-    public void setZubehoer(String data_zusatzausruestung) throws InterruptedException {
+    public void setZubehoer(String zusatzausruestung) throws InterruptedException {
         Thread.sleep(1000);
         //zubehoer.sendKeys(data_zusatzausruestung);
     }
 
-    public void setKontrollschild(String data_kontrollschild) throws InterruptedException {
-        switch (data_kontrollschild) {
+    public void setKontrollschild(String kontrollschild) throws InterruptedException {
+        switch (kontrollschild) {
             case "JA" :
                 besKontrollschildJa.click();
                 break;
@@ -119,12 +119,12 @@ public class AngabenPage {
                 break;
 
             default:
-                System.out.println("your case does not exist");
+                System.out.println("kontrollschild invalid");
         }
     }
 
-    public void setLeasing(String data_leasing) throws InterruptedException {
-        switch (data_leasing) {
+    public void setLeasing(String leasing) throws InterruptedException {
+        switch (leasing) {
             case "JA" :
                 leasingJa.click();
                 break;
@@ -134,23 +134,23 @@ public class AngabenPage {
                 break;
 
             default:
-                System.out.println("your case does not exist");
+                System.out.println("leasing invalid");
         }
     }
 
-    public void enterKilometer(String data_kilometer) {
+    public void enterKilometer(String kilometer) {
 
-        kilometers.sendKeys(data_kilometer);
+        kilometers.sendKeys(kilometer);
     }
 
-    public void selectPurchaseYear(String data_Year) throws InterruptedException {
+    public void selectPurchaseYear(String year) throws InterruptedException {
 
         Select realSelect = new Select(kaufjahr);
-        realSelect.selectByVisibleText(data_Year);
+        realSelect.selectByVisibleText(year);
     }
 
-    public void setParkschaden(String data_parkschaden) throws InterruptedException {
-        switch (data_parkschaden) {
+    public void setParkschaden(String parkschaden) throws InterruptedException {
+        switch (parkschaden) {
             case "JA" :
                 parkschadenJa.click();
                 break;
@@ -164,8 +164,8 @@ public class AngabenPage {
         }
     }
 
-    public void setNotbremsassistent(String data_notbrems) throws InterruptedException {
-        switch (data_notbrems) {
+    public void setNotbremsassistent(String notbrems) throws InterruptedException {
+        switch (notbrems) {
             case "JA" :
                 notbremsassistentJa.click();
                 break;
@@ -175,26 +175,26 @@ public class AngabenPage {
                 break;
 
             default:
-                System.out.println("your case does not exist");
+                System.out.println("notbremsassistent invalid");
         }
     }
 
-    public void setGebDatum(String data_gebDatum) {
-        geburtsdatum.sendKeys(data_gebDatum);
+    public void setGebDatum(String gebDatum) {
+        geburtsdatum.sendKeys(gebDatum);
     }
 
-    public void selectNationality(String data_nationality) throws InterruptedException {
+    public void selectNationality(String nationality) throws InterruptedException {
 
         Select realSelect = new Select(nationalitaet);
-        realSelect.selectByVisibleText(data_nationality);
+        realSelect.selectByVisibleText(nationality);
     }
 
-    public void enterPLZ(String data_plz) throws InterruptedException {
-        plz.sendKeys(data_plz);
+    public void enterPLZ(String plz) throws InterruptedException {
+        this.plz.sendKeys(plz);
     }
 
-    public void setGeschlecht(String data_geschlecht) throws InterruptedException {
-        switch (data_geschlecht) {
+    public void setGeschlecht(String geschlecht) throws InterruptedException {
+        switch (geschlecht) {
             case "Mann" :
                 geschlechtMann.click();
                 break;
@@ -204,13 +204,13 @@ public class AngabenPage {
                 break;
 
             default:
-                System.out.println("your case does not exist");
+                System.out.println("geschlecht invalid");
         }
     }
 
-    public void setEntzug(String data_entzug) throws InterruptedException {
+    public void setEntzug(String entzug) throws InterruptedException {
 
-        switch (data_entzug) {
+        switch (entzug) {
             case "ja" :
                 entzugJa.click();
                 break;
@@ -220,22 +220,22 @@ public class AngabenPage {
                 break;
 
             default:
-                System.out.println("your case does not exist");
+                System.out.println("entzug invalid");
         }
     }
 
 
-    public void setBisherigerVersicherer(String data_bisherigerVersicherer, String data_versicherer, WebDriver driver) throws InterruptedException {
+    public void setBisherigerVersicherer(String bisherigerVersicherer, String versicherer, WebDriver driver) throws InterruptedException {
 
-        switch (data_bisherigerVersicherer) {
+        switch (bisherigerVersicherer) {
             case "ja" :
                 bisherigerVersichererJa.click();
 
                 WebDriverWait wait = new WebDriverWait(driver, 10);
                 wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("fl_hff_vorversicherer_name_content"))));
 
-                Select realSelect = new Select(versicherer);
-                realSelect.selectByVisibleText(data_versicherer);
+                Select realSelect = new Select(this.versicherer);
+                realSelect.selectByVisibleText(versicherer);
                 break;
 
             case "nein" :
@@ -243,13 +243,13 @@ public class AngabenPage {
                 break;
 
             default:
-                System.out.println("your case does not exist");
+                System.out.println("bisherigerVersichrer invalid");
         }
     }
 
-    public void setKuendigung(String data_kuendigung) throws InterruptedException {
+    public void setKuendigung(String kuendigung) throws InterruptedException {
 
-        switch (data_kuendigung) {
+        switch (kuendigung) {
             case "ja" :
                 kuendigungJa.click();
                 break;
@@ -259,22 +259,22 @@ public class AngabenPage {
                 break;
 
             default:
-                System.out.println("your case does not exist");
+                System.out.println("kuendigung invalid");
         }
     }
 
-    public void setSchaden(String data_schaden, String data_haftPflichtSchaden, String data_schadenJahr, String data_Diebstahl, String data_parkSchaden, String data_kollisionsSchaden, String data_kollisionsSchadenJahr) throws InterruptedException {
+    public void setSchaden(String schaden, String haftpflichtSchaden, String schadenJahr, String diebstahl, String parkschaden, String kollisionsSchaden, String kollisionsSchadenJahr) throws InterruptedException {
 
-        switch (data_schaden) {
+        switch (schaden) {
             case "ja" :
                 schadenJa.click();
 
-                this.schadenSection.sethaftPflichtSchaden(data_haftPflichtSchaden);
-                this.schadenSection.setSchadenJahr(data_schadenJahr);
-                this.schadenSection.setDiebstahl(data_Diebstahl);
-                this.schadenSection.setParkschaden(data_parkSchaden);
-                this.schadenSection.setKollisionsSchaden(data_kollisionsSchaden);
-                this.schadenSection.setkollisionSchadenJahr(data_kollisionsSchadenJahr);
+                this.angabenPageSchadenSection.sethaftPflichtSchaden(haftpflichtSchaden);
+                this.angabenPageSchadenSection.setSchadenJahr(schadenJahr);
+                this.angabenPageSchadenSection.setDiebstahl(diebstahl);
+                this.angabenPageSchadenSection.setParkschaden(parkschaden);
+                this.angabenPageSchadenSection.setKollisionsSchaden(kollisionsSchaden);
+                this.angabenPageSchadenSection.setkollisionSchadenJahr(kollisionsSchadenJahr);
                 break;
 
             case "nein" :
@@ -282,7 +282,7 @@ public class AngabenPage {
                 break;
 
             default:
-                System.out.println("your case does not exist");
+                System.out.println("schaden invalid");
         }
     }
 
