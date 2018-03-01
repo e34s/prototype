@@ -18,9 +18,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AngabenPage {
 
-    private AngabenPageSchadenSection angabenPageSchadenSection;
+    private AngabenPageSchadenSection schadenSection;
+    private AngabenPageVertragsdetailsSection vertragsdetailsSection;
 
-    @FindBy(id="fl_zubehoer_content")
+    @FindBy(id="fl_zubehoer")
     private WebElement zubehoer;
 
     @FindBy(css="#fl_besonderes_kontrollschild_option > label:nth-child(2)")
@@ -99,17 +100,19 @@ public class AngabenPage {
     private WebElement weiterbutton;
 
     public AngabenPage(WebDriver driver) {
-        this.angabenPageSchadenSection = new AngabenPageSchadenSection(driver);
+        this.schadenSection = new AngabenPageSchadenSection(driver);
+        this.vertragsdetailsSection = new AngabenPageVertragsdetailsSection(driver);
         PageFactory.initElements(driver, this);
     }
 
     public void setZubehoer(String zusatzausruestung) throws InterruptedException {
         Thread.sleep(1000);
-        //zubehoer.sendKeys(data_zusatzausruestung);
+        zubehoer.clear();
+        zubehoer.sendKeys(zusatzausruestung);
     }
 
     public void setKontrollschild(String kontrollschild) throws InterruptedException {
-        switch (kontrollschild) {
+        switch (kontrollschild.toUpperCase()) {
             case "JA" :
                 besKontrollschildJa.click();
                 break;
@@ -124,7 +127,7 @@ public class AngabenPage {
     }
 
     public void setLeasing(String leasing) throws InterruptedException {
-        switch (leasing) {
+        switch (leasing.toUpperCase()) {
             case "JA" :
                 leasingJa.click();
                 break;
@@ -150,32 +153,36 @@ public class AngabenPage {
     }
 
     public void setParkschaden(String parkschaden) throws InterruptedException {
-        switch (parkschaden) {
-            case "JA" :
-                parkschadenJa.click();
-                break;
+        if (parkschaden != null) {
+            switch (parkschaden.toUpperCase()) {
+                case "JA" :
+                    parkschadenJa.click();
+                    break;
 
-            case "NEIN" :
-                parkschadenNein.click();
-                break;
+                case "NEIN" :
+                    parkschadenNein.click();
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
     }
 
     public void setNotbremsassistent(String notbrems) throws InterruptedException {
-        switch (notbrems) {
-            case "JA" :
-                notbremsassistentJa.click();
-                break;
+        if (notbrems != null) {
+            switch (notbrems.toUpperCase()) {
+                case "JA" :
+                    notbremsassistentJa.click();
+                    break;
 
-            case "NEIN" :
-                notbremsassistentNein.click();
-                break;
+                case "NEIN" :
+                    notbremsassistentNein.click();
+                    break;
 
-            default:
-                System.out.println("notbremsassistent invalid");
+                default:
+                    System.out.println("notbremsassistent invalid");
+            }
         }
     }
 
@@ -194,12 +201,12 @@ public class AngabenPage {
     }
 
     public void setGeschlecht(String geschlecht) throws InterruptedException {
-        switch (geschlecht) {
-            case "Mann" :
+        switch (geschlecht.toUpperCase()) {
+            case "MÄNNLICH" :
                 geschlechtMann.click();
                 break;
 
-            case "Frau" :
+            case "WEIBLICH" :
                 geschlechtFrau.click();
                 break;
 
@@ -210,12 +217,12 @@ public class AngabenPage {
 
     public void setEntzug(String entzug) throws InterruptedException {
 
-        switch (entzug) {
-            case "ja" :
+        switch (entzug.toUpperCase()) {
+            case "JA" :
                 entzugJa.click();
                 break;
 
-            case "nein" :
+            case "NEIN" :
                 entzugNein.click();
                 break;
 
@@ -227,8 +234,8 @@ public class AngabenPage {
 
     public void setBisherigerVersicherer(String bisherigerVersicherer, String versicherer, WebDriver driver) throws InterruptedException {
 
-        switch (bisherigerVersicherer) {
-            case "ja" :
+        switch (bisherigerVersicherer.toUpperCase()) {
+            case "JA" :
                 bisherigerVersichererJa.click();
 
                 WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -238,7 +245,7 @@ public class AngabenPage {
                 realSelect.selectByVisibleText(versicherer);
                 break;
 
-            case "nein" :
+            case "NEIN" :
                 bisherigerVersichererNein.click();
                 break;
 
@@ -249,12 +256,12 @@ public class AngabenPage {
 
     public void setKuendigung(String kuendigung) throws InterruptedException {
 
-        switch (kuendigung) {
-            case "ja" :
+        switch (kuendigung.toUpperCase()) {
+            case "JA" :
                 kuendigungJa.click();
                 break;
 
-            case "nein" :
+            case "NEIN" :
                 kuendigungNein.click();
                 break;
 
@@ -265,19 +272,19 @@ public class AngabenPage {
 
     public void setSchaden(String schaden, String haftpflichtSchaden, String schadenJahr, String diebstahl, String parkschaden, String kollisionsSchaden, String kollisionsSchadenJahr) throws InterruptedException {
 
-        switch (schaden) {
-            case "ja" :
+        switch (schaden.toUpperCase()) {
+            case "JA" :
                 schadenJa.click();
 
-                this.angabenPageSchadenSection.sethaftPflichtSchaden(haftpflichtSchaden);
-                this.angabenPageSchadenSection.setSchadenJahr(schadenJahr);
-                this.angabenPageSchadenSection.setDiebstahl(diebstahl);
-                this.angabenPageSchadenSection.setParkschaden(parkschaden);
-                this.angabenPageSchadenSection.setKollisionsSchaden(kollisionsSchaden);
-                this.angabenPageSchadenSection.setkollisionSchadenJahr(kollisionsSchadenJahr);
+                this.schadenSection.sethaftPflichtSchaden(haftpflichtSchaden);
+                this.schadenSection.setSchadenJahr(schadenJahr);
+                this.schadenSection.setDiebstahl(diebstahl);
+                this.schadenSection.setParkschaden(parkschaden);
+                this.schadenSection.setKollisionsSchaden(kollisionsSchaden);
+                this.schadenSection.setkollisionSchadenJahr(kollisionsSchadenJahr);
                 break;
 
-            case "nein" :
+            case "NEIN" :
                 schadenNein.click();
                 break;
 
@@ -287,6 +294,25 @@ public class AngabenPage {
     }
 
     //TODO: add Vertragsdetails
+    public void setVertragsdetails(String fzFuehrer, String gebDatum, String geschlecht, String nationalitaet, String plz, String kuendigung, String versBeginn, String vertragsDauer) throws InterruptedException {
+        this.vertragsdetailsSection.setFahrzeugfuehrer(fzFuehrer);
+
+        //additional information needed
+        if (fzFuehrer.contentEquals("Nicht der häufigste Fahrzeugführer")) {
+            this.vertragsdetailsSection.setGebDatum(gebDatum);
+            this.vertragsdetailsSection.setGeschlecht(geschlecht);
+            this.vertragsdetailsSection.setNationality(nationalitaet);
+            this.vertragsdetailsSection.setPLZ(plz);
+            this.vertragsdetailsSection.setKuendigung(kuendigung);
+            this.vertragsdetailsSection.setVersicherungsbeginn(versBeginn);
+            this.vertragsdetailsSection.setVertragsDauer(vertragsDauer);
+
+        }
+        else {
+            this.vertragsdetailsSection.setVersicherungsbeginn(versBeginn);
+            this.vertragsdetailsSection.setVertragsDauer(vertragsDauer);
+        }
+    }
 
     public void clickWeiter() {
         weiterbutton.click();
