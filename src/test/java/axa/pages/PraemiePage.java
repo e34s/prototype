@@ -42,6 +42,9 @@ public class PraemiePage {
     @FindBy(id="lp_mitgefuehrte_sachen-mf_basic")
     private WebElement mitgefuehrteSachen;
 
+    @FindBy(id="lp_parkschaden-mf_basic")
+    private WebElement parkschaden;
+
     @FindBy(id="lp_unfall_option-mf_basic")
     private WebElement unfallVersicherung;
 
@@ -71,99 +74,117 @@ public class PraemiePage {
 
 
     //Kasko
-    public void selectKasko(String data_kasko, String data_selbstbehaltAusserKollision, String data_selbstbehaltKollision, String data_selbstbehaltTeilkasko) throws InterruptedException {
+    public void selectKasko(String kasko, String selbstbehaltAusserKollision, String selbstbehaltKollision, String selbstbehaltTeilkasko) throws InterruptedException {
 
 
-        Select realSelect = new Select(kasko);
-        realSelect.selectByVisibleText(data_kasko);
+        Select realSelect = new Select(this.kasko);
+        realSelect.selectByVisibleText(kasko);
 
 
-        if (data_kasko.contentEquals("Vollkasko")) {
-            this.selectSelbstbehaltausserKollision(data_selbstbehaltAusserKollision);
-            this.selectSelbstbehaltKollision(data_selbstbehaltKollision);
+        if (kasko.contentEquals("Vollkasko")) {
+            this.selectSelbstbehaltausserKollision(selbstbehaltAusserKollision);
+            this.selectSelbstbehaltKollision(selbstbehaltKollision);
         }
-        else if (data_kasko.contentEquals("Teilkasko")) {
-            this.selectTeilkaskoSelbstbehalt(data_selbstbehaltTeilkasko);
+        else if (kasko.contentEquals("Teilkasko")) {
+            this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko);
         }
     }
 
-    public void selectSelbstbehaltausserKollision(String data_selbstbehalt) throws InterruptedException {
+    public void selectSelbstbehaltausserKollision(String selbstbehalt) throws InterruptedException {
 
         Select realSelect = new Select(selbstbehaltAusserKollision);
-        realSelect.selectByVisibleText(data_selbstbehalt);
+        realSelect.selectByVisibleText(selbstbehalt);
     }
 
-    public void selectSelbstbehaltKollision(String data_selbstbehalt) throws InterruptedException {
+    public void selectSelbstbehaltKollision(String selbstbehalt) throws InterruptedException {
 
-        if(!data_selbstbehalt.contentEquals("NA")) {
+        if(!selbstbehalt.contentEquals("NA")) {
             Select realSelect = new Select(selbstbehaltKollision);
-            realSelect.selectByVisibleText(data_selbstbehalt);
+            realSelect.selectByVisibleText(selbstbehalt);
         }
     }
 
-    public void selectTeilkaskoSelbstbehalt(String data_selbstbehalt) throws InterruptedException {
+    public void selectTeilkaskoSelbstbehalt(String selbstbehalt) throws InterruptedException {
 
-        if(!data_selbstbehalt.contentEquals("NA")) {
+        if(!selbstbehalt.contentEquals("NA")) {
             Select realSelect = new Select(selbstbehaltTeilkasko);
-            realSelect.selectByVisibleText(data_selbstbehalt);
+            realSelect.selectByVisibleText(selbstbehalt);
         }
     }
 
 
     //Ergänzungen
-    public void selectMobility(String data_mobility) throws InterruptedException {
+    public void selectMobility(String mobility) throws InterruptedException {
 
-        if(!data_mobility.contentEquals("NA")) {
-            Select realSelect = new Select(mobility);
-            realSelect.selectByVisibleText(data_mobility);
+        if(!mobility.contentEquals("NA")) {
+            Select realSelect = new Select(this.mobility);
+            realSelect.selectByVisibleText(mobility);
         }
     }
 
-    public void selectMitgefuehrteSachen(String data_mitgefuehrteSachen, WebDriver driver) throws InterruptedException {
+    public void selectMitgefuehrteSachen(String mitgefuehrteSachen, WebDriver driver) throws InterruptedException {
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
 
-        if(!data_mitgefuehrteSachen.contentEquals("NA")) {
-            Select realSelect = new Select(mitgefuehrteSachen);
-            realSelect.selectByVisibleText(data_mitgefuehrteSachen);
-            if (data_mitgefuehrteSachen.contentEquals("ja")) {
+        if(!mitgefuehrteSachen.contentEquals("NA")) {
+            Select realSelect = new Select(this.mitgefuehrteSachen);
+            realSelect.selectByVisibleText(mitgefuehrteSachen);
+            if (mitgefuehrteSachen.contentEquals("ja")) {
                 wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("lp_mitgefuehrte_sachen_leistungstext_basic"))));
             }
         }
     }
 
-    public void selectUnfallversicherung(String data_unfallversicherung) throws InterruptedException {
+    public void selectParkschaden(String pSchaden) throws InterruptedException {
 
-        if(!data_unfallversicherung.contentEquals("NA")) {
+        if(!pSchaden.contentEquals("NA")) {
+            Select realSelect = new Select(parkschaden);
+            realSelect.selectByVisibleText(pSchaden);
+        }
+    }
+
+
+
+    public void selectUnfallversicherung(String unfallversicherung) throws InterruptedException {
+
+        if(!unfallversicherung.contentEquals("NA")) {
             Select realSelect = new Select(unfallVersicherung);
-            realSelect.selectByVisibleText(data_unfallversicherung);
+            realSelect.selectByVisibleText(unfallversicherung);
         }
     }
 
-    public void selectBonusschutz(String data_bonusschutz) throws InterruptedException {
+    public void selectBonusschutz(String bonusschutz) throws InterruptedException {
 
-        if(!data_bonusschutz.contentEquals("NA")) {
-            Select realSelect = new Select(bonusschutz);
-            realSelect.selectByVisibleText(data_bonusschutz);
+        if(!bonusschutz.contentEquals("NA")) {
+            Select realSelect = new Select(this.bonusschutz);
+            realSelect.selectByVisibleText(bonusschutz);
         }
     }
 
-    public void selectCrashrecorder(String data_crashRecorder) throws InterruptedException {
+    public void selectCrashrecorder(String crashrecorder) throws InterruptedException {
 
-        if(!data_crashRecorder.contentEquals("NA")) {
-            Select realSelect = new Select(crashrecorder);
-            realSelect.selectByVisibleText(data_crashRecorder);
+        if(!crashrecorder.contentEquals("NA")) {
+            Select realSelect = new Select(this.crashrecorder);
+            realSelect.selectByVisibleText(crashrecorder);
         }
     }
 
 
-    public void selectErgaenzungen(String data_mobility, String data_mitgefuehrteSachen, String data_unfallVersicherung, String data_bonusSchutz, String data_crashRecorder, WebDriver driver ) throws InterruptedException {
+    public void selectErgaenzungen(
+            String mobility,
+            String mitgefuehrteSachen,
+            String parkschaden,
+            String unfallversicherung,
+            String bonusschutz,
+            String crashrecorder,
+            WebDriver driver ) throws InterruptedException {
 
-        this.selectMobility(data_mobility);
-        this.selectMitgefuehrteSachen(data_mitgefuehrteSachen, driver);
-        this.selectUnfallversicherung(data_unfallVersicherung);
-        this.selectBonusschutz(data_bonusSchutz);
-        this.selectCrashrecorder(data_crashRecorder);
+        this.selectMobility(mobility);
+        this.selectMitgefuehrteSachen(mitgefuehrteSachen, driver);
+        this.selectParkschaden(parkschaden);
+        this.selectUnfallversicherung(unfallversicherung);
+        this.selectBonusschutz(bonusschutz);
+        this.selectCrashrecorder(crashrecorder);
     }
 
 }

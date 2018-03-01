@@ -15,7 +15,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class FahrzeugsuchePage {
@@ -70,27 +72,73 @@ public class FahrzeugsuchePage {
         driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=1000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
     }
 
-    public void selectYear(String dataYear) throws InterruptedException {
+    public void selectInv(String inv) throws InterruptedException {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("01", "Januar");
+        map.put("02", "Februar");
+        map.put("03", "März");
+        map.put("04", "April");
+        map.put("05", "Mai");
+        map.put("06", "Juni");
+        map.put("07", "Juli");
+        map.put("08", "August");
+        map.put("09", "September");
+        map.put("10", "Oktober");
+        map.put("11", "November");
+        map.put("12", "Dezember");
 
-        Select realSelect = new Select(year);
-        realSelect.selectByVisibleText(dataYear);
+        String monat;
+
+
+        //dd.mm.yyyy format
+        if (inv.matches("\\d{2}\\.\\d{2}\\.\\d{4}")) {
+            //split the input into its parts delimited by .
+            String[] parts = inv.split("\\.");
+            monat = map.get(parts[1]);
+
+            Select realSelect = new Select(this.year);
+            realSelect.selectByVisibleText(parts[2]);
+
+            realSelect = new Select(this.month);
+            realSelect.selectByVisibleText(monat);
+
+
+        }
+
+        //mm.yyyy
+        else if (inv.matches("\\d{2}\\.\\d{4}")) {
+            String[] parts = inv.split("\\.");
+            monat = map.get(parts[0]);
+
+            Select realSelect = new Select(this.year);
+            realSelect.selectByVisibleText(parts[1]);
+
+            realSelect = new Select(this.month);
+            realSelect.selectByVisibleText(monat);
+        }
+
+        else {
+            System.out.println("WRONG DATE FORMAT - dd.mm.yyyy required");
+        }
+
     }
 
-    public void selectMonth(String dataMonth) throws InterruptedException {
+    public void selectMonth(String month) throws InterruptedException {
 
-        Select realSelect = new Select(month);
-        realSelect.selectByVisibleText(dataMonth);
+        Select realSelect = new Select(this.month);
+        realSelect.selectByVisibleText(month);
     }
 
-    public void selectMarke(String dataMarke) throws InterruptedException {
+    public void selectMarke(String marke) throws InterruptedException {
 
-        Select realSelect = new Select(marke);
-        realSelect.selectByVisibleText(dataMarke);
+        Select realSelect = new Select(this.marke);
+        realSelect.selectByVisibleText(marke);
     }
 
 
     public int returnIndex(WebDriver driver, String value) throws InterruptedException {
 
+        Thread.sleep(5000);
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("fl_model_content"))));
 
@@ -105,36 +153,36 @@ public class FahrzeugsuchePage {
         return Integer.parseInt(optionIndex);
     }
 
-    public void selectModell(WebDriver driver, String dataModel) throws InterruptedException {
+    public void selectModell(WebDriver driver, String model) throws InterruptedException {
 
-        int index  = returnIndex(driver, dataModel);
-        Select realSelect = new Select(model);
+        int index  = returnIndex(driver, model);
+        Select realSelect = new Select(this.model);
         realSelect.selectByIndex(index);
     }
 
-    public void selectTreibstoff(String dataTreibstoff) throws InterruptedException {
+    public void selectTreibstoff(String treibstoff) throws InterruptedException {
 
-        switch (dataTreibstoff) {
+        switch (treibstoff) {
             case "Benzin" :
                 benzin.click();
                 break;
 
             case "Diesel" :
-                diesel.click();
+                benzin.click();
                 break;
 
             case "Andere" :
-                diesel.click();
+                andere.click();
                 break;
 
             default:
-                System.out.println("your case does not exist");
+                System.out.println("treibstoff invalid");
         }
     }
 
-    public void selectSchaltung(String dataSchaltung) throws InterruptedException {
+    public void selectSchaltung(String schaltung) throws InterruptedException {
 
-        switch (dataSchaltung) {
+        switch (schaltung) {
             case "Automat" :
                 automat.click();
                 break;
@@ -144,33 +192,36 @@ public class FahrzeugsuchePage {
                 break;
 
             default:
-                System.out.println("your case does not exist");
+                System.out.println("schaltung invalid");
         }
     }
 
 
-    public void selectPS(String dataPS) throws InterruptedException {
+    public void selectPS(String ps) throws InterruptedException {
 
-        switch (dataPS) {
-            case "Bis 100" :
-                ps100.click();
-                break;
+        if (ps!=null) {
+            switch (ps) {
+                case "Bis 100" :
+                    ps100.click();
+                    break;
 
-            case "101-200" :
-                ps200.click();
-                break;
+                case "101-200" :
+                    ps200.click();
+                    break;
 
-            case "Mehr als 200" :
-                ps200plus.click();
-                break;
+                case "Mehr als 200" :
+                    ps200plus.click();
+                    break;
 
-            case "Weiss nicht" :
-                psWeissNicht.click();
-                break;
+                case "Weiss nicht" :
+                    psWeissNicht.click();
+                    break;
 
-            default:
-                System.out.println("your case does not exist");
+                default:
+                    System.out.println("ps invalid");
+            }
         }
+
     }
 
     public void clickSearchButton() throws InterruptedException {
