@@ -68,6 +68,7 @@ public class AutoversicherungsTestWithMap extends TestBase{
         praemie.selectErgaenzungen(
                 (String) map.get("mobility"),
                 (String) map.get("mitgefuehrteSachen"),
+                (String) map.get("Parkschaden"),
                 (String) map.get("unfallversicherung"),
                 (String) map.get("bonusschutz"),
                 (String) map.get("crashrecorder"),
