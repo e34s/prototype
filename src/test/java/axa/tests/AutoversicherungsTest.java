@@ -12,21 +12,17 @@ import axa.pages.AngabenPage;
 import axa.pages.FahrzeugsuchePage;
 import axa.utils.StatusListener;
 import axa.utils.TestBase;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 
 @Listeners(StatusListener.class)
 public class AutoversicherungsTest extends TestBase {
+
 
 	@Test(dataProvider="data", dataProviderClass = ExcelAdapter.class, enabled = true)
 	public void axaTest(String data_year, String data_month, String data_marke, String data_model,
@@ -40,17 +36,17 @@ public class AutoversicherungsTest extends TestBase {
 						String data_mobility, String data_mitgefuehrteSachen, String data_unfallVersicherung, String data_bonusSchutz, String data_crashRecorder,
 						String data_sollBasic, String data_sollCompact) throws InterruptedException, MalformedURLException {
 
-		DesiredCapabilities capability = DesiredCapabilities.chrome();
-		capability.setCapability("e34:token", "72aa4d82");
-        capability.setCapability("e34:l_testName", "Selenium Test");
-        capability.setCapability("video", true);
+//		DesiredCapabilities capability = DesiredCapabilities.chrome();
+//		capability.setCapability("e34:token", "72aa4d82");
+//        capability.setCapability("e34:l_testName", "Selenium Test");
+//        capability.setCapability("video", true);
 //        RemoteWebDriver driver = new ChromeDriver(capability);
 
 		RemoteWebDriver driver = (RemoteWebDriver) getDriver();
 
         FahrzeugsuchePage fahrzeugsuche = new FahrzeugsuchePage(driver);
 		fahrzeugsuche.loadPage(driver);
-		fahrzeugsuche.selectYear(data_year);
+		fahrzeugsuche.selectInv(data_year);
 		fahrzeugsuche.selectMonth(data_month);
 		fahrzeugsuche.selectMarke(data_marke);
 		fahrzeugsuche.selectTreibstoff(data_treibstoff);
