@@ -54,6 +54,7 @@ public class TestBase {
         capability.setCapability("e34:token", "72aa4d82");
         capability.setCapability("e34:l_testName", "Selenium Test");
         capability.setCapability("video", true);
+        capability.setCapability("e34_timeout_per_test_ms", 60000);
 
 
         //Set Browser to ThreadLocalMap
