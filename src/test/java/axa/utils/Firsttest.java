@@ -3,11 +3,14 @@ import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import java.util.Map;
+
 /**
  * Created by ONUR on 03.12.2016.
  */
 @Listeners(StatusListener.class)
 public class Firsttest extends TestBase {
+
 
     @Test
     public void GOOGLE1() throws Exception {

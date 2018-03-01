@@ -21,9 +21,9 @@ import java.util.Map;
 public class ExcelAdapter {
 
 
-	@DataProvider(name = "datamap", parallel = true)
+	@DataProvider(name = "datamap", parallel = false)
 	public Object[][] dataSupplier() throws IOException {
-		File file = new File("C:\\Users\\mpalotas\\tmp\\axadata.xlsx");
+		File file = new File("C:\\Users\\mpalotas\\tmp\\uta.xlsx");
 		FileInputStream fis = new FileInputStream(file);
 		XSSFWorkbook wb = new XSSFWorkbook(fis);
 		XSSFSheet sheet = wb.getSheetAt(0);

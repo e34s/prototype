@@ -6,7 +6,6 @@
 
 package axa.utils;
 
-import axa.BaseTestWithDriver;
 import axa.tests.AutoversicherungsTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
