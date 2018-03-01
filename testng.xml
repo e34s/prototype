@@ -4,7 +4,7 @@
     <test name="FirstTest" thread-count="5" parallel="instances">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="axa.tests.AutoversicherungsTestWithMap"/>
+            <class name="axa.tests.AutoversicherungsAXAData"/>
         </classes>
     </test> <!-- First Test -->
 
