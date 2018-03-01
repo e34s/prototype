@@ -113,8 +113,6 @@ public class AngabenPageVertragsdetailsSection {
             Thread.sleep(1000);
             versBeginn.sendKeys(versicherungsBeginn);
             Thread.sleep(2000);
-
-//            versBeginn.click();
         }
     }
 

@@ -293,7 +293,6 @@ public class AngabenPage {
         }
     }
 
-    //TODO: add Vertragsdetails
     public void setVertragsdetails(String fzFuehrer, String gebDatum, String geschlecht, String nationalitaet, String plz, String kuendigung, String versBeginn, String vertragsDauer) throws InterruptedException {
         this.vertragsdetailsSection.setFahrzeugfuehrer(fzFuehrer);
 
