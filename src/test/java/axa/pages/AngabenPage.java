@@ -112,32 +112,38 @@ public class AngabenPage {
     }
 
     public void setKontrollschild(String kontrollschild) throws InterruptedException {
-        switch (kontrollschild.toUpperCase()) {
-            case "JA" :
-                besKontrollschildJa.click();
-                break;
+        if (kontrollschild != null) {
 
-            case "NEIN" :
-                besKontrollschildNein.click();
-                break;
+            switch (kontrollschild.toUpperCase()) {
+                case "JA":
+                    besKontrollschildJa.click();
+                    break;
 
-            default:
-                System.out.println("kontrollschild invalid");
+                case "NEIN":
+                    besKontrollschildNein.click();
+                    break;
+
+                default:
+                    System.out.println("kontrollschild invalid");
+            }
         }
     }
 
     public void setLeasing(String leasing) throws InterruptedException {
-        switch (leasing.toUpperCase()) {
-            case "JA" :
-                leasingJa.click();
-                break;
+        if (leasing != null) {
 
-            case "NEIN" :
-                leasingNein.click();
-                break;
+            switch (leasing.toUpperCase()) {
+                case "JA":
+                    leasingJa.click();
+                    break;
 
-            default:
-                System.out.println("leasing invalid");
+                case "NEIN":
+                    leasingNein.click();
+                    break;
+
+                default:
+                    System.out.println("leasing invalid");
+            }
         }
     }
 
@@ -201,95 +207,108 @@ public class AngabenPage {
     }
 
     public void setGeschlecht(String geschlecht) throws InterruptedException {
-        switch (geschlecht.toUpperCase()) {
-            case "MÄNNLICH" :
-                geschlechtMann.click();
-                break;
+        if (geschlecht != null) {
+            switch (geschlecht.toUpperCase()) {
+                case "MÄNNLICH":
+                    geschlechtMann.click();
+                    break;
 
-            case "WEIBLICH" :
-                geschlechtFrau.click();
-                break;
+                case "WEIBLICH":
+                    geschlechtFrau.click();
+                    break;
 
-            default:
-                System.out.println("geschlecht invalid");
+                default:
+                    System.out.println("geschlecht invalid");
+            }
         }
     }
 
     public void setEntzug(String entzug) throws InterruptedException {
+        if (entzug != null) {
 
-        switch (entzug.toUpperCase()) {
-            case "JA" :
-                entzugJa.click();
-                break;
+            switch (entzug.toUpperCase()) {
+                case "JA":
+                    entzugJa.click();
+                    break;
 
-            case "NEIN" :
-                entzugNein.click();
-                break;
+                case "NEIN":
+                    entzugNein.click();
+                    break;
 
-            default:
-                System.out.println("entzug invalid");
+                default:
+                    System.out.println("entzug invalid");
+            }
         }
     }
 
 
     public void setBisherigerVersicherer(String bisherigerVersicherer, String versicherer, WebDriver driver) throws InterruptedException {
 
-        switch (bisherigerVersicherer.toUpperCase()) {
-            case "JA" :
-                bisherigerVersichererJa.click();
+        if (bisherigerVersicherer != null) {
 
-                WebDriverWait wait = new WebDriverWait(driver, 10);
-                wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("fl_hff_vorversicherer_name_content"))));
+            switch (bisherigerVersicherer.toUpperCase()) {
+                case "JA":
+                    bisherigerVersichererJa.click();
 
-                Select realSelect = new Select(this.versicherer);
-                realSelect.selectByVisibleText(versicherer);
-                break;
+                    WebDriverWait wait = new WebDriverWait(driver, 10);
+                    wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("fl_hff_vorversicherer_name_content"))));
 
-            case "NEIN" :
-                bisherigerVersichererNein.click();
-                break;
+                    Select realSelect = new Select(this.versicherer);
+                    realSelect.selectByVisibleText(versicherer);
+                    break;
 
-            default:
-                System.out.println("bisherigerVersichrer invalid");
+                case "NEIN":
+                    bisherigerVersichererNein.click();
+                    break;
+
+                default:
+                    System.out.println("bisherigerVersichrer invalid");
+            }
         }
     }
 
     public void setKuendigung(String kuendigung) throws InterruptedException {
 
-        switch (kuendigung.toUpperCase()) {
-            case "JA" :
-                kuendigungJa.click();
-                break;
+        if (kuendigung != null) {
 
-            case "NEIN" :
-                kuendigungNein.click();
-                break;
+            switch (kuendigung.toUpperCase()) {
+                case "JA":
+                    kuendigungJa.click();
+                    break;
 
-            default:
-                System.out.println("kuendigung invalid");
+                case "NEIN":
+                    kuendigungNein.click();
+                    break;
+
+                default:
+                    System.out.println("kuendigung invalid");
+            }
         }
     }
 
     public void setSchaden(String schaden, String haftpflichtSchaden, String schadenJahr, String diebstahl, String parkschaden, String kollisionsSchaden, String kollisionsSchadenJahr) throws InterruptedException {
 
-        switch (schaden.toUpperCase()) {
-            case "JA" :
-                schadenJa.click();
+        if (schaden != null) {
 
-                this.schadenSection.sethaftPflichtSchaden(haftpflichtSchaden);
-                this.schadenSection.setSchadenJahr(schadenJahr);
-                this.schadenSection.setDiebstahl(diebstahl);
-                this.schadenSection.setParkschaden(parkschaden);
-                this.schadenSection.setKollisionsSchaden(kollisionsSchaden);
-                this.schadenSection.setkollisionSchadenJahr(kollisionsSchadenJahr);
-                break;
+            switch (schaden.toUpperCase()) {
+                case "JA":
+                    schadenJa.click();
 
-            case "NEIN" :
-                schadenNein.click();
-                break;
+                    this.schadenSection.sethaftPflichtSchaden(haftpflichtSchaden);
+                    this.schadenSection.setSchadenJahr(schadenJahr);
+                    this.schadenSection.setDiebstahl(diebstahl);
+                    this.schadenSection.setParkschaden(parkschaden);
+                    this.schadenSection.setKollisionsSchaden(kollisionsSchaden);
+                    this.schadenSection.setkollisionSchadenJahr(kollisionsSchadenJahr);
+                    break;
 
-            default:
-                System.out.println("schaden invalid");
+                case "NEIN":
+                    schadenNein.click();
+                    break;
+
+                default:
+                    System.out.println("schaden invalid");
+            }
         }
     }
 
