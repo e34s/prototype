@@ -14,7 +14,6 @@ import java.io.File;
 public class Helpers {
 
     public static final String SCREENSHOT_DIRECTORY = "C:\\Users\\mpalotas\\IdeaProjects\\axaprototype\\screenshots\\";
-    //public static final String SCREENSHOT_DIRECTORY = "/home/e34/workspace/seleniumtraining/screenshots/";
 
     public static boolean isElementPresent(WebDriver driver, By by) {
 
@@ -36,8 +35,8 @@ public class Helpers {
     }
 
     public static void highlight(WebDriver driver, WebElement element) {
-        JavascriptExecutor jse = (JavascriptExecutor)driver;
-        jse.executeScript("arguments[0].style.border='2px solid red'", element);
+        //JavascriptExecutor jse = (JavascriptExecutor)driver;
+        //jse.executeScript("arguments[0].style.border='2px solid red'", element);
     }
 
     public static void screenshot(EventFiringWebDriver driver) {
