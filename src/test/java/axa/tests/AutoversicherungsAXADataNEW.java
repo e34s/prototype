@@ -7,7 +7,6 @@ import axa.utils.ExcelAdapter;
 import axa.utils.StatusListener;
 import axa.utils.TestBase;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -15,62 +14,67 @@ import org.testng.annotations.Test;
 import java.util.Map;
 
 @Listeners(StatusListener.class)
-public class AutoversicherungsAXAData extends TestBase{
+public class AutoversicherungsAXADataNEW extends TestBase{
 
     @Test(dataProvider="datamap", dataProviderClass = ExcelAdapter.class)
     public void newTest(Map<Object, Object> map) throws InterruptedException {
 
         RemoteWebDriver driver = (RemoteWebDriver) getDriver();
-//        EventFiringWebDriver driver = (EventFiringWebDriver) getDriver();
-
 
         //Fahrzeugsuche
         FahrzeugsuchePage fahrzeugsuche = new FahrzeugsuchePage(driver);
         fahrzeugsuche.loadPage(driver);
-        fahrzeugsuche.selectInv((String) map.get("1.INV"));
+        fahrzeugsuche.selectInv((String) map.get("Erstinverkehrssetzung"));
         fahrzeugsuche.selectMarke((String) map.get("Marke"));
-        fahrzeugsuche.selectTreibstoff((String) map.get("Treibstoff"));
+        fahrzeugsuche.selectTreibstoff((String) map.get("TYPTREIB"));
         fahrzeugsuche.selectModell(driver, (String) map.get("Modell"));
         fahrzeugsuche.selectSchaltung((String) map.get("Schaltung"), driver);
-        fahrzeugsuche.selectPS((String) map.get("ps"));
+        fahrzeugsuche.selectPS((String) map.get("Leistung in PS"));
         fahrzeugsuche.clickSearchButton();
 
-        fahrzeugsuche.selectSpecificModel(driver, (String) map.get("Typbz"));
+        fahrzeugsuche.selectSpecificModel(driver, (String) map.get("TYPBZ"));
 
         //Angaben
         AngabenPage angaben = new AngabenPage(driver);
-        angaben.setZubehoer((String) map.get("Zubehör"));
-        angaben.setKontrollschild((String) map.get("bes.Kontrollschild"));
+        angaben.setZubehoer((String) map.get("ZA/ZB"));
+        angaben.setKontrollschild((String) map.get("besonderes kontrollschild"));
         angaben.setLeasing((String) map.get("Leasing"));
-        angaben.enterKilometer((String) map.get("Kilom/Jahr"));
+        angaben.enterKilometer((String) map.get("Kilometerleistung (nur 1000er Schritte)"));
         angaben.selectPurchaseYear((String) map.get("Kaufjahr"));
-        angaben.setParkschaden((String) map.get("vorh. Parkschaden?"));
-        angaben.setNotbremsassistent((String) map.get("notbrems"));
-        angaben.setGebDatum((String) map.get("HFF Geb."));
-        angaben.selectNationality((String) map.get("HFF Nati."));
-        angaben.enterPLZ((String) map.get("HFF PLZ"));
-        angaben.setGeschlecht((String) map.get("HFF Geschl."));
-        angaben.setEntzug((String) map.get("HFF Entzug"));
-        angaben.setBisherigerVersicherer((String) map.get("HFF Vorvers."), (String) map.get("HFF Vorvers.Name"), driver);
-        angaben.setKuendigung((String) map.get("HFF Vorvers.Künd"), driver);
+        //angaben.setParkschaden((String) map.get("vorh. Parkschaden?"));
+        //angaben.setNotbremsassistent((String) map.get("notbrems"));
+        angaben.setGebDatum((String) map.get("Geburtsdatum häufigster Lenker"));
+        angaben.selectNationality((String) map.get("Nationengruppe häufigster Lenker"));
+        angaben.enterPLZ((String) map.get("Postleitzahl HL"));
+        angaben.setGeschlecht((String) map.get("Geschlecht Versicherungsnehmer"));
+        angaben.setEntzug((String) map.get("HFFAusweisentzug"));
+        angaben.setBisherigerVersicherer((String) map.get("HFFVorversicherer"), (String) map.get("Name Vorversicherer"), driver);
+
+
+        //nur Abfragen wenn Vorversicherer besteht
+        if (((String) map.get("HFFVorversicherer")).toUpperCase().contentEquals("JA")) {
+            angaben.setKuendigung((String) map.get("Kündigung durch Versicherer"), driver);
+        }
+
         angaben.setSchaden(
-                (String) map.get("Schäden letzte 5 J.?"),
-                (String) map.get("haftPflichtSchaden"),
+                (String) map.get("Schäden letzten 5 Jahre"),
+                (String) map.get("Haftpflichtschäden über 1000"),
                 (String) map.get("schadenJahr"),
-                (String) map.get("diebstahl"),
-                (String) map.get("parkschaden"),
+                (String) map.get("Fahrzeugdiebstaehle"),
+                (String) map.get("Parkschaeden"),
                 (String) map.get("kollisionsschaden"),
                 (String) map.get("kollisionsSchadenJahr"));
+                //TODO: scroll down on page
 
         //Vertragsdetails
         angaben.setVertragsdetails(
-                (String) map.get("Vers. ist"),
-                (String) map.get("VN Geb."),
-                (String) map.get("VN Geschl."),
-                (String) map.get("VN Nati."),
-                (String) map.get("VN PLZ"),
+                (String) map.get("versicherungsnehmer"),
+                (String) map.get("Geburtsdatum Versicherungsnehmer"),
+                (String) map.get("Geschlecht Versicherungsnehmer"),
+                (String) map.get("Nationengruppe Versicherungsnehmer"),
+                (String) map.get("Postleitzahl VN"),
                 (String) map.get("VN Künd."),
-                (String) map.get("Vers.beginn"),
+                (String) map.get("Policenerstbeginn"),
                 (String) map.get("Dauer")
         );
 
@@ -98,7 +102,6 @@ public class AutoversicherungsAXAData extends TestBase{
         Thread.sleep(2500);
         Assert.assertEquals(praemie.getBasicPraemie(), (String) map.get("Prämie"));
 
-//        System.out.println("Video URL - http://vm-106.element34.net/videos/" + (RemoteWebDriver)driver.getSessionId() + ".mp4");
         Thread.sleep(5000);
 
     }

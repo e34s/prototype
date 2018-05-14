@@ -7,10 +7,13 @@
 package axa.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -162,26 +165,21 @@ public class FahrzeugsuchePage {
 
     public void selectTreibstoff(String treibstoff) throws InterruptedException {
 
-        switch (treibstoff) {
-            case "Benzin" :
-                benzin.click();
-                break;
-
-            case "Diesel" :
-                benzin.click();
-                break;
-
-            case "Andere" :
+            if (treibstoff.contentEquals("E") || (treibstoff.contentEquals("G") || (treibstoff.contentEquals("BE")))) {
                 andere.click();
-                break;
+            }
 
-            default:
-                System.out.println("treibstoff invalid");
+        if (treibstoff.contentEquals("D")) {
+            diesel.click();
+        }
+        if (treibstoff.contentEquals("2T") || (treibstoff.contentEquals("A") || (treibstoff.contentEquals("B") || (treibstoff.contentEquals("S") || (treibstoff.contentEquals("TT")))))) {
+            benzin.click();
         }
     }
 
-    public void selectSchaltung(String schaltung) throws InterruptedException {
+    public void selectSchaltung(String schaltung, RemoteWebDriver driver) throws InterruptedException {
 
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", automat);
         switch (schaltung) {
             case "Automat" :
                 automat.click();
@@ -199,27 +197,16 @@ public class FahrzeugsuchePage {
 
     public void selectPS(String ps) throws InterruptedException {
 
+        System.out.println(ps);
         if (ps!=null) {
-            switch (ps) {
-                case "Bis 100" :
-                    ps100.click();
-                    break;
-
-                case "101-200" :
-                    ps200.click();
-                    break;
-
-                case "Mehr als 200" :
-                    ps200plus.click();
-                    break;
-
-                case "Weiss nicht" :
-                    psWeissNicht.click();
-                    break;
-
-                default:
-                    System.out.println("ps invalid");
-            }
+            if(Integer.valueOf(ps) < 100 )
+                ps100.click();
+            else if(Integer.valueOf(ps) < 200 )
+                ps200.click();
+            else if(Integer.valueOf(ps) > 200 )
+                ps200plus.click();
+            else
+                psWeissNicht.click();
         }
 
     }

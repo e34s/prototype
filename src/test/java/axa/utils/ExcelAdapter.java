@@ -23,7 +23,7 @@ public class ExcelAdapter {
 
 	@DataProvider(name = "datamap", parallel = true)
 	public Object[][] dataSupplier() throws IOException {
-		File file = new File("C:\\Users\\mpalotas\\tmp\\uta.xlsx");
+		File file = new File("C:\\Users\\mpalotas\\tmp\\motorfahrzeug.xlsx");
 		FileInputStream fis = new FileInputStream(file);
 		XSSFWorkbook wb = new XSSFWorkbook(fis);
 		XSSFSheet sheet = wb.getSheetAt(0);
@@ -34,6 +34,7 @@ public class ExcelAdapter {
 		for (int i = 0; i < lastRowNum; i++) {
 			Map<Object, Object> datamap = new HashMap<>();
 			for (int j = 0; j < lastCellNum; j++) {
+				System.out.println(j);
 				datamap.put(sheet.getRow(0).getCell(j).toString(), sheet.getRow(i+1).getCell(j).toString());
 			}
 			obj[i][0] = datamap;

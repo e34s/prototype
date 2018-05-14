@@ -6,7 +6,6 @@
 
 package axa.utils;
 
-import axa.tests.AutoversicherungsTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -41,8 +40,8 @@ public class StatusListener implements ITestListener {
 		if (webDriver != null)
 		{
 			System.out.println("[FAILED] - TAKING SCREENSHOT");
-//			screenshot((RemoteWebDriver) webDriver);
-			screenshot((EventFiringWebDriver) webDriver);
+			screenshot((RemoteWebDriver) webDriver);
+//			screenshot((EventFiringWebDriver) webDriver);
 
 		}
 

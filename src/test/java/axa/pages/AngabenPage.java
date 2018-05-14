@@ -7,13 +7,18 @@
 package axa.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class AngabenPage {
@@ -107,6 +112,8 @@ public class AngabenPage {
 
     public void setZubehoer(String zusatzausruestung) throws InterruptedException {
         Thread.sleep(1000);
+        zusatzausruestung = zusatzausruestung.replaceAll("\\.0", "");
+
         zubehoer.clear();
         zubehoer.sendKeys(zusatzausruestung);
     }
@@ -154,6 +161,8 @@ public class AngabenPage {
 
     public void selectPurchaseYear(String year) throws InterruptedException {
 
+        year = year.replaceAll("\\.0", "");
+
         Select realSelect = new Select(kaufjahr);
         realSelect.selectByVisibleText(year);
     }
@@ -198,8 +207,77 @@ public class AngabenPage {
 
     public void selectNationality(String nationality) throws InterruptedException {
 
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("AD - Andorra", "Andorra");
+        map.put("AL - Albanien", "Albanien");
+        map.put("AS - AS - Samoa (amerikanischer Teil)", "Amerikanisch-Samoa");
+        map.put("AT - Österreich", "Österreich");
+        map.put("AU - Australien", "Australien");
+        map.put("AX - Alandinseln", "Ålandinseln");
+        map.put("BA - Bosnien-Herzegowina", "Bosnien-Herzegowina");
+        map.put("BE - Belgien", "Belgien");
+        map.put("BG - Bulgarien", "Bulgarien");
+        map.put("BY - Belarus", "Belarus");
+        map.put("CA - Kanada", "Kanada");
+        map.put("CH - Schweiz", "Schweiz");
+        map.put("CY - Zypern", "Zypern");
+        map.put("CZ - Tschechien", "Tschechische Republik");
+        map.put("DE - Deutschland", "Deutschland");
+        map.put("DK - Dänemark", "Dänemark");
+        map.put("EE - Estland", "Estland");
+        map.put("ES - Spanien", "Spanien");
+        map.put("FI - Finnland", "Finnland");
+        map.put("FO - Färöer Inseln", "Färöer-Inseln");
+        map.put("FR - Frankreich", "Frankreich");
+        map.put("GB - Grossbritannien", "Grossbritannien");
+        map.put("GG - Guernsey", "Guernsey");
+        map.put("GI - Gibraltar", "Gibraltar");
+        map.put("GR - Griechenland", "Griechenland");
+        map.put("HR - Kroatien", "Kroatien");
+        map.put("HU - Ungarn", "Ungarn");
+        map.put("IE - Irland", "Irland");
+        map.put("IL - Israel", "Israel");
+        map.put("IM - Insel Man", "Insel Man");
+        map.put("IS - Island", "Island");
+        map.put("IT - Italien", "Italien");
+        map.put("JE - Jersey", "Jersey");
+        map.put("JP - Japan", "Japan");
+        map.put("LI - Liechtenstein", "Liechtenstein");
+        map.put("LT - Litauen", "Litauen");
+        map.put("LU - Luxemburg", "Luxemburg");
+        map.put("LV - Lettland", "Lettland");
+        map.put("MC - Monaco", "Monaco");
+        map.put("MD - Moldova", "Moldova");
+        map.put("ME - Montenegro", "Montenegro");
+        map.put("MK - Mazedonien", "Mazedonien");
+        map.put("MT - Malta", "Malta");
+        map.put("NA - Namibia (REST)", "Namibia");
+        map.put("NF - Norfolk-Inseln", "Norfolkinsel");
+        map.put("NL - Niederlande", "Niederlande");
+        map.put("NO - Norwegen", "Norwegen");
+        map.put("NZ - Neuseeland", "Neuseeland");
+        map.put("PL - Polen", "Polen");
+        map.put("PM - St. Pierre und Miquelon", "St. Pierre und Miquelon");
+        map.put("PT - Portugal", "Portugal");
+        map.put("RO - Rumänien", "Rumänien");
+        map.put("RS - Serbien", "Serbien");
+        map.put("RU - Russland", "Russland");
+        map.put("SE - Schweden", "Schweden");
+        map.put("SI - Slowenien", "Slowenien");
+        map.put("SJ - Spitzbergen und Jan Mayen-Inseln", "Norwegen");
+        map.put("SK - Slowakei", "Slowakei");
+        map.put("SM - San Marino", "San Marino");
+        map.put("TR - Türkei", "Türkei");
+        map.put("UA - Ukraine", "Ukranine");
+        map.put("US - Vereinigte Staaten von Amerika", "Vereinigte Staaten");
+        map.put("VA - Vatikanstaat", "Vatikanstadt");
+        map.put("XK - Kosovo", "Kosovo");
+
+        String nation;
+        nation = map.get(nationality);
+
         Select realSelect = new Select(nationalitaet);
-        realSelect.selectByVisibleText(nationality);
+        realSelect.selectByVisibleText(nation);
     }
 
     public void enterPLZ(String plz) throws InterruptedException {
@@ -267,7 +345,10 @@ public class AngabenPage {
         }
     }
 
-    public void setKuendigung(String kuendigung) throws InterruptedException {
+    public void setKuendigung(String kuendigung, RemoteWebDriver driver) throws InterruptedException {
+        Thread.sleep(1000);
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", kuendigungJa);
 
         if (kuendigung != null) {
 
@@ -303,6 +384,7 @@ public class AngabenPage {
                     break;
 
                 case "NEIN":
+                    Thread.sleep(2000);
                     schadenNein.click();
                     break;
 
@@ -316,7 +398,7 @@ public class AngabenPage {
         this.vertragsdetailsSection.setFahrzeugfuehrer(fzFuehrer);
 
         //additional information needed
-        if (fzFuehrer.contentEquals("Nicht der häufigste Fahrzeugführer")) {
+        if (fzFuehrer.contentEquals("nicht der häufigste Fahrzeugführer")) {
             this.vertragsdetailsSection.setGebDatum(gebDatum);
             this.vertragsdetailsSection.setGeschlecht(geschlecht);
             this.vertragsdetailsSection.setNationality(nationalitaet);
@@ -332,7 +414,9 @@ public class AngabenPage {
         }
     }
 
-    public void clickWeiter() {
+    public void clickWeiter(RemoteWebDriver driver) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", weiterbutton);
+
         weiterbutton.click();
     }
 }

@@ -47,21 +47,26 @@ public class TestBase {
 
     @BeforeMethod
     @Parameters(value={"browser"})
-    public void setupTest (String browser) throws MalformedURLException {
+    public void setupTest (@Optional String browser) throws MalformedURLException {
+
 
         //Set DesiredCapabilities
         DesiredCapabilities capability = new DesiredCapabilities();
 
-        //Set BrowserName
-        capability.setCapability("browserName", browser);
+        if (browser == null) {
+            capability.setCapability("browserName", "chrome");
+        }
+        else {
+            capability.setCapability("browserName", browser);
+        }
         capability.setCapability("e34:token", "72aa4d82");
         capability.setCapability("e34:l_testName", "Selenium Test");
         capability.setCapability("video", true);
         capability.setCapability("e34_timeout_per_test_ms", 60000);
 
 
-        //Set Browser to ThreadLocalMap
-        driver.set(new RemoteWebDriver(new URL("https://vm-106.element34.net/wd/hub"), capability));
+        driver.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability));
+
         driver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         firingWebDriver.set(new EventFiringWebDriver(driver.get()));
@@ -72,8 +77,8 @@ public class TestBase {
 
     public WebDriver getDriver() {
         //Get driver from ThreadLocalMap
-        //return driver.get();
-        return firingWebDriver.get();
+        return driver.get();
+        //return firingWebDriver.get();
     }
 
     @AfterMethod
