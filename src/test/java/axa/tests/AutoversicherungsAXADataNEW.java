@@ -48,62 +48,62 @@ public class AutoversicherungsAXADataNEW extends TestBase{
         angaben.enterPLZ((String) map.get("Postleitzahl HL"));
         angaben.setGeschlecht((String) map.get("Geschlecht Versicherungsnehmer"));
         angaben.setEntzug((String) map.get("HFFAusweisentzug"));
-        angaben.setBisherigerVersicherer((String) map.get("HFFVorversicherer"), (String) map.get("Name Vorversicherer"), driver);
-
-
-        //nur Abfragen wenn Vorversicherer besteht
-        if (((String) map.get("HFFVorversicherer")).toUpperCase().contentEquals("JA")) {
-            angaben.setKuendigung((String) map.get("Kündigung durch Versicherer"), driver);
-        }
-
-        angaben.setSchaden(
-                driver,
-                (String) map.get("Schäden letzten 5 Jahre"),
-                (String) map.get("Haftpflichtschäden über 1000"),
-                (String) map.get("schadenJahr"),
-                (String) map.get("Fahrzeugdiebstaehle"),
-                (String) map.get("Parkschaeden"),
-                (String) map.get("kollisionsschaden"),
-                (String) map.get("kollisionsSchadenJahr"));
-                //TODO: scroll down on page
-
-        //Vertragsdetails
-        angaben.setVertragsdetails(
-                (String) map.get("versicherungsnehmer"),
-                (String) map.get("Geburtsdatum Versicherungsnehmer"),
-                (String) map.get("Geschlecht Versicherungsnehmer"),
-                (String) map.get("Nationengruppe Versicherungsnehmer"),
-                (String) map.get("Postleitzahl VN"),
-                (String) map.get("VN Künd."),
-                (String) map.get("Policenerstbeginn"),
-                (String) map.get("Dauer")
-        );
-
-
-        angaben.clickWeiter(driver);
-
-        //Prämien
-        PraemiePage praemie = new PraemiePage(driver);
-        praemie.selectKasko(
-                (String) map.get("Kasko"),
-                (String) map.get("SB ohne Koll"),
-                (String) map.get("SB Koll"),
-                (String) map.get("sbTeilkasko"));
-
-        praemie.selectErgaenzungen(
-                (String) map.get("Mobilität"),
-                (String) map.get("Mitgef.Sachen"),
-                (String) map.get("Parkschaden"),
-                (String) map.get("Unfall"),
-                (String) map.get("Bonusschutz"),
-                (String) map.get("Recorder"),
-                driver);
-
-
-        Thread.sleep(2500);
-        Assert.assertEquals(praemie.getBasicPraemie(), (String) map.get("Prämie"));
-
-        Thread.sleep(5000);
+//        angaben.setBisherigerVersicherer((String) map.get("HFFVorversicherer"), (String) map.get("Name Vorversicherer"), driver);
+//
+//
+//        //nur Abfragen wenn Vorversicherer besteht
+//        if (((String) map.get("HFFVorversicherer")).toUpperCase().contentEquals("JA")) {
+//            angaben.setKuendigung((String) map.get("Kündigung durch Versicherer"), driver);
+//        }
+//
+//        angaben.setSchaden(
+//                driver,
+//                (String) map.get("Schäden letzten 5 Jahre"),
+//                (String) map.get("Haftpflichtschäden über 1000"),
+//                (String) map.get("schadenJahr"),
+//                (String) map.get("Fahrzeugdiebstaehle"),
+//                (String) map.get("Parkschaeden"),
+//                (String) map.get("kollisionsschaden"),
+//                (String) map.get("kollisionsSchadenJahr"));
+//                //TODO: scroll down on page
+//
+//        //Vertragsdetails
+//        angaben.setVertragsdetails(
+//                (String) map.get("versicherungsnehmer"),
+//                (String) map.get("Geburtsdatum Versicherungsnehmer"),
+//                (String) map.get("Geschlecht Versicherungsnehmer"),
+//                (String) map.get("Nationengruppe Versicherungsnehmer"),
+//                (String) map.get("Postleitzahl VN"),
+//                (String) map.get("VN Künd."),
+//                (String) map.get("Policenerstbeginn"),
+//                (String) map.get("Dauer")
+//        );
+//
+//
+//        angaben.clickWeiter(driver);
+//
+//        //Prämien
+//        PraemiePage praemie = new PraemiePage(driver);
+//        praemie.selectKasko(
+//                (String) map.get("Kasko"),
+//                (String) map.get("SB ohne Koll"),
+//                (String) map.get("SB Koll"),
+//                (String) map.get("sbTeilkasko"));
+//
+//        praemie.selectErgaenzungen(
+//                (String) map.get("Mobilität"),
+//                (String) map.get("Mitgef.Sachen"),
+//                (String) map.get("Parkschaden"),
+//                (String) map.get("Unfall"),
+//                (String) map.get("Bonusschutz"),
+//                (String) map.get("Recorder"),
+//                driver);
+//
+//
+//        Thread.sleep(2500);
+//        Assert.assertEquals(praemie.getBasicPraemie(), (String) map.get("Prämie"));
+//
+//        Thread.sleep(5000);
 
     }
 }
