@@ -23,7 +23,7 @@ public class ExcelAdapter {
 
 	@DataProvider(name = "datamap", parallel = true)
 	public Object[][] dataSupplier() throws IOException {
-		File file = new File("C:\\Users\\mpalotas\\IdeaProjects\\axaprototype\\motorfahrzeug.xlsx");
+		File file = new File("C:\\Users\\mpalotas\\IdeaProjects\\axaprototype\\src\\test\\resources\\motorfahrzeug.xlsx");
 		FileInputStream fis = new FileInputStream(file);
 		XSSFWorkbook wb = new XSSFWorkbook(fis);
 		XSSFSheet sheet = wb.getSheetAt(0);

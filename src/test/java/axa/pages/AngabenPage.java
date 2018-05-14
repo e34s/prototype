@@ -367,9 +367,13 @@ public class AngabenPage {
         }
     }
 
-    public void setSchaden(String schaden, String haftpflichtSchaden, String schadenJahr, String diebstahl, String parkschaden, String kollisionsSchaden, String kollisionsSchadenJahr) throws InterruptedException {
+    public void setSchaden(WebDriver driver, String schaden, String haftpflichtSchaden, String schadenJahr, String diebstahl, String parkschaden, String kollisionsSchaden, String kollisionsSchadenJahr) throws InterruptedException {
 
         if (schaden != null) {
+
+            //scroll into view
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", schadenJa);
+
 
             switch (schaden.toUpperCase()) {
                 case "JA":

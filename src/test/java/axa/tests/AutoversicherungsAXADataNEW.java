@@ -57,6 +57,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
         }
 
         angaben.setSchaden(
+                driver,
                 (String) map.get("Schäden letzten 5 Jahre"),
                 (String) map.get("Haftpflichtschäden über 1000"),
                 (String) map.get("schadenJahr"),

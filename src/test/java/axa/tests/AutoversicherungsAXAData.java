@@ -54,6 +54,7 @@ public class AutoversicherungsAXAData extends TestBase{
         angaben.setBisherigerVersicherer((String) map.get("HFF Vorvers."), (String) map.get("HFF Vorvers.Name"), driver);
         angaben.setKuendigung((String) map.get("HFF Vorvers.Künd"), driver);
         angaben.setSchaden(
+                driver,
                 (String) map.get("Schäden letzte 5 J.?"),
                 (String) map.get("haftPflichtSchaden"),
                 (String) map.get("schadenJahr"),
