@@ -13,7 +13,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -71,8 +70,24 @@ public class FahrzeugsuchePage {
         PageFactory.initElements(driver, this);
     }
 
-    public void loadPage(WebDriver driver) {
-        driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=1000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+    public void loadPage(String fahrzeug, WebDriver driver) {
+        //check motorbike or car
+        if(fahrzeug != null) {
+            switch (fahrzeug) {
+                case "1.0":
+                    driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=1000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                    break;
+
+                case "2.0":
+                    driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=8000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                    break;
+
+                default:
+                    driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=1000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                    break;
+
+            }
+        }
     }
 
     public void selectInv(String inv) throws InterruptedException {

@@ -23,7 +23,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
 
         //Fahrzeugsuche
         FahrzeugsuchePage fahrzeugsuche = new FahrzeugsuchePage(driver);
-        fahrzeugsuche.loadPage(driver);
+        fahrzeugsuche.loadPage((String)map.get("Fahrzeugtyp"), driver);
         fahrzeugsuche.selectInv((String) map.get("Erstinverkehrssetzung"));
         fahrzeugsuche.selectMarke((String) map.get("Marke"));
         fahrzeugsuche.selectTreibstoff((String) map.get("TYPTREIB"));
@@ -55,16 +55,18 @@ public class AutoversicherungsAXADataNEW extends TestBase{
         if (((String) map.get("Vorversichererfrage häufigster Lenker")).toUpperCase().contentEquals("JA")) {
             angaben.setKuendigung((String) map.get("Kündigung durch Versicherer"), driver);
         }
-//
-//        angaben.setSchaden(
-//                driver,
-//                (String) map.get("Schäden letzte 5 Jahre"),
-//                (String) map.get("Haftpflichtschäden Anzahl"),
-//                (String) map.get("schadenJahr"),
-//                (String) map.get("Fahrzeugdiebstaehle"),
-//                (String) map.get("Parkschaeden"),
-//                (String) map.get("kollisionsschaden"),
-//                (String) map.get("kollisionsSchadenJahr"));
+
+
+        //only works up to entering "Jahr des Schadens"-> waiting for Uta
+        angaben.setSchaden(
+                driver,
+                (String) map.get("Schäden letzte 5 Jahre"),
+                (String) map.get("Haftpflichtschäden Anzahl"),
+                (String) map.get("schadenJahr"),
+                (String) map.get("Fahrzeugdiebstaehle"),
+                (String) map.get("Parkschaeden"),
+                (String) map.get("kollisionsschaden"),
+                (String) map.get("kollisionsSchadenJahr"));
 //                //TODO: scroll down on page
 //
 //        //Vertragsdetails
