@@ -261,7 +261,7 @@ public class AngabenPage {
         map.put("SK - Slowakei", "Slowakei");
         map.put("SM - San Marino", "San Marino");
         map.put("TR - Türkei", "Türkei");
-        map.put("UA - Ukraine", "Ukranine");
+        map.put("UA - Ukraine", "Ukraine");
         map.put("US - Vereinigte Staaten von Amerika", "Vereinigte Staaten");
         map.put("VA - Vatikanstaat", "Vatikanstadt");
         map.put("XK - Kosovo", "Kosovo");
