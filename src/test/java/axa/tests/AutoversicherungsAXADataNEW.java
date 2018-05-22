@@ -29,37 +29,37 @@ public class AutoversicherungsAXADataNEW extends TestBase{
         fahrzeugsuche.selectTreibstoff((String) map.get("TYPTREIB"));
         fahrzeugsuche.selectModell(driver, (String) map.get("Modell"));
         fahrzeugsuche.selectSchaltung((String) map.get("Schaltung"), driver);
-        fahrzeugsuche.selectPS((String) map.get("Leistung in PS"));
+        fahrzeugsuche.selectPS((String) map.get("Leistung"));
         fahrzeugsuche.clickSearchButton();
 
         fahrzeugsuche.selectSpecificModel(driver, (String) map.get("TYPBZ"));
 
-        //Angaben
+//        //Angaben
         AngabenPage angaben = new AngabenPage(driver);
-        angaben.setZubehoer((String) map.get("ZA/ZB"));
-        angaben.setKontrollschild((String) map.get("besonderes kontrollschild"));
+        angaben.setZubehoer((String) map.get("Zubehör"));
+        angaben.setKontrollschild((String) map.get("Besonderes Kontrollschild"));
         angaben.setLeasing((String) map.get("Leasing"));
-        angaben.enterKilometer((String) map.get("Kilometerleistung (nur 1000er Schritte)"));
+        angaben.enterKilometer((String) map.get("Kilometerleistung"));
         angaben.selectPurchaseYear((String) map.get("Kaufjahr"));
-        //angaben.setParkschaden((String) map.get("vorh. Parkschaden?"));
-        //angaben.setNotbremsassistent((String) map.get("notbrems"));
+        angaben.setParkschaden((String) map.get("vorh. Parkschaden?"));
+//        angaben.setNotbremsassistent((String) map.get("notbrems"));
         angaben.setGebDatum((String) map.get("Geburtsdatum häufigster Lenker"));
-        angaben.selectNationality((String) map.get("Nationengruppe häufigster Lenker"));
+        angaben.selectNationality((String) map.get("Nationalität häufigster Lenker"));
         angaben.enterPLZ((String) map.get("Postleitzahl HL"));
-        angaben.setGeschlecht((String) map.get("Geschlecht Versicherungsnehmer"));
-        angaben.setEntzug((String) map.get("HFFAusweisentzug"));
-//        angaben.setBisherigerVersicherer((String) map.get("HFFVorversicherer"), (String) map.get("Name Vorversicherer"), driver);
-//
-//
-//        //nur Abfragen wenn Vorversicherer besteht
-//        if (((String) map.get("HFFVorversicherer")).toUpperCase().contentEquals("JA")) {
-//            angaben.setKuendigung((String) map.get("Kündigung durch Versicherer"), driver);
-//        }
+        angaben.setGeschlecht((String) map.get("Geschlecht häufigster Lenker"));
+        angaben.setEntzug((String) map.get("Ausweisentzug häufigster Lenker"));
+        angaben.setBisherigerVersicherer((String) map.get("Vorversichererfrage häufigster Lenker"), (String) map.get("Name Vorversicherer"), driver);
+
+
+        //nur Abfragen wenn Vorversicherer besteht
+        if (((String) map.get("Vorversichererfrage häufigster Lenker")).toUpperCase().contentEquals("JA")) {
+            angaben.setKuendigung((String) map.get("Kündigung durch Versicherer"), driver);
+        }
 //
 //        angaben.setSchaden(
 //                driver,
-//                (String) map.get("Schäden letzten 5 Jahre"),
-//                (String) map.get("Haftpflichtschäden über 1000"),
+//                (String) map.get("Schäden letzte 5 Jahre"),
+//                (String) map.get("Haftpflichtschäden Anzahl"),
 //                (String) map.get("schadenJahr"),
 //                (String) map.get("Fahrzeugdiebstaehle"),
 //                (String) map.get("Parkschaeden"),

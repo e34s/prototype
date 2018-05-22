@@ -6,6 +6,7 @@
 
 package axa.pages;
 
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -168,21 +169,11 @@ public class AngabenPage {
     }
 
     public void setParkschaden(String parkschaden) throws InterruptedException {
-        if (parkschaden != null) {
-            switch (parkschaden.toUpperCase()) {
-                case "JA" :
-                    parkschadenJa.click();
-                    break;
 
-                case "NEIN" :
-                    parkschadenNein.click();
-                    break;
-
-                default:
-                    break;
-            }
-        }
+            //according to rules, Parkschaden is always NEIN
+            //parkschadenNein.click();
     }
+
 
     public void setNotbremsassistent(String notbrems) throws InterruptedException {
         if (notbrems != null) {
@@ -202,6 +193,8 @@ public class AngabenPage {
     }
 
     public void setGebDatum(String gebDatum) {
+        //convert from dd-mm-yyyy to dd.mm.yyyy
+        gebDatum = gebDatum.replace("-", ".");
         geburtsdatum.sendKeys(gebDatum);
     }
 
@@ -261,7 +254,7 @@ public class AngabenPage {
         map.put("PT - Portugal", "Portugal");
         map.put("RO - Rumänien", "Rumänien");
         map.put("RS - Serbien", "Serbien");
-        map.put("RU - Russland", "Russland");
+        map.put("RU - Russland", "Russische Föderation");
         map.put("SE - Schweden", "Schweden");
         map.put("SI - Slowenien", "Slowenien");
         map.put("SJ - Spitzbergen und Jan Mayen-Inseln", "Norwegen");
@@ -321,6 +314,8 @@ public class AngabenPage {
 
 
     public void setBisherigerVersicherer(String bisherigerVersicherer, String versicherer, WebDriver driver) throws InterruptedException {
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", bisherigerVersichererNein);
 
         if (bisherigerVersicherer != null) {
 

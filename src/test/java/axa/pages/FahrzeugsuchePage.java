@@ -90,6 +90,22 @@ public class FahrzeugsuchePage {
         map.put("11", "November");
         map.put("12", "Dezember");
 
+        Map<String, String> map2 = new HashMap<String, String>();
+        map2.put("Jan", "Januar");
+        map2.put("Feb", "Februar");
+        map2.put("Mar", "März");
+        map2.put("Apr", "April");
+        map2.put("May", "Mai");
+        map2.put("Jun", "Juni");
+        map2.put("Jul", "Juli");
+        map2.put("Auf", "August");
+        map2.put("Sep", "September");
+        map2.put("Oct", "Oktober");
+        map2.put("Nov", "November");
+        map2.put("Dec", "Dezember");
+
+
+
         String monat;
 
 
@@ -115,6 +131,19 @@ public class FahrzeugsuchePage {
 
             Select realSelect = new Select(this.year);
             realSelect.selectByVisibleText(parts[1]);
+
+            realSelect = new Select(this.month);
+            realSelect.selectByVisibleText(monat);
+        }
+
+
+        //dd-MM-yyyy
+        else if (inv.matches("\\d{2}\\-\\d{2}\\-\\d{4}")) {
+            String[] parts = inv.split("\\-");
+            monat = map.get(parts[1]);
+
+            Select realSelect = new Select(this.year);
+            realSelect.selectByVisibleText(parts[2]);
 
             realSelect = new Select(this.month);
             realSelect.selectByVisibleText(monat);
@@ -196,6 +225,9 @@ public class FahrzeugsuchePage {
 
 
     public void selectPS(String ps) throws InterruptedException {
+
+        //remove decimal separator in case it comes with Excel
+        ps = ps.split("\\.", 2)[0];
 
         System.out.println(ps);
         if (ps!=null) {
