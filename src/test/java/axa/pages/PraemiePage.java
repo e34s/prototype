@@ -18,10 +18,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PraemiePage {
 
-    @FindBy(id="lp_praemie_top-mf_basic")
+    @FindBy(id="lp_praemie_bottom-mf_basic")
     private WebElement praemiebasic;
 
-    @FindBy(id="lp_praemie_top-mf_compact")
+    @FindBy(id="lp_praemie_bottom-mf_compact")
     private WebElement praemiecompact;
 
     @FindBy(id="lp_kasko_option_basic")

@@ -101,11 +101,11 @@ public class AutoversicherungsAXADataNEW extends TestBase{
                 (String) map.get("BonusschutzDeckung"),
                 (String) map.get("Telematik"),
                 driver);
-//
-//
-//        Thread.sleep(2500);
-//        Assert.assertEquals(praemie.getBasicPraemie(), (String) map.get("Prämie"));
-//
+
+
+        Thread.sleep(2500);
+        Assert.assertEquals(praemie.getBasicPraemie(), (String) map.get("Bruttoprämie"));
+
         Thread.sleep(5000);
 
     }
