@@ -24,7 +24,7 @@ public class AngabenPageVertragsdetailsSection {
     @FindBy(id="fl_vn_andere_geburtsdatum")
     private WebElement vnGeburtstag;
 
-    @FindBy(css="#fl_vn_andere_geschlecht_option > label:nth-child(4)")
+    @FindBy(css="#fl_vn_andere_geschlecht_option > label:nth-child(2)")
     private WebElement vnGeschlechtMann;
 
     @FindBy(css="#fl_vn_andere_geschlecht_option > label:nth-child(4)")
@@ -70,12 +70,12 @@ public class AngabenPageVertragsdetailsSection {
     }
 
     public void setGeschlecht(String geschlecht) throws InterruptedException {
-        switch (geschlecht.toUpperCase()) {
-            case "MÄNNLICH" :
+        switch (geschlecht) {
+            case "männlich" :
                 vnGeschlechtMann.click();
                 break;
 
-            case "WEIBLICH" :
+            case "weiblich" :
                 vnGeschlechtFrau.click();
                 break;
 
