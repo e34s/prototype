@@ -43,7 +43,7 @@ public class AngabenPageVertragsdetailsSection {
     private WebElement kuendigungNein;
 
 
-    @FindBy(id="fl_versicherungsbeginn")
+    @FindBy(id="fl_versicherungsbeginn_other")
     private WebElement versBeginn;
 
     @FindBy(css="#fl_vertragsdauer_option > label:nth-child(2)")
@@ -186,8 +186,8 @@ public class AngabenPageVertragsdetailsSection {
     public void setVersicherungsbeginn(String versicherungsBeginn) throws InterruptedException {
         if (versicherungsBeginn != null) {
             versicherungsBeginn = versicherungsBeginn.replace("-", ".");
-            versBeginn.clear();
             Thread.sleep(1000);
+            versBeginn.clear();
             versBeginn.sendKeys(versicherungsBeginn);
             Thread.sleep(2000);
         }

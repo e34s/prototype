@@ -70,12 +70,18 @@ public class FahrzeugsuchePage {
         PageFactory.initElements(driver, this);
     }
 
-    public void loadPage(String fahrzeug, WebDriver driver) {
+    public void loadPage(String fahrzeug, String rahmenvertrag, WebDriver driver) {
         //check motorbike or car
         if(fahrzeug != null) {
+
+            //clean up rahmenvertrag
+            rahmenvertrag = rahmenvertrag.replaceAll("\\(.*\\)", "").trim();
+
             switch (fahrzeug) {
                 case "1.0":
-                    driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=1000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                    String linkId = getLinkId(rahmenvertrag);
+                    driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=" + linkId +"&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                    //driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=1000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
                     break;
 
                 case "2.0":
@@ -88,6 +94,47 @@ public class FahrzeugsuchePage {
 
             }
         }
+    }
+
+    public String getLinkId(String rahmenvertrag) {
+        Map<String, String> linkIdMF = new HashMap<String, String>();
+        linkIdMF.put("Corporate", "1000");
+        linkIdMF.put("Justin", "6001000");
+        linkIdMF.put("Novartis", "1001000");
+        linkIdMF.put("Spital Thurgau", "1011000");
+        linkIdMF.put("Broker ReInvest", "1021000");
+        linkIdMF.put("Sanitas", "1031000");
+        linkIdMF.put("Mitarbeiterkanal", "1041000");
+        linkIdMF.put("Verband Musikschulen Schweiz", "1061000");
+        linkIdMF.put("Swisscom", "1071000");
+        linkIdMF.put("SBB", "1081000");
+        linkIdMF.put("Broker Mark & Michel", "1091000");
+        linkIdMF.put("Bühler", "1101000");
+        linkIdMF.put("Zürcher Anwaltsverband", "1111000");
+        linkIdMF.put("Jet Aviation", "1121000");
+        linkIdMF.put("Syngenta", "1131000");
+        linkIdMF.put("the kcc group", "1141000");
+        linkIdMF.put("MIGROS", "1161000");
+        linkIdMF.put("Julius Bär", "1171000");
+        linkIdMF.put("Credit Suisse", "1181000");
+        linkIdMF.put("StuCard", "1191000");
+        linkIdMF.put("Emil Frey", "1201000");
+        linkIdMF.put("Kantonsspital Baselland", "1211000");
+        linkIdMF.put("REKA", "1221000");
+        linkIdMF.put("AON Risk", "1231000");
+        linkIdMF.put("Auto-Outlet", "1241000");
+        linkIdMF.put("Direct Sales", "1251000");
+        linkIdMF.put("Berner Kantonalbank", "1261000");
+        linkIdMF.put("ImmoInsuranceAG", "1271000");
+        linkIdMF.put("GA Uster", "1281000");
+        linkIdMF.put("GA Winterthur Nord", "1291000");
+        linkIdMF.put("Berater Carmine Sperduto", "1301000");
+        linkIdMF.put("Berater Kushtrim Halili", "1311000");
+        linkIdMF.put("GA ZH-West", "1321000");
+        linkIdMF.put("GA Genève Rive-Gauche", "1331000");
+
+        return linkIdMF.get(rahmenvertrag);
+
     }
 
     public void selectInv(String inv) throws InterruptedException {

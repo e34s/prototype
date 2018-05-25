@@ -23,7 +23,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
 
         //Fahrzeugsuche
         FahrzeugsuchePage fahrzeugsuche = new FahrzeugsuchePage(driver);
-        fahrzeugsuche.loadPage((String)map.get("Fahrzeugtyp"), driver);
+        fahrzeugsuche.loadPage((String)map.get("Fahrzeugtyp"), (String)map.get("Rahmenvertrag"), driver);
         fahrzeugsuche.selectInv((String) map.get("Erstinverkehrssetzung"));
         fahrzeugsuche.selectMarke((String) map.get("Marke"));
         fahrzeugsuche.selectTreibstoff((String) map.get("TYPTREIB"));
