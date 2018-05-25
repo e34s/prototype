@@ -26,7 +26,12 @@ public class AutoversicherungsAXADataNEW extends TestBase{
         fahrzeugsuche.loadPage((String)map.get("Fahrzeugtyp"), (String)map.get("Rahmenvertrag"), driver);
         fahrzeugsuche.selectInv((String) map.get("Erstinverkehrssetzung"));
         fahrzeugsuche.selectMarke((String) map.get("Marke"));
-        fahrzeugsuche.selectTreibstoff((String) map.get("TYPTREIB"));
+
+        //TYPTREIB only for cars
+        if (((String) map.get("Fahrzeugtyp")).contentEquals("1.0")) {
+            fahrzeugsuche.selectTreibstoff((String) map.get("TYPTREIB"));
+        }
+
         fahrzeugsuche.selectModell(driver, (String) map.get("Modell"));
         fahrzeugsuche.selectSchaltung((String) map.get("Schaltung"), driver);
         fahrzeugsuche.selectPS((String) map.get("Leistung"));
@@ -83,6 +88,8 @@ public class AutoversicherungsAXADataNEW extends TestBase{
 
 
         angaben.clickWeiter(driver);
+
+        //TODO: check if OPTIMA has different options than basic and compact. May need a separate Prämienpage if the options are different
 //
         //Prämien
         PraemiePage praemie = new PraemiePage(driver);

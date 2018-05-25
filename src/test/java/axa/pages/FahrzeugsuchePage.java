@@ -74,14 +74,13 @@ public class FahrzeugsuchePage {
         //check motorbike or car
         if(fahrzeug != null) {
 
-            //clean up rahmenvertrag
+            //clean up rahmenvertrag. It comes as i.e. Novartis (18)
             rahmenvertrag = rahmenvertrag.replaceAll("\\(.*\\)", "").trim();
 
             switch (fahrzeug) {
                 case "1.0":
                     String linkId = getLinkId(rahmenvertrag);
                     driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=" + linkId +"&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
-                    //driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=1000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
                     break;
 
                 case "2.0":
@@ -225,6 +224,11 @@ public class FahrzeugsuchePage {
 
     public void selectMarke(String marke) throws InterruptedException {
 
+        //check if Marke begins with MR. If yes, then it is a motorbike. Remove the first 5 chars
+        if (marke.substring(0,2).contentEquals("MR")) {
+            marke = marke.substring(5);
+        }
+
         Select realSelect = new Select(this.marke);
         realSelect.selectByVisibleText(marke);
     }
@@ -256,9 +260,9 @@ public class FahrzeugsuchePage {
 
     public void selectTreibstoff(String treibstoff) throws InterruptedException {
 
-            if (treibstoff.contentEquals("E") || (treibstoff.contentEquals("G") || (treibstoff.contentEquals("BE")))) {
-                andere.click();
-            }
+        if (treibstoff.contentEquals("E") || (treibstoff.contentEquals("G") || (treibstoff.contentEquals("BE")))) {
+            andere.click();
+        }
 
         if (treibstoff.contentEquals("D")) {
             diesel.click();
