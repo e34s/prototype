@@ -25,7 +25,7 @@ import java.util.Map;
 public class ExcelAdapter {
 
 
-	@DataProvider(name = "datamap", parallel = true)
+	@DataProvider(name = "datamap", parallel = false)
 	public Object[][] dataSupplier() throws IOException {
 //		File file = new File("C:\\Users\\mpalotas\\IdeaProjects\\axaprototype\\src\\test\\resources\\motorfahrzeug.xlsx");
 		File file = new File("C:\\Users\\mpalotas\\IdeaProjects\\axaprototype\\src\\test\\resources\\Testfaelle_Motorfahrzeug-single.xlsx");

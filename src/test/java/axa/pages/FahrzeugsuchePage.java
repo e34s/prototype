@@ -270,6 +270,7 @@ public class FahrzeugsuchePage {
         for (WebElement element : list) {
             if (element.getText().contains(specificModel)) {
                 element.click();
+                Thread.sleep(2000);
                 break;
             }
         }

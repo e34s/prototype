@@ -6,7 +6,6 @@
 
 package axa.pages;
 
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -112,7 +111,7 @@ public class AngabenPage {
     }
 
     public void setZubehoer(String zusatzausruestung) throws InterruptedException {
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         zusatzausruestung = zusatzausruestung.replaceAll("\\.0", "");
 
         zubehoer.clear();
@@ -362,7 +361,7 @@ public class AngabenPage {
         }
     }
 
-    public void setSchaden(WebDriver driver, String schaden, String haftpflichtSchaden, String schadenJahr, String diebstahl, String parkschaden, String kollisionsSchaden, String kollisionsSchadenJahr) throws InterruptedException {
+    public void setSchaden(WebDriver driver, String s, String schaden, String haftpflichtSchaden, String schadenJahr, String diebstahl, String parkschaden, String kollisionsSchaden) throws InterruptedException {
 
         if (schaden != null) {
 
@@ -375,11 +374,11 @@ public class AngabenPage {
                     schadenJa.click();
 
                     this.schadenSection.sethaftPflichtSchaden(haftpflichtSchaden);
-                    this.schadenSection.setSchadenJahr(schadenJahr);
-                    this.schadenSection.setDiebstahl(diebstahl);
-                    this.schadenSection.setParkschaden(parkschaden);
-                    this.schadenSection.setKollisionsSchaden(kollisionsSchaden);
-                    this.schadenSection.setkollisionSchadenJahr(kollisionsSchadenJahr);
+//                    this.schadenSection.setSchadenJahr(schadenJahr);
+//                    this.schadenSection.setDiebstahl(diebstahl);
+//                    this.schadenSection.setParkschaden(parkschaden);
+//                    this.schadenSection.setKollisionsSchaden(kollisionsSchaden);
+                    //this.schadenSection.setkollisionSchadenJahr(kollisionsSchadenJahr);
                     break;
 
                 case "NEIN":
@@ -397,7 +396,7 @@ public class AngabenPage {
         this.vertragsdetailsSection.setFahrzeugfuehrer(fzFuehrer);
 
         //additional information needed
-        if (fzFuehrer.contentEquals("nicht der häufigste Fahrzeugführer")) {
+        if (fzFuehrer.contentEquals("Nicht der häufigste Fahrzeugführer")) {
             this.vertragsdetailsSection.setGebDatum(gebDatum);
             this.vertragsdetailsSection.setGeschlecht(geschlecht);
             this.vertragsdetailsSection.setNationality(nationalitaet);

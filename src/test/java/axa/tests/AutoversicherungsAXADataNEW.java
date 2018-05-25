@@ -69,17 +69,17 @@ public class AutoversicherungsAXADataNEW extends TestBase{
                 (String) map.get("kollisionsSchadenJahr"));
 //                //TODO: scroll down on page
 //
-//        //Vertragsdetails
-//        angaben.setVertragsdetails(
-//                (String) map.get("versicherungsnehmer"),
-//                (String) map.get("Geburtsdatum Versicherungsnehmer"),
-//                (String) map.get("Geschlecht Versicherungsnehmer"),
-//                (String) map.get("Nationengruppe Versicherungsnehmer"),
-//                (String) map.get("Postleitzahl VN"),
-//                (String) map.get("VN Künd."),
-//                (String) map.get("Policenerstbeginn"),
-//                (String) map.get("Dauer")
-//        );
+        //Vertragsdetails
+        angaben.setVertragsdetails(
+                (String) map.get("Versicherungsnehmer ist"),
+                (String) map.get("Geburtsdatum Versicherungsnehmer"),
+                (String) map.get("Geschlecht Versicherungsnehmer"),
+                (String) map.get("Nationalität Versicherungsnehmer"),
+                (String) map.get("Postleitzahl Versicherungsnehmer"),
+                (String) map.get("Kündigung durch Vorversicherer"),
+                (String) map.get("Policenerstbeginn"),
+                (String) map.get("Dauer")
+        );
 //
 //
 //        angaben.clickWeiter(driver);
