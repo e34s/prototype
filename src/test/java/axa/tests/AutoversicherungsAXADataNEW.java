@@ -80,32 +80,33 @@ public class AutoversicherungsAXADataNEW extends TestBase{
                 (String) map.get("Policenerstbeginn"),
                 (String) map.get("Dauer")
         );
+
+
+        angaben.clickWeiter(driver);
 //
-//
-//        angaben.clickWeiter(driver);
-//
-//        //Prämien
-//        PraemiePage praemie = new PraemiePage(driver);
-//        praemie.selectKasko(
-//                (String) map.get("Kasko"),
-//                (String) map.get("SB ohne Koll"),
-//                (String) map.get("SB Koll"),
-//                (String) map.get("sbTeilkasko"));
-//
-//        praemie.selectErgaenzungen(
-//                (String) map.get("Mobilität"),
-//                (String) map.get("Mitgef.Sachen"),
-//                (String) map.get("Parkschaden"),
-//                (String) map.get("Unfall"),
-//                (String) map.get("Bonusschutz"),
-//                (String) map.get("Recorder"),
-//                driver);
+        //Prämien
+        PraemiePage praemie = new PraemiePage(driver);
+        praemie.selectKasko(
+                (String) map.get("Teilkasko"),
+                (String) map.get("SB ohne Koll"),
+                (String) map.get("SB Koll"),
+                (String) map.get("Selbstbehalt Teilkasko"));
+
+        praemie.selectErgaenzungen(
+                (String) map.get("Mobilität"),
+                (String) map.get("Mitgeführte Sachen"),
+                (String) map.get("Teilkasko"),
+                (String) map.get("Parkschäden"),
+                (String) map.get("UnfallDeckung"),
+                (String) map.get("BonusschutzDeckung"),
+                (String) map.get("Telematik"),
+                driver);
 //
 //
 //        Thread.sleep(2500);
 //        Assert.assertEquals(praemie.getBasicPraemie(), (String) map.get("Prämie"));
 //
-//        Thread.sleep(5000);
+        Thread.sleep(5000);
 
     }
 }
