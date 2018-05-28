@@ -14,32 +14,32 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBase {
 
-    @BeforeSuite
-    public void setup() {
-        String OS = System.getProperty("os.name");
-        System.out.println("setting up webdriver properties");
-
-        switch (OS) {
-            case "Linux":
-                System.setProperty("webdriver.gecko.driver","/home/e34/workspace/seleniumtraining/resources/linux/geckodriver");
-                System.setProperty("webdriver.chrome.driver", "/home/e34/workspace/seleniumtraining/resources/linux/chromedriver");
-                break;
-
-            case "Mac OS X":
-                System.setProperty("webdriver.gecko.driver","/Users/gridfusion/Downloads/geckodriver");
-                System.setProperty("webdriver.chrome.driver", "/Users/gridfusion/Downloads/chromedriver");
-                break;
-
-            case "Windows 10":
-                System.setProperty("webdriver.gecko.driver","C:\\Users\\mpalotas\\IdeaProjects\\e34seleniumtraining\\resources\\geckodriver.exe");
-                System.setProperty("webdriver.chrome.driver", "C:\\Users\\mpalotas\\IdeaProjects\\e34seleniumtraining\\resources\\chromedriver.exe");
-                break;
-
-            default:
-                System.out.println(System.getProperty("os.name") + " is not supported ");
-                break;
-        }
-    }
+//    @BeforeSuite
+//    public void setup() {
+//        String OS = System.getProperty("os.name");
+//        System.out.println("setting up webdriver properties");
+//
+//        switch (OS) {
+//            case "Linux":
+//                System.setProperty("webdriver.gecko.driver","/home/e34/workspace/seleniumtraining/resources/linux/geckodriver");
+//                System.setProperty("webdriver.chrome.driver", "/home/e34/workspace/seleniumtraining/resources/linux/chromedriver");
+//                break;
+//
+//            case "Mac OS X":
+//                System.setProperty("webdriver.gecko.driver","/Users/gridfusion/Downloads/geckodriver");
+//                System.setProperty("webdriver.chrome.driver", "/Users/gridfusion/Downloads/chromedriver");
+//                break;
+//
+//            case "Windows 10":
+//                System.setProperty("webdriver.gecko.driver","C:\\Users\\mpalotas\\IdeaProjects\\e34seleniumtraining\\resources\\geckodriver.exe");
+//                System.setProperty("webdriver.chrome.driver", "C:\\Users\\mpalotas\\IdeaProjects\\e34seleniumtraining\\resources\\chromedriver.exe");
+//                break;
+//
+//            default:
+//                System.out.println(System.getProperty("os.name") + " is not supported ");
+//                break;
+//        }
+//    }
 
     //Declare ThreadLocal Driver (ThreadLocalMap) for ThreadSafe Tests
     protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
