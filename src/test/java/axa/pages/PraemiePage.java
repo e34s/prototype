@@ -54,6 +54,8 @@ public class PraemiePage {
     @FindBy(id="lp_crashrecorder_mit_rabatt_option-mf_basic")
     private WebElement crashrecorder;
 
+    @FindBy(id="lp_crashrecorder_option-mf_basic")
+    private WebElement crashrecorder2;
 
 
     public PraemiePage(WebDriver driver) {
@@ -203,7 +205,18 @@ public class PraemiePage {
 
     public void selectCrashrecorder(String crashrecorder) throws InterruptedException {
 
-        Select realSelect = new Select(this.crashrecorder);
+        WebElement localCrashRecorder;
+
+        //check with crash recorder dropdown is visible
+        if (this.crashrecorder.isDisplayed()) {
+            localCrashRecorder = this.crashrecorder;
+        }
+        else {
+            localCrashRecorder = this.crashrecorder2;
+        }
+
+
+        Select realSelect = new Select(localCrashRecorder);
         if(!crashrecorder.contentEquals("NA")) {
             if (crashrecorder.contentEquals("Crash Recorder")) {
                 realSelect.selectByVisibleText("ja");
