@@ -6,9 +6,7 @@
 
 package axa.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -203,28 +201,48 @@ public class PraemiePage {
         }
     }
 
-    public void selectCrashrecorder(String crashrecorder) throws InterruptedException {
+    //TODO: FIX THIS,EXTREMELY UGLY
+    public void selectCrashrecorder(String telematik) throws InterruptedException {
 
         WebElement localCrashRecorder;
-
-        //check with crash recorder dropdown is visible
-        if (this.crashrecorder.isDisplayed()) {
-            localCrashRecorder = this.crashrecorder;
-        }
-        else {
-            localCrashRecorder = this.crashrecorder2;
-        }
+        Thread.sleep(5000);
 
 
-        Select realSelect = new Select(localCrashRecorder);
-        if(!crashrecorder.contentEquals("NA")) {
-            if (crashrecorder.contentEquals("Crash Recorder")) {
-                realSelect.selectByVisibleText("ja");
+        try {
+            System.out.println("crashrecorder");
+
+
+            Select realSelect = new Select(this.crashrecorder);
+            if(!telematik.contentEquals("NA")) {
+                if (telematik.contentEquals("Crash Recorder")) {
+                    realSelect.selectByVisibleText("ja");
+                }
+                else {
+                    realSelect.selectByVisibleText("nein");
+                }
             }
-            else {
-                realSelect.selectByVisibleText("nein");
-            }
+
         }
+        catch (ElementNotVisibleException e) {
+
+            System.out.println("crashrecorder2");
+
+            Select realSelect = new Select(this.crashrecorder2);
+            if(!telematik.contentEquals("NA")) {
+                if (telematik.contentEquals("Crash Recorder")) {
+                    realSelect.selectByVisibleText("ja");
+                }
+                else {
+                    realSelect.selectByVisibleText("nein");
+                }
+            }
+
+        }
+
+        finally {
+
+        }
+
     }
 
 
