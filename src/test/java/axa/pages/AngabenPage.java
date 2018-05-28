@@ -392,22 +392,22 @@ public class AngabenPage {
         }
     }
 
-    public void setVertragsdetails(String fzFuehrer, String gebDatum, String geschlecht, String nationalitaet, String plz, String kuendigung, String versBeginn, String vertragsDauer) throws InterruptedException {
+    public void setVertragsdetails(String fzFuehrer, String gebDatum, String geschlecht, String nationalitaet, String plz, String kuendigung, String versBeginn, String vertragsDauer, WebDriver driver) throws InterruptedException {
         this.vertragsdetailsSection.setFahrzeugfuehrer(fzFuehrer);
 
         //additional information needed
-        if (fzFuehrer.contentEquals("Nicht der häufigste Fahrzeugführer")) {
+        if (fzFuehrer.contentEquals("nicht der häufigste Fahrzeugführer")) {
             this.vertragsdetailsSection.setGebDatum(gebDatum);
             this.vertragsdetailsSection.setGeschlecht(geschlecht);
             this.vertragsdetailsSection.setNationality(nationalitaet);
             this.vertragsdetailsSection.setPLZ(plz);
             this.vertragsdetailsSection.setKuendigung(kuendigung);
-            this.vertragsdetailsSection.setVersicherungsbeginn(versBeginn);
+            this.vertragsdetailsSection.setVersicherungsbeginn(versBeginn, driver);
             this.vertragsdetailsSection.setVertragsDauer(vertragsDauer);
 
         }
         else {
-            this.vertragsdetailsSection.setVersicherungsbeginn(versBeginn);
+            this.vertragsdetailsSection.setVersicherungsbeginn(versBeginn, driver);
             this.vertragsdetailsSection.setVertragsDauer(vertragsDauer);
         }
     }
