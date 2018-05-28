@@ -21,6 +21,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
     public void newTest(Map<Object, Object> map) throws InterruptedException {
 
         RemoteWebDriver driver = (RemoteWebDriver) getDriver();
+        System.out.println("TESTCASE: " + (String)map.get("Testfall")) ;
 
         //Fahrzeugsuche
         FahrzeugsuchePage fahrzeugsuche = new FahrzeugsuchePage(driver);
@@ -38,6 +39,8 @@ public class AutoversicherungsAXADataNEW extends TestBase{
         fahrzeugsuche.selectPS((String) map.get("Leistung"));
         fahrzeugsuche.clickSearchButton();
 
+
+        System.out.println("TYP: " + (String) map.get("TYPBZ"));
         fahrzeugsuche.selectSpecificModel(driver, (String) map.get("TYPBZ"));
 
 //        //Angaben
