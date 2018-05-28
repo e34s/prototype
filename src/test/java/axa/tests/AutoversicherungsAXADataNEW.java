@@ -6,6 +6,7 @@ import axa.pages.PraemiePage;
 import axa.utils.ExcelAdapter;
 import axa.utils.StatusListener;
 import axa.utils.TestBase;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
@@ -82,8 +83,9 @@ public class AutoversicherungsAXADataNEW extends TestBase{
                 (String) map.get("Nationalität Versicherungsnehmer"),
                 (String) map.get("Postleitzahl Versicherungsnehmer"),
                 (String) map.get("Kündigung durch Vorversicherer"),
-                (String) map.get("Policenerstbeginn"),
-                (String) map.get("Dauer")
+                (String) map.get("Berechnungsdatum"),
+                (String) map.get("Dauer"),
+                driver
         );
 
 
