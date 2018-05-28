@@ -42,9 +42,14 @@ public class AngabenPageVertragsdetailsSection {
     @FindBy(css="#fl_vn_andere_versicherer_kuendigung_option > label:nth-child(4)")
     private WebElement kuendigungNein;
 
-
-    @FindBy(id="fl_versicherungsbeginn_other")
+    //this is the regular case
+    @FindBy(id="fl_versicherungsbeginn")
     private WebElement versBeginn;
+
+    //when Rahmenvertrag is used
+    @FindBy(id="fl_versicherungsbeginn_other")
+    private WebElement versBeginnOther;
+
 
     @FindBy(css="#fl_vertragsdauer_option > label:nth-child(2)")
     private WebElement dauer1Jahr;
@@ -58,8 +63,12 @@ public class AngabenPageVertragsdetailsSection {
 
     public void setFahrzeugfuehrer(String fahrzeugFuehrer) throws InterruptedException {
         if(!fahrzeugFuehrer.contentEquals("NA")) {
-            Select realSelect = new Select(fzFuehrer);
-            realSelect.selectByVisibleText(fahrzeugFuehrer);
+
+            //not ideal but it is coming like this from the Excel sheet
+            if (fahrzeugFuehrer.contentEquals("nicht der häufigste Fahrzeugführer")) {
+                Select realSelect = new Select(fzFuehrer);
+                realSelect.selectByVisibleText("Nicht der häufigste Fahrzeugführer");
+            }
         }
     }
 
@@ -183,12 +192,22 @@ public class AngabenPageVertragsdetailsSection {
     }
 
 
-    public void setVersicherungsbeginn(String versicherungsBeginn) throws InterruptedException {
+    public void setVersicherungsbeginn(String versicherungsBeginn, WebDriver driver) throws InterruptedException {
         if (versicherungsBeginn != null) {
             versicherungsBeginn = versicherungsBeginn.replace("-", ".");
             Thread.sleep(1000);
-            versBeginn.clear();
-            versBeginn.sendKeys(versicherungsBeginn);
+
+            //check LINKID, if 1000 & 8000 then no Rahmenvertrag -> use versBeginn
+            //otherwise use versBeginnOther
+            String url = driver.getCurrentUrl();
+            if (url.contains("LINKID=1000")) {
+                versBeginn.clear();
+                versBeginn.sendKeys(versicherungsBeginn);
+            }
+            else {
+                versBeginnOther.clear();
+                versBeginnOther.sendKeys(versicherungsBeginn);
+            }
             Thread.sleep(2000);
         }
     }

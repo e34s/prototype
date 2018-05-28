@@ -79,8 +79,14 @@ public class FahrzeugsuchePage {
 
             switch (fahrzeug) {
                 case "1.0":
-                    String linkId = getLinkId(rahmenvertrag);
-                    driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=" + linkId +"&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                    if (rahmenvertrag.contentEquals("Kein Rahmenvertrag")) {
+                        driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=1000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                    }
+                    else {
+                        String linkId = getLinkId(rahmenvertrag);
+                        getLinkId(rahmenvertrag);
+                        driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=" + linkId +"&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                    }
                     break;
 
                 case "2.0":
