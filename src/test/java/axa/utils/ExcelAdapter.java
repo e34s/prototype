@@ -52,8 +52,27 @@ public class ExcelAdapter {
 						System.out.println("BEFORE: " + cell.getDateCellValue());
 						SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						String date = formatter.format(cell.getDateCellValue());
-						System.out.println("AFTER:" + date );
+						//System.out.println("AFTER:" + date );
 						cell.setCellValue(date.toString());
+					}
+
+				}
+
+				//TODO: not working yet
+				else {
+					//check if formula (vlookup)
+					if(cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+						System.out.println("FORMULA is: " + cell.getCellFormula());
+						switch(cell.getCachedFormulaResultType()) {
+							case Cell.CELL_TYPE_NUMERIC:
+								System.out.println("MUMERIC - Last evaluated as: " + cell.getNumericCellValue());
+								cell.setCellValue(cell.getNumericCellValue());
+								break;
+							case Cell.CELL_TYPE_STRING:
+								System.out.println("STRING - Last evaluated as" + cell.getRichStringCellValue());
+								cell.setCellValue(cell.getRichStringCellValue());
+								break;
+						}
 					}
 				}
 
