@@ -99,9 +99,10 @@ public class AutoversicherungsAXADataNEW extends TestBase{
         //Prämien
         PraemiePage praemie = new PraemiePage(driver);
         praemie.selectKasko(
+                (String) map.get("Kollision"),
                 (String) map.get("Teilkasko"),
                 (String) map.get("SB ohne Koll"),
-                (String) map.get("SB Koll"),
+                (String) map.get("Selbstbehalt Kollision"),
                 (String) map.get("Selbstbehalt Teilkasko"));
 
         praemie.selectErgaenzungen(
