@@ -156,6 +156,7 @@ public class AngabenPage {
 
     public void enterKilometer(String kilometer) {
 
+        kilometer = kilometer.replace(".0", "");
         kilometers.sendKeys(kilometer);
     }
 
