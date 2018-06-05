@@ -74,19 +74,42 @@ public class PraemiePage {
 
 
     //Kasko
-    public void selectKasko(String teilKasko, String selbstbehaltAusserKollision, String selbstbehaltKollision, String selbstbehaltTeilkasko) throws InterruptedException {
+    public void selectKasko(String kollision, String teilKasko, String selbstbehaltAusserKollision, String selbstbehaltKollision, String selbstbehaltTeilkasko) throws InterruptedException {
 
-        if (teilKasko.contentEquals("Ja")) {
+        if(kollision.contentEquals("Ja")) {
+            Select realSelect = new Select(this.kasko);
+            realSelect.selectByVisibleText("Vollkasko");
+
+            //this.selectSelbstbehaltausserKollision(selbstbehaltAusserKollision); //TODO: which field in Excel?
+            this.selectSelbstbehaltKollision(selbstbehaltKollision);
+
+        }
+        else if (teilKasko.contentEquals("Ja")) {
             Select realSelect = new Select(this.kasko);
             realSelect.selectByVisibleText("Teilkasko");
 
             this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko);
 
         }
-        else //leave on Vollkasko which is the default
-        {
+        else {
+            Select realSelect = new Select(this.kasko);
+            realSelect.selectByVisibleText("Ohne Kasko");
 
         }
+
+
+
+//        if (teilKasko.contentEquals("Ja")) {
+//            Select realSelect = new Select(this.kasko);
+//            realSelect.selectByVisibleText("Teilkasko");
+//
+//            this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko);
+//
+//        }
+//        else //leave on Vollkasko which is the default
+//        {
+//
+//        }
 
 
 //        Select realSelect = new Select(this.kasko);
@@ -111,6 +134,11 @@ public class PraemiePage {
     public void selectSelbstbehaltKollision(String selbstbehalt) throws InterruptedException {
 
         if(!selbstbehalt.contentEquals("NA")) {
+            //convert number into CHF Format
+            //Excel provides i.e. 0.0 which needs to be converted to CHF 0
+            selbstbehalt = selbstbehalt.replaceAll("\\.0", "");
+            selbstbehalt = "CHF " + selbstbehalt;
+
             Select realSelect = new Select(selbstbehaltKollision);
             realSelect.selectByVisibleText(selbstbehalt);
         }
