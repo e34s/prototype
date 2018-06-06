@@ -102,7 +102,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
                 (String) map.get("Produkt"),
                 (String) map.get("Kollision"),
                 (String) map.get("Teilkasko"),
-                (String) map.get("SB ohne Koll"),
+                (String) map.get("Selbstbehalt Teilkasko"),
                 (String) map.get("Selbstbehalt Kollision"),
                 (String) map.get("Selbstbehalt Teilkasko"));
 
@@ -110,24 +110,25 @@ public class AutoversicherungsAXADataNEW extends TestBase{
                 (String) map.get("Mobilität"),
                 (String) map.get("Glasbruch"),
                 (String) map.get("Mitgeführte Sachen"),
-                (String) map.get("Teilkasko"),
-                (String) map.get("Parkschäden"),
+                (String) map.get("ParkschadenDeckung"),
                 (String) map.get("UnfallDeckung"),
                 (String) map.get("BonusschutzDeckung"),
                 (String) map.get("Telematik"),
                 driver);
 
 
-        Thread.sleep(2500);
         String product = (String) map.get("Produkt");
 
+        Thread.sleep(2000);
+
         if (product.contentEquals("Basic")) {
+            System.out.println("Basic Prämie");
             Assert.assertEquals(praemie.getBasicPraemie(), (String) map.get("Bruttoprämie"));
         }
         else if (product.contentEquals("Compact")) {
+            System.out.println("Compact Prämie");
             Assert.assertEquals(praemie.getCompactPrämie(), (String) map.get("Bruttoprämie"));
         }
-        Thread.sleep(5000);
 
     }
 }

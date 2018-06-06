@@ -88,14 +88,16 @@ public class PraemiePage {
 
         //check if basic or compact tarif
         if (produkt.contentEquals("Compact")) {
+            //Vollkasko
             if(kollision.contentEquals("Ja")) {
                 Select realSelect = new Select(this.kasko_compact);
                 realSelect.selectByVisibleText("Vollkasko");
 
-                //this.selectSelbstbehaltausserKollision(selbstbehaltAusserKollision); //TODO: which field in Excel?
+                this.selectSelbstbehaltausserKollision(selbstbehaltAusserKollision); //TODO: which field in Excel?
                 this.selectSelbstbehaltKollision(selbstbehaltKollision, true);
 
             }
+            //Teilkasko
             else if (teilKasko.contentEquals("Ja")) {
                 Select realSelect = new Select(this.kasko_compact);
                 realSelect.selectByVisibleText("Teilkasko");
@@ -103,6 +105,7 @@ public class PraemiePage {
                 this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko);
 
             }
+            //no Kasko
             else {
                 Select realSelect = new Select(this.kasko_basic);
                 realSelect.selectByVisibleText("Ohne Kasko");
@@ -117,7 +120,7 @@ public class PraemiePage {
                 Select realSelect = new Select(this.kasko_basic);
                 realSelect.selectByVisibleText("Vollkasko");
 
-                //this.selectSelbstbehaltausserKollision(selbstbehaltAusserKollision); //TODO: which field in Excel?
+                this.selectSelbstbehaltausserKollision(selbstbehaltAusserKollision); //TODO: which field in Excel?
                 this.selectSelbstbehaltKollision(selbstbehaltKollision, false);
 
             }
@@ -165,12 +168,25 @@ public class PraemiePage {
 //        }
     }
 
+    //Teilkasko SB
     public void selectSelbstbehaltausserKollision(String selbstbehalt) throws InterruptedException {
+        if(!selbstbehalt.contentEquals("NA")) {
+            //convert number into CHF Format
+            //Excel provides i.e. 0.0 which needs to be converted to CHF 0
+            selbstbehalt = selbstbehalt.replaceAll("\\.0", "");
+            selbstbehalt = "CHF " + selbstbehalt;
+
+            Select realSelect = new Select(selbstbehaltAusserKollision);
+            realSelect.selectByVisibleText(selbstbehalt);
+        }
+
+
 
         Select realSelect = new Select(selbstbehaltAusserKollision);
         realSelect.selectByVisibleText(selbstbehalt);
     }
 
+    //Vollkasko SB
     public void selectSelbstbehaltKollision(String selbstbehalt, Boolean compact) throws InterruptedException {
 
         if(!selbstbehalt.contentEquals("NA")) {
@@ -211,6 +227,7 @@ public class PraemiePage {
 
         if(!mobility.contentEquals("NA")) {
 
+            System.out.println("Mobility: " + mobility);
             if (mobility.contentEquals("ohne")) {
                 Select realSelect = new Select(this.mobility);
                 realSelect.selectByVisibleText("nein");
@@ -221,6 +238,9 @@ public class PraemiePage {
 
     private void selectGlasbruch(String glasbruch) {
         if (!glasbruch.contentEquals("NA")) {
+
+            System.out.println("Glasbruch: " + glasbruch);
+
 
             if (glasbruch.contentEquals("Glasbruch Plus")) {
                 Select realSelect = new Select(this.glasbruch_compact);
@@ -238,6 +258,8 @@ public class PraemiePage {
 
         if(!mitgefuehrteSachen.contentEquals("NA")) {
 
+            System.out.println("Mitgeführte Sachen: " + mitgefuehrteSachen);
+
             if (mitgefuehrteSachen.contentEquals("ohne")) {
                 Select realSelect = new Select(this.mitgefuehrteSachen);
                 realSelect.selectByVisibleText("nein");
@@ -248,20 +270,35 @@ public class PraemiePage {
         }
     }
 
-    public void selectParkschaden(String pSchaden, String teilkasko) throws InterruptedException {
+    //TODO: UGLY !!!
+    public void selectParkschaden(String pSchaden) throws InterruptedException {
 
-        if(!pSchaden.contentEquals("NA")) {
+        System.out.println("Parkschaden: " + pSchaden);
 
-            //Parkschaden not visible with Teilkasko
-            if (teilkasko.contentEquals("Ja")) {
-                //skip this field
-            }
-            else  {
-                Select realSelect = new Select(parkschaden);
-                realSelect.selectByVisibleText(pSchaden);
+
+
+        try {
+            System.out.println("trying to find parkschaden");
+            Select realSelect = new Select(this.parkschaden);
+            if(!pSchaden.contentEquals("NA")) {
+                if (pSchaden.contentEquals("Normal")) {
+                    realSelect.selectByVisibleText("ja");
+                }
+                else {
+                    realSelect.selectByVisibleText("nein");
+                }
             }
 
         }
+        catch (ElementNotVisibleException e) {
+
+            System.out.println("parkschaden not visible -> SKIP");
+        }
+
+        finally {
+
+        }
+
     }
 
 
@@ -269,6 +306,8 @@ public class PraemiePage {
     public void selectUnfallversicherung(String unfallversicherung) throws InterruptedException {
 
         if(!unfallversicherung.contentEquals("NA")) {
+
+            System.out.println("Unfallversicherung: " + unfallversicherung);
 
             if (unfallversicherung.contentEquals("Ja")) {
                 Select realSelect = new Select(unfallVersicherung);
@@ -283,6 +322,9 @@ public class PraemiePage {
     public void selectBonusschutz(String bonusschutz) throws InterruptedException {
 
         if(!bonusschutz.contentEquals("NA")) {
+
+            System.out.println("Bonusschutz: " + bonusschutz);
+
             bonusschutz = bonusschutz.toLowerCase();
             Select realSelect = new Select(this.bonusschutz);
             realSelect.selectByVisibleText(bonusschutz);
@@ -292,8 +334,9 @@ public class PraemiePage {
     //TODO: FIX THIS,EXTREMELY UGLY
     public void selectCrashrecorder(String telematik) throws InterruptedException {
 
-        WebElement localCrashRecorder;
-        Thread.sleep(5000);
+
+        System.out.println("Crash Recorder: " + telematik);
+
 
 
         try {
@@ -338,7 +381,6 @@ public class PraemiePage {
             String mobility,
             String glasbruch,
             String mitgefuehrteSachen,
-            String teilkasko,
             String parkschaden,
             String unfallversicherung,
             String bonusschutz,
@@ -348,7 +390,7 @@ public class PraemiePage {
         this.selectMobility(mobility);
         this.selectGlasbruch(glasbruch);
         this.selectMitgefuehrteSachen(mitgefuehrteSachen, driver);
-        this.selectParkschaden(parkschaden,teilkasko);
+        this.selectParkschaden(parkschaden);
         this.selectUnfallversicherung(unfallversicherung);
         this.selectBonusschutz(bonusschutz);
         this.selectCrashrecorder(crashrecorder);
