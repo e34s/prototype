@@ -99,6 +99,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
         //Prämien
         PraemiePage praemie = new PraemiePage(driver);
         praemie.selectKasko(
+                (String) map.get("Produkt"),
                 (String) map.get("Kollision"),
                 (String) map.get("Teilkasko"),
                 (String) map.get("SB ohne Koll"),
@@ -107,6 +108,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
 
         praemie.selectErgaenzungen(
                 (String) map.get("Mobilität"),
+                (String) map.get("Glasbruch"),
                 (String) map.get("Mitgeführte Sachen"),
                 (String) map.get("Teilkasko"),
                 (String) map.get("Parkschäden"),
@@ -117,8 +119,14 @@ public class AutoversicherungsAXADataNEW extends TestBase{
 
 
         Thread.sleep(2500);
-        Assert.assertEquals(praemie.getBasicPraemie(), (String) map.get("Bruttoprämie"));
+        String product = (String) map.get("Produkt");
 
+        if (product.contentEquals("Basic")) {
+            Assert.assertEquals(praemie.getBasicPraemie(), (String) map.get("Bruttoprämie"));
+        }
+        else if (product.contentEquals("Compact")) {
+            Assert.assertEquals(praemie.getCompactPrämie(), (String) map.get("Bruttoprämie"));
+        }
         Thread.sleep(5000);
 
     }

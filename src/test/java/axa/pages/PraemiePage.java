@@ -23,19 +23,28 @@ public class PraemiePage {
     private WebElement praemiecompact;
 
     @FindBy(id="lp_kasko_option_basic")
-    private WebElement kasko;
+    private WebElement kasko_basic;
+
+    @FindBy(id="lp_kasko_option_compact")
+    private WebElement kasko_compact;
 
     @FindBy(id="lp_vollkasko_selbstbehalt-mf_basic")
     private WebElement selbstbehaltAusserKollision;
 
     @FindBy(id="lp_vollkasko_kollision_selbstbehalt-mf_basic")
-    private WebElement selbstbehaltKollision;
+    private WebElement selbstbehaltKollision_basic;
+
+    @FindBy(id="lp_vollkasko_kollision_selbstbehalt-mf_compact")
+    private WebElement selbstbehaltKollision_compact;
 
     @FindBy(id="lp_teilkasko_selbstbehalt-mf_basic")
     private WebElement selbstbehaltTeilkasko;
 
     @FindBy(id="lp_mobilitaet-mf_basic")
     private WebElement mobility;
+
+    @FindBy(id="lp_glasbruch_plus_auto-mf_compact")
+    private WebElement glasbruch_compact;
 
     @FindBy(id="lp_mitgefuehrte_sachen-mf_basic")
     private WebElement mitgefuehrteSachen;
@@ -66,7 +75,7 @@ public class PraemiePage {
         return praemiebasic.getText();
     }
 
-    public String getBasicCompact() {
+    public String getCompactPrämie() {
         return praemiecompact.getText();
     }
 
@@ -74,33 +83,64 @@ public class PraemiePage {
 
 
     //Kasko
-    public void selectKasko(String kollision, String teilKasko, String selbstbehaltAusserKollision, String selbstbehaltKollision, String selbstbehaltTeilkasko) throws InterruptedException {
+    public void selectKasko(String produkt, String kollision, String teilKasko, String selbstbehaltAusserKollision, String selbstbehaltKollision, String selbstbehaltTeilkasko) throws InterruptedException {
 
-        if(kollision.contentEquals("Ja")) {
-            Select realSelect = new Select(this.kasko);
-            realSelect.selectByVisibleText("Vollkasko");
 
-            //this.selectSelbstbehaltausserKollision(selbstbehaltAusserKollision); //TODO: which field in Excel?
-            this.selectSelbstbehaltKollision(selbstbehaltKollision);
+        //check if basic or compact tarif
+        if (produkt.contentEquals("Compact")) {
+            if(kollision.contentEquals("Ja")) {
+                Select realSelect = new Select(this.kasko_compact);
+                realSelect.selectByVisibleText("Vollkasko");
+
+                //this.selectSelbstbehaltausserKollision(selbstbehaltAusserKollision); //TODO: which field in Excel?
+                this.selectSelbstbehaltKollision(selbstbehaltKollision, true);
+
+            }
+            else if (teilKasko.contentEquals("Ja")) {
+                Select realSelect = new Select(this.kasko_compact);
+                realSelect.selectByVisibleText("Teilkasko");
+
+                this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko);
+
+            }
+            else {
+                Select realSelect = new Select(this.kasko_basic);
+                realSelect.selectByVisibleText("Ohne Kasko");
+
+            }
 
         }
-        else if (teilKasko.contentEquals("Ja")) {
-            Select realSelect = new Select(this.kasko);
-            realSelect.selectByVisibleText("Teilkasko");
 
-            this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko);
+        //Basic
+        else if (produkt.contentEquals("Basic")) {
+            if(kollision.contentEquals("Ja")) {
+                Select realSelect = new Select(this.kasko_basic);
+                realSelect.selectByVisibleText("Vollkasko");
 
+                //this.selectSelbstbehaltausserKollision(selbstbehaltAusserKollision); //TODO: which field in Excel?
+                this.selectSelbstbehaltKollision(selbstbehaltKollision, false);
+
+            }
+            else if (teilKasko.contentEquals("Ja")) {
+                Select realSelect = new Select(this.kasko_basic);
+                realSelect.selectByVisibleText("Teilkasko");
+
+                this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko);
+
+            }
+            else {
+                Select realSelect = new Select(this.kasko_basic);
+                realSelect.selectByVisibleText("Ohne Kasko");
+
+            }
         }
-        else {
-            Select realSelect = new Select(this.kasko);
-            realSelect.selectByVisibleText("Ohne Kasko");
 
-        }
+
 
 
 
 //        if (teilKasko.contentEquals("Ja")) {
-//            Select realSelect = new Select(this.kasko);
+//            Select realSelect = new Select(this.kasko_basic);
 //            realSelect.selectByVisibleText("Teilkasko");
 //
 //            this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko);
@@ -112,15 +152,15 @@ public class PraemiePage {
 //        }
 
 
-//        Select realSelect = new Select(this.kasko);
-//        realSelect.selectByVisibleText(kasko);
+//        Select realSelect = new Select(this.kasko_basic);
+//        realSelect.selectByVisibleText(kasko_basic);
 //
 //
-//        if (kasko.contentEquals("Vollkasko")) {
+//        if (kasko_basic.contentEquals("Vollkasko")) {
 //            this.selectSelbstbehaltausserKollision(selbstbehaltAusserKollision);
-//            this.selectSelbstbehaltKollision(selbstbehaltKollision);
+//            this.selectSelbstbehaltKollision(selbstbehaltKollision_basic);
 //        }
-//        else if (kasko.contentEquals("Teilkasko")) {
+//        else if (kasko_basic.contentEquals("Teilkasko")) {
 //            this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko);
 //        }
     }
@@ -131,7 +171,7 @@ public class PraemiePage {
         realSelect.selectByVisibleText(selbstbehalt);
     }
 
-    public void selectSelbstbehaltKollision(String selbstbehalt) throws InterruptedException {
+    public void selectSelbstbehaltKollision(String selbstbehalt, Boolean compact) throws InterruptedException {
 
         if(!selbstbehalt.contentEquals("NA")) {
             //convert number into CHF Format
@@ -139,8 +179,15 @@ public class PraemiePage {
             selbstbehalt = selbstbehalt.replaceAll("\\.0", "");
             selbstbehalt = "CHF " + selbstbehalt;
 
-            Select realSelect = new Select(selbstbehaltKollision);
-            realSelect.selectByVisibleText(selbstbehalt);
+            if(compact) {
+                Select realSelect = new Select(selbstbehaltKollision_compact);
+                realSelect.selectByVisibleText(selbstbehalt);
+            }
+            else {
+                Select realSelect = new Select(selbstbehaltKollision_basic);
+                realSelect.selectByVisibleText(selbstbehalt);
+            }
+
         }
     }
 
@@ -169,6 +216,19 @@ public class PraemiePage {
                 realSelect.selectByVisibleText("nein");
             }
             //no else case as "Schweiz" is already pre selected
+        }
+    }
+
+    private void selectGlasbruch(String glasbruch) {
+        if (!glasbruch.contentEquals("NA")) {
+
+            if (glasbruch.contentEquals("Glasbruch Plus")) {
+                Select realSelect = new Select(this.glasbruch_compact);
+                realSelect.selectByVisibleText("Glasbruch Plus");
+            } else {
+                Select realSelect = new Select(this.glasbruch_compact);
+                realSelect.selectByVisibleText("Basisschutz");
+            }
         }
     }
 
@@ -276,6 +336,7 @@ public class PraemiePage {
 
     public void selectErgaenzungen(
             String mobility,
+            String glasbruch,
             String mitgefuehrteSachen,
             String teilkasko,
             String parkschaden,
@@ -285,11 +346,14 @@ public class PraemiePage {
             WebDriver driver ) throws InterruptedException {
 
         this.selectMobility(mobility);
+        this.selectGlasbruch(glasbruch);
         this.selectMitgefuehrteSachen(mitgefuehrteSachen, driver);
         this.selectParkschaden(parkschaden,teilkasko);
         this.selectUnfallversicherung(unfallversicherung);
         this.selectBonusschutz(bonusschutz);
         this.selectCrashrecorder(crashrecorder);
     }
+
+
 
 }
