@@ -49,6 +49,9 @@ public class AngabenPageSchadenSection {
     }
 
     public void setSchadenJahr(String schadenjahr) throws InterruptedException {
+
+        schadenjahr = schadenjahr.substring(6, 10);
+
         if(!schadenjahr.contentEquals("NA")) {
             Select realSelect = new Select(schadenJahr);
             realSelect.selectByVisibleText(schadenjahr);
@@ -57,6 +60,10 @@ public class AngabenPageSchadenSection {
 
     public void setDiebstahl(String diebstahl) throws InterruptedException {
         if(!diebstahl.contentEquals("NA")) {
+
+            //TODO: add cases when more than 1 Schaden has ocurred (2 Schäden)
+            diebstahl = diebstahl.substring(0,1) + " Schaden";
+
             Select realSelect = new Select(this.diebstahl);
             realSelect.selectByVisibleText(diebstahl);
         }
@@ -64,6 +71,19 @@ public class AngabenPageSchadenSection {
 
     public void setParkschaden(String parkschaden) throws InterruptedException {
         if(!parkschaden.contentEquals("NA")) {
+
+            //TODO: add case when more than 3 Schäden have ocurred (mehr als 3 Schäden)
+            parkschaden = parkschaden.substring(0,1);
+            if (parkschaden.contentEquals("0")) {
+                parkschaden = "keinen Schaden";
+            }
+            else if (parkschaden.contentEquals("1")) {
+                parkschaden = parkschaden + " Schaden";
+            }
+            else {
+                parkschaden = parkschaden + " Schäden";
+            }
+
             Select realSelect = new Select(this.parkschaden);
             realSelect.selectByVisibleText(parkschaden);
         }
@@ -71,13 +91,29 @@ public class AngabenPageSchadenSection {
 
     public void setKollisionsSchaden(String kollisionsschaden) throws InterruptedException {
         if(!kollisionsschaden.contentEquals("NA")) {
+
+            //TODO: add case when more than 3 Schäden have ocurred (mehr als 3 Schäden)
+            kollisionsschaden = kollisionsschaden.substring(0,1);
+            if (kollisionsschaden.contentEquals("0")) {
+                kollisionsschaden = "keinen Schaden";
+            }
+            else if (kollisionsschaden.contentEquals("1")) {
+                kollisionsschaden = kollisionsschaden + " Schaden";
+            }
+            else {
+                kollisionsschaden = kollisionsschaden + " Schäden";
+            }
+
+
             Select realSelect = new Select(kSchaden);
             realSelect.selectByVisibleText(kollisionsschaden);
         }
     }
 
     public void setkollisionSchadenJahr(String kollisionsschadenjahr) throws InterruptedException {
-        if(!kollisionsschadenjahr.contentEquals("NA")) {
+        if( !kollisionsschadenjahr.contentEquals("")) {
+            kollisionsschadenjahr = kollisionsschadenjahr.substring(6, 10);
+
             Select realSelect = new Select(kollisionsSchadenJahr);
             realSelect.selectByVisibleText(kollisionsschadenjahr);
         }

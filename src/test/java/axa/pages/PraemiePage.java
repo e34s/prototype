@@ -264,8 +264,10 @@ public class PraemiePage {
                 Select realSelect = new Select(this.mitgefuehrteSachen);
                 realSelect.selectByVisibleText("nein");
             }
-            if (mitgefuehrteSachen.contentEquals("ja")) {
-                wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("lp_mitgefuehrte_sachen_leistungstext_basic"))));
+            if (mitgefuehrteSachen.contentEquals("Normal")) {
+//                wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("lp_mitgefuehrte_sachen_leistungstext_basic"))));
+                Select realSelect = new Select(this.mitgefuehrteSachen);
+                realSelect.selectByVisibleText("ja");
             }
         }
     }

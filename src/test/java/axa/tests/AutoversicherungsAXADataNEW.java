@@ -71,11 +71,11 @@ public class AutoversicherungsAXADataNEW extends TestBase{
                 driver,
                 (String) map.get("Schäden letzte 5 Jahre"),
                 (String) map.get("Haftpflichtschäden Anzahl"),
-                (String) map.get("schadenJahr"),
-                (String) map.get("Fahrzeugdiebstaehle"),
-                (String) map.get("Parkschaeden"),
-                (String) map.get("kollisionsschaden"),
-                (String) map.get("kollisionsSchadenJahr"));
+                (String) map.get("letztesHaftSchadenDatum"),
+                (String) map.get("Fahrzeugdiebstahl"),
+                (String) map.get("Parkschäden"),
+                (String) map.get("Vollkaskoschäden"),
+                (String) map.get("letztesKollisionSchadenDatum"));
 //                //TODO: scroll down on page
 //
         //Vertragsdetails

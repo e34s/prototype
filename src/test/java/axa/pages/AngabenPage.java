@@ -362,7 +362,7 @@ public class AngabenPage {
         }
     }
 
-    public void setSchaden(WebDriver driver, String s, String schaden, String haftpflichtSchaden, String schadenJahr, String diebstahl, String parkschaden, String kollisionsSchaden) throws InterruptedException {
+    public void setSchaden(WebDriver driver, String schaden, String haftpflichtSchaden, String schadenJahr, String diebstahl, String parkschaden, String kollisionsSchaden, String kollisionsSchadenJahr) throws InterruptedException {
 
         if (schaden != null) {
 
@@ -375,11 +375,11 @@ public class AngabenPage {
                     schadenJa.click();
 
                     this.schadenSection.sethaftPflichtSchaden(haftpflichtSchaden);
-//                    this.schadenSection.setSchadenJahr(schadenJahr);
-//                    this.schadenSection.setDiebstahl(diebstahl);
-//                    this.schadenSection.setParkschaden(parkschaden);
-//                    this.schadenSection.setKollisionsSchaden(kollisionsSchaden);
-                    //this.schadenSection.setkollisionSchadenJahr(kollisionsSchadenJahr);
+                    this.schadenSection.setSchadenJahr(schadenJahr);
+                    this.schadenSection.setDiebstahl(diebstahl);
+                    this.schadenSection.setParkschaden(parkschaden);
+                    this.schadenSection.setKollisionsSchaden(kollisionsSchaden);
+                    this.schadenSection.setkollisionSchadenJahr(kollisionsSchadenJahr);
                     break;
 
                 case "NEIN":
@@ -401,7 +401,7 @@ public class AngabenPage {
             this.vertragsdetailsSection.setGebDatum(gebDatum);
             this.vertragsdetailsSection.setGeschlecht(geschlecht);
             this.vertragsdetailsSection.setNationality(nationalitaet);
-            this.vertragsdetailsSection.setPLZ(plz);
+            this.vertragsdetailsSection.setPLZ(driver, plz);
             this.vertragsdetailsSection.setKuendigung(kuendigung);
             this.vertragsdetailsSection.setVersicherungsbeginn(versBeginn, driver);
             this.vertragsdetailsSection.setVertragsDauer(vertragsDauer);

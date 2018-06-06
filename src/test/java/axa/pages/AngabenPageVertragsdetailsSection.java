@@ -6,6 +6,7 @@
 
 package axa.pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -171,7 +172,9 @@ public class AngabenPageVertragsdetailsSection {
         realSelect.selectByVisibleText(nation);
     }
 
-    public void setPLZ(String postleitzahl) throws InterruptedException {
+    public void setPLZ(WebDriver driver, String postleitzahl) throws InterruptedException {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", plz);
+
         plz.sendKeys(postleitzahl);
     }
 
