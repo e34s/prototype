@@ -45,9 +45,17 @@ public class AngabenPageSchadenSection {
 
         System.out.println("Haftpflichtschaden: " + haftpflichtschaden);
 
-        if(!haftpflichtschaden.contentEquals("NA")) {
+        if(haftpflichtschaden.contentEquals("kein Schaden")) {
             Select realSelect = new Select(haftPflichtSchaeden);
-            realSelect.selectByVisibleText(haftpflichtschaden);
+            realSelect.selectByVisibleText("keinen Schaden");
+        }
+        else if (haftpflichtschaden.contentEquals("1 Schaden")) {
+            Select realSelect = new Select(haftPflichtSchaeden);
+            realSelect.selectByVisibleText("1 Schaden");
+        }
+        else {
+            Select realSelect = new Select(haftPflichtSchaeden);
+            realSelect.selectByVisibleText("Mehr als 1 Schaden");
         }
     }
 
@@ -66,13 +74,30 @@ public class AngabenPageSchadenSection {
     public void setDiebstahl(String diebstahl) throws InterruptedException {
         System.out.println("Diebstahl: " + diebstahl);
 
+        String visibleText = "";
+
         if(!diebstahl.contentEquals("NA")) {
 
-            //TODO: add cases when more than 1 Schaden has ocurred (2 Schäden)
+
+            //TODO: add cases when more than 1 Schaden has occurred (2 Schäden)
             diebstahl = diebstahl.substring(0,1) + " Schaden";
 
+            if (diebstahl.contentEquals("0 Schaden")) {
+                visibleText = "keinen Schaden";
+            }
+            else if (diebstahl.contentEquals("1 Schaden")) {
+                visibleText = "1 Schaden";
+            }
+            else if (diebstahl.contentEquals("2 Schaden")) {
+                visibleText = "2 Schäden";
+            }
+            else if (diebstahl.contentEquals("3 Schaden")) {
+                visibleText = "3 Schäden";
+            }
+
+
             Select realSelect = new Select(this.diebstahl);
-            realSelect.selectByVisibleText(diebstahl);
+            realSelect.selectByVisibleText(visibleText);
         }
     }
 
@@ -84,6 +109,8 @@ public class AngabenPageSchadenSection {
 
             //TODO: add case when more than 3 Schäden have ocurred (mehr als 3 Schäden)
             parkschaden = parkschaden.substring(0,1);
+
+
             if (parkschaden.contentEquals("0")) {
                 parkschaden = "keinen Schaden";
             }

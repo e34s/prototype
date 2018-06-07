@@ -413,7 +413,13 @@ public class AngabenPage {
                     schadenJa.click();
 
                     this.schadenSection.sethaftPflichtSchaden(haftpflichtSchaden);
-                    this.schadenSection.setSchadenJahr(schadenJahr);
+                    if (haftpflichtSchaden.contentEquals("kein Schaden")) {
+                        //do nothing
+                    }
+                    else {
+                        this.schadenSection.setSchadenJahr(schadenJahr);
+                    }
+
                     this.schadenSection.setDiebstahl(diebstahl);
                     this.schadenSection.setParkschaden(parkschaden);
                     this.schadenSection.setKollisionsSchaden(kollisionsSchaden);

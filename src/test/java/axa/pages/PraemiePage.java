@@ -317,7 +317,7 @@ public class PraemiePage {
     public void selectMitgefuehrteSachen(String produkt, String mitgefuehrteSachen, WebDriver driver) throws InterruptedException {
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        System.out.println("Glasbruch: " + mitgefuehrteSachen);
+        System.out.println("Mitgeführte Sachen: " + mitgefuehrteSachen);
 
         //Basic
         if (produkt.contentEquals("Basic")) {
@@ -374,33 +374,41 @@ public class PraemiePage {
 
         System.out.println("Parkschaden: " + pSchaden);
 
-        //Basic
-        if (produkt.contentEquals("Basic")) {
-            if (pSchaden.contentEquals("ohne")) {
-                Select realSelect = new Select(this.parkschaden_basic);
-                realSelect.selectByVisibleText("nein");
-            }
-            else if (pSchaden.contentEquals("Normal")) {
-                Select realSelect = new Select(this.parkschaden_basic);
-                realSelect.selectByVisibleText("ja");
-            }
-        }
-
-        //Compact
-        else if (produkt.contentEquals("Compact")) {
-            if (pSchaden.contentEquals("ohne")) {
-                Select realSelect = new Select(this.parkschaden_compact);
-                realSelect.selectByVisibleText("nein");
-            }
-            else if (pSchaden.contentEquals("Plus")) {
-                Select realSelect = new Select(this.parkschaden_compact);
-                realSelect.selectByVisibleText("ja");
+        try {
+            //Basic
+            if (produkt.contentEquals("Basic")) {
+                if (pSchaden.contentEquals("ohne")) {
+                    Select realSelect = new Select(this.parkschaden_basic);
+                    realSelect.selectByVisibleText("nein");
+                }
+                else if (pSchaden.contentEquals("Normal")) {
+                    Select realSelect = new Select(this.parkschaden_basic);
+                    realSelect.selectByVisibleText("ja");
+                }
             }
 
+            //Compact
+            else if (produkt.contentEquals("Compact")) {
+                if (pSchaden.contentEquals("ohne")) {
+                    Select realSelect = new Select(this.parkschaden_compact);
+                    realSelect.selectByVisibleText("nein");
+                }
+                else if (pSchaden.contentEquals("Plus")) {
+                    Select realSelect = new Select(this.parkschaden_compact);
+                    realSelect.selectByVisibleText("ja");
+                }
+
+            }
+            else {
+                System.out.println("INVALID - Parkschaden");
+            }
+
         }
-        else {
-            System.out.println("INVALID - Parkschaden");
+
+        catch (ElementNotVisibleException e) {
+            //do nothing
         }
+
 
 
 
@@ -506,14 +514,29 @@ public class PraemiePage {
         //TODO: check when crash recorder rabatt 15% is displayed
 
         if (produkt.contentEquals("Basic")) {
-            if (telematik.contentEquals("Nein")) {
-                Select realSelect = new Select(this.crashrecorder_basic_ohne_rabatt);
-                realSelect.selectByVisibleText("nein");
+            try {
+                if (telematik.contentEquals("Nein")) {
+                    Select realSelect = new Select(this.crashrecorder_basic_ohne_rabatt);
+                    realSelect.selectByVisibleText("nein");
+                }
+                else if (telematik.contentEquals("Crash Recorder")) {
+                    Select realSelect = new Select(this.crashrecorder_basic_ohne_rabatt);
+                    realSelect.selectByVisibleText("ja");
+                }
             }
-            else if (telematik.contentEquals("Crash Recorder")) {
-                Select realSelect = new Select(this.crashrecorder_basic_ohne_rabatt);
-                realSelect.selectByVisibleText("ja");
+            catch (ElementNotVisibleException e) {
+                if (telematik.contentEquals("Nein")) {
+                    Select realSelect = new Select(this.crashrecorder_basic_mit_rabatt);
+                    realSelect.selectByVisibleText("nein");
+                }
+                else if (telematik.contentEquals("Crash Recorder")) {
+                    Select realSelect = new Select(this.crashrecorder_basic_mit_rabatt);
+                    realSelect.selectByVisibleText("ja");
+                }
+
             }
+
+
         }
 
         else if (produkt.contentEquals("Compact")) {
