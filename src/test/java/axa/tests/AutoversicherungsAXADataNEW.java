@@ -107,6 +107,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
                 (String) map.get("Selbstbehalt Teilkasko"));
 
         praemie.selectErgaenzungen(
+                (String) map.get("Produkt"),
                 (String) map.get("Mobilität"),
                 (String) map.get("Glasbruch"),
                 (String) map.get("Mitgeführte Sachen"),

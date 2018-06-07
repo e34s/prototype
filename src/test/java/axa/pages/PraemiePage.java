@@ -80,10 +80,14 @@ public class PraemiePage {
 
     @FindBy(id="lp_crashrecorder_mit_rabatt_option-mf_basic")
     private WebElement crashrecorder_basic_mit_rabatt;
-
     @FindBy(id="lp_crashrecorder_option-mf_basic")
     private WebElement crashrecorder_basic_ohne_rabatt;
 
+
+    @FindBy(id="lp_crashrecorder_mit_rabatt_option-mf_compact")
+    private WebElement crashrecorder_compact_mit_rabatt;
+    @FindBy(id="lp_crashrecorder_option-mf_compact")
+    private WebElement crashrecorder_compact_ohne_rabatt;
 
     public PraemiePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -253,38 +257,101 @@ public class PraemiePage {
 
 
     //Ergänzungen
-    public void selectMobility(String mobility) throws InterruptedException {
+    public void selectMobility(String produkt, String mobility) throws InterruptedException {
+        System.out.println("Mobility: " + mobility);
 
-        if(!mobility.contentEquals("NA")) {
-
-            System.out.println("Mobility: " + mobility);
+        //Basic
+        if (produkt.contentEquals("Basic")) {
             if (mobility.contentEquals("ohne")) {
                 Select realSelect = new Select(this.mobility_basic);
                 realSelect.selectByVisibleText("nein");
             }
-            //no else case as "Schweiz" is already pre selected
+            else if (mobility.contentEquals("Schweiz")) {
+                Select realSelect = new Select(this.mobility_basic);
+                realSelect.selectByVisibleText("Schweiz");
+            }
         }
+        //Compact
+        else if (produkt.contentEquals("Compact")) {
+            if (mobility.contentEquals("Schweiz")) {
+                Select realSelect = new Select(this.mobility_compact);
+                realSelect.selectByVisibleText("Schweiz");
+            }
+            else if (mobility.contentEquals("Plus")) {
+                Select realSelect = new Select(this.mobility_compact);
+                realSelect.selectByVisibleText("Schweiz und Europa");
+            }
+
+        }
+        else {
+            System.out.println("INVALID - mobility");
+        }
+
     }
 
-    private void selectGlasbruch(String glasbruch) {
-        if (!glasbruch.contentEquals("NA")) {
+    private void selectGlasbruch(String produkt, String glasbruch) {
+        System.out.println("Glasbruch: " + glasbruch);
 
-            System.out.println("Glasbruch: " + glasbruch);
+        //Basic
+        if (produkt.contentEquals("Basic")) {
+            //no selection options
 
-
-            if (glasbruch.contentEquals("Glasbruch Plus")) {
-                Select realSelect = new Select(this.glasbruch_compact);
-                realSelect.selectByVisibleText("Glasbruch Plus");
-            } else {
+        }
+        //Compact
+        else if (produkt.contentEquals("Compact")) {
+            if (glasbruch.contentEquals("Glasbruch")) {
                 Select realSelect = new Select(this.glasbruch_compact);
                 realSelect.selectByVisibleText("Basisschutz");
             }
+            else if (glasbruch.contentEquals("Glasbruch Plus")) {
+                Select realSelect = new Select(this.glasbruch_compact);
+                realSelect.selectByVisibleText("Glasbruch Plus");
+            }
+
+        }
+        else {
+            System.out.println("INVALID - Glasbruch");
         }
     }
 
-    public void selectMitgefuehrteSachen(String mitgefuehrteSachen, WebDriver driver) throws InterruptedException {
+    public void selectMitgefuehrteSachen(String produkt, String mitgefuehrteSachen, WebDriver driver) throws InterruptedException {
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
+        System.out.println("Glasbruch: " + mitgefuehrteSachen);
+
+        //Basic
+        if (produkt.contentEquals("Basic")) {
+            if (mitgefuehrteSachen.contentEquals("ohne")) {
+                Select realSelect = new Select(this.mitgefuehrteSachen_basic);
+                realSelect.selectByVisibleText("nein");
+            }
+            else if (mitgefuehrteSachen.contentEquals("Normal")) {
+                Select realSelect = new Select(this.mitgefuehrteSachen_basic);
+                realSelect.selectByVisibleText("ja");
+            }
+        }
+
+        //Compact
+        else if (produkt.contentEquals("Compact")) {
+            if (mitgefuehrteSachen.contentEquals("ohne")) {
+                Select realSelect = new Select(this.mitgefuehrteSachen_compact);
+                realSelect.selectByVisibleText("nein");
+            }
+            else if (mitgefuehrteSachen.contentEquals("Plus")) {
+                Select realSelect = new Select(this.mitgefuehrteSachen_compact);
+                realSelect.selectByVisibleText("ja");
+            }
+
+        }
+        else {
+            System.out.println("INVALID - Mitgeführte Sachen");
+        }
+
+
+
+
+
+
 
         if(!mitgefuehrteSachen.contentEquals("NA")) {
 
@@ -303,113 +370,214 @@ public class PraemiePage {
     }
 
     //TODO: UGLY !!!
-    public void selectParkschaden(String pSchaden) throws InterruptedException {
+    public void selectParkschaden(String produkt, String pSchaden) throws InterruptedException {
 
         System.out.println("Parkschaden: " + pSchaden);
 
-
-
-        try {
-            System.out.println("trying to find parkschaden_basic");
-            Select realSelect = new Select(this.parkschaden_basic);
-            if(!pSchaden.contentEquals("NA")) {
-                if (pSchaden.contentEquals("Normal")) {
-                    realSelect.selectByVisibleText("ja");
-                }
-                else {
-                    realSelect.selectByVisibleText("nein");
-                }
+        //Basic
+        if (produkt.contentEquals("Basic")) {
+            if (pSchaden.contentEquals("ohne")) {
+                Select realSelect = new Select(this.parkschaden_basic);
+                realSelect.selectByVisibleText("nein");
             }
-
-        }
-        catch (ElementNotVisibleException e) {
-
-            System.out.println("parkschaden_basic not visible -> SKIP");
-        }
-
-        finally {
-
-        }
-
-    }
-
-
-
-    public void selectUnfallversicherung(String unfallversicherung) throws InterruptedException {
-
-        if(!unfallversicherung.contentEquals("NA")) {
-
-            System.out.println("Unfallversicherung: " + unfallversicherung);
-
-            if (unfallversicherung.contentEquals("Ja")) {
-                Select realSelect = new Select(unfallVersicherung_basic);
+            else if (pSchaden.contentEquals("Normal")) {
+                Select realSelect = new Select(this.parkschaden_basic);
                 realSelect.selectByVisibleText("ja");
             }
-            else {
-                //do nothing
-            }
         }
+
+        //Compact
+        else if (produkt.contentEquals("Compact")) {
+            if (pSchaden.contentEquals("ohne")) {
+                Select realSelect = new Select(this.parkschaden_compact);
+                realSelect.selectByVisibleText("nein");
+            }
+            else if (pSchaden.contentEquals("Plus")) {
+                Select realSelect = new Select(this.parkschaden_compact);
+                realSelect.selectByVisibleText("ja");
+            }
+
+        }
+        else {
+            System.out.println("INVALID - Parkschaden");
+        }
+
+
+
+
+
+////////
+//        try {
+//            System.out.println("trying to find parkschaden_basic");
+//            Select realSelect = new Select(this.parkschaden_basic);
+//            if(!pSchaden.contentEquals("NA")) {
+//                if (pSchaden.contentEquals("Normal")) {
+//                    realSelect.selectByVisibleText("ja");
+//                }
+//                else {
+//                    realSelect.selectByVisibleText("nein");
+//                }
+//            }
+//
+//        }
+//        catch (ElementNotVisibleException e) {
+//
+//            System.out.println("parkschaden_basic not visible -> SKIP");
+//        }
+//
+//        finally {
+//
+//        }
+
     }
 
-    public void selectBonusschutz(String bonusschutz) throws InterruptedException {
 
-        if(!bonusschutz.contentEquals("NA")) {
 
-            System.out.println("Bonusschutz: " + bonusschutz);
+    public void selectUnfallversicherung(String produkt, String unfallversicherung) throws InterruptedException {
+        System.out.println("Unfallversicherung: " + unfallversicherung);
 
-            bonusschutz = bonusschutz.toLowerCase();
-            Select realSelect = new Select(this.bonusschutz_basic);
-            realSelect.selectByVisibleText(bonusschutz);
+        //Basic
+        if (produkt.contentEquals("Basic")) {
+            if (unfallversicherung.contentEquals("Nein")) {
+                Select realSelect = new Select(this.unfallVersicherung_basic);
+                realSelect.selectByVisibleText("nein");
+            }
+            else if (unfallversicherung.contentEquals("Ja")) {
+                Select realSelect = new Select(this.parkschaden_basic);
+                realSelect.selectByVisibleText("ja");
+            }
         }
+
+        //Compact
+        else if (produkt.contentEquals("Compact")) {
+            if (unfallversicherung.contentEquals("Nein")) {
+                Select realSelect = new Select(this.unfallVersicherung_compact);
+                realSelect.selectByVisibleText("nein");
+            }
+            else if (unfallversicherung.contentEquals("Ja")) {
+                Select realSelect = new Select(this.unfallVersicherung_compact);
+                realSelect.selectByVisibleText("ja");
+            }
+
+        }
+        else {
+            System.out.println("INVALID - Unfallversicherung");
+        }
+
+    }
+
+    public void selectBonusschutz(String produkt, String bonusschutz) throws InterruptedException {
+        System.out.println("Bonusschutz: " + bonusschutz);
+
+        //Basic
+        if (produkt.contentEquals("Basic")) {
+            if (bonusschutz.contentEquals("Nein")) {
+                Select realSelect = new Select(this.bonusschutz_basic);
+                realSelect.selectByVisibleText("nein");
+            }
+            else if (bonusschutz.contentEquals("Ja")) {
+                Select realSelect = new Select(this.bonusschutz_basic);
+                realSelect.selectByVisibleText("ja");
+            }
+        }
+
+        //Compact
+        else if (produkt.contentEquals("Compact")) {
+            if (bonusschutz.contentEquals("Nein")) {
+                Select realSelect = new Select(this.bonusschutz_compact);
+                realSelect.selectByVisibleText("nein");
+            }
+            else if (bonusschutz.contentEquals("Ja")) {
+                Select realSelect = new Select(this.bonusschutz_compact);
+                realSelect.selectByVisibleText("ja");
+            }
+
+        }
+        else {
+            System.out.println("INVALID - Bonusschutz");
+        }
+
     }
 
     //TODO: FIX THIS,EXTREMELY UGLY
-    public void selectCrashrecorder(String telematik) throws InterruptedException {
-
-
+    public void selectCrashrecorder(String produkt, String telematik) throws InterruptedException {
         System.out.println("Crash Recorder: " + telematik);
 
+        //TODO: check when crash recorder rabatt 15% is displayed
 
+        if (produkt.contentEquals("Basic")) {
+            if (telematik.contentEquals("Nein")) {
+                Select realSelect = new Select(this.crashrecorder_basic_ohne_rabatt);
+                realSelect.selectByVisibleText("nein");
+            }
+            else if (telematik.contentEquals("Crash Recorder")) {
+                Select realSelect = new Select(this.crashrecorder_basic_ohne_rabatt);
+                realSelect.selectByVisibleText("ja");
+            }
+        }
 
-        try {
-            System.out.println("crashrecorder_basic_mit_rabatt");
-
-
-            Select realSelect = new Select(this.crashrecorder_basic_mit_rabatt);
-            if(!telematik.contentEquals("NA")) {
-                if (telematik.contentEquals("Crash Recorder")) {
-                    realSelect.selectByVisibleText("ja");
-                }
-                else {
-                    realSelect.selectByVisibleText("nein");
-                }
+        else if (produkt.contentEquals("Compact")) {
+            if (telematik.contentEquals("Nein")) {
+                Select realSelect = new Select(this.crashrecorder_compact_ohne_rabatt);
+                realSelect.selectByVisibleText("nein");
+            }
+            else if (telematik.contentEquals("Crash Recorder")) {
+                Select realSelect = new Select(this.crashrecorder_compact_ohne_rabatt);
+                realSelect.selectByVisibleText("ja");
             }
 
         }
-        catch (ElementNotVisibleException e) {
-
-            System.out.println("crashrecorder_basic_ohne_rabatt");
-
-            Select realSelect = new Select(this.crashrecorder_basic_ohne_rabatt);
-            if(!telematik.contentEquals("NA")) {
-                if (telematik.contentEquals("Crash Recorder")) {
-                    realSelect.selectByVisibleText("ja");
-                }
-                else {
-                    realSelect.selectByVisibleText("nein");
-                }
-            }
-
+        else {
+            System.out.println("INVALID - Crash Recorder");
         }
 
-        finally {
 
-        }
+
+
+
+//
+//
+//
+//        try {
+//            System.out.println("crashrecorder_basic_mit_rabatt");
+//
+//
+//            Select realSelect = new Select(this.crashrecorder_basic_mit_rabatt);
+//            if(!telematik.contentEquals("NA")) {
+//                if (telematik.contentEquals("Crash Recorder")) {
+//                    realSelect.selectByVisibleText("ja");
+//                }
+//                else {
+//                    realSelect.selectByVisibleText("nein");
+//                }
+//            }
+//
+//        }
+//        catch (ElementNotVisibleException e) {
+//
+//            System.out.println("crashrecorder_basic_ohne_rabatt");
+//
+//            Select realSelect = new Select(this.crashrecorder_basic_ohne_rabatt);
+//            if(!telematik.contentEquals("NA")) {
+//                if (telematik.contentEquals("Crash Recorder")) {
+//                    realSelect.selectByVisibleText("ja");
+//                }
+//                else {
+//                    realSelect.selectByVisibleText("nein");
+//                }
+//            }
+//
+//        }
+//
+//        finally {
+//
+//        }
 
     }
 
 
     public void selectErgaenzungen(
+            String produkt,
             String mobility,
             String glasbruch,
             String mitgefuehrteSachen,
@@ -417,15 +585,15 @@ public class PraemiePage {
             String unfallversicherung,
             String bonusschutz,
             String crashrecorder,
-            WebDriver driver ) throws InterruptedException {
+            WebDriver driver) throws InterruptedException {
 
-        this.selectMobility(mobility);
-        this.selectGlasbruch(glasbruch);
-        this.selectMitgefuehrteSachen(mitgefuehrteSachen, driver);
-        this.selectParkschaden(parkschaden);
-        this.selectUnfallversicherung(unfallversicherung);
-        this.selectBonusschutz(bonusschutz);
-        this.selectCrashrecorder(crashrecorder);
+        this.selectMobility(produkt, mobility);
+        this.selectGlasbruch(produkt, glasbruch);
+        this.selectMitgefuehrteSachen(produkt, mitgefuehrteSachen, driver);
+        this.selectParkschaden(produkt, parkschaden);
+        this.selectUnfallversicherung(produkt, unfallversicherung);
+        this.selectBonusschutz(produkt, bonusschutz);
+        this.selectCrashrecorder(produkt, crashrecorder);
     }
 
 
