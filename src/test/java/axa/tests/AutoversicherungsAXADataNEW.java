@@ -120,7 +120,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
 
         String product = (String) map.get("Produkt");
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
         if (product.contentEquals("Basic")) {
             System.out.println("Basic Prämie");

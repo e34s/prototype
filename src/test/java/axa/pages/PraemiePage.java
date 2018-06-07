@@ -443,7 +443,7 @@ public class PraemiePage {
                 realSelect.selectByVisibleText("nein");
             }
             else if (unfallversicherung.contentEquals("Ja")) {
-                Select realSelect = new Select(this.parkschaden_basic);
+                Select realSelect = new Select(this.unfallVersicherung_basic);
                 realSelect.selectByVisibleText("ja");
             }
         }
