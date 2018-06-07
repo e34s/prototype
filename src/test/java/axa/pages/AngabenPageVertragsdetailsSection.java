@@ -63,6 +63,10 @@ public class AngabenPageVertragsdetailsSection {
     }
 
     public void setFahrzeugfuehrer(String fahrzeugFuehrer) throws InterruptedException {
+
+        System.out.println("Fahrzeugführer: " + fahrzeugFuehrer);
+
+
         if(!fahrzeugFuehrer.contentEquals("NA")) {
 
             //not ideal but it is coming like this from the Excel sheet
@@ -74,12 +78,18 @@ public class AngabenPageVertragsdetailsSection {
     }
 
     public void setGebDatum(String gebDatum) {
+        System.out.println("VN Geburtsdatum: " + gebDatum );
+
+
         //convert to dd.mm.yyyy
         gebDatum = gebDatum.replace("-", ".");
         vnGeburtstag.sendKeys(gebDatum);
     }
 
     public void setGeschlecht(String geschlecht) throws InterruptedException {
+        System.out.println("VN Geschlecht " + geschlecht);
+
+
         switch (geschlecht) {
             case "männlich" :
                 vnGeschlechtMann.click();
@@ -96,6 +106,8 @@ public class AngabenPageVertragsdetailsSection {
 
 
     public void setNationality(String nationality) throws InterruptedException {
+
+        System.out.println("VN Nationalität: " + nationality );
 
 
         //TODO: refactor as this is copy / paste / duplicate code
@@ -173,12 +185,17 @@ public class AngabenPageVertragsdetailsSection {
     }
 
     public void setPLZ(WebDriver driver, String postleitzahl) throws InterruptedException {
+        System.out.println("VN PLZ: " + postleitzahl );
+
+
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", plz);
 
         plz.sendKeys(postleitzahl);
     }
 
     public void setKuendigung(String kuendigung) throws InterruptedException {
+        System.out.println("Kündigung: " + kuendigung );
+
 
         switch (kuendigung.toUpperCase()) {
             case "JA" :
@@ -196,6 +213,9 @@ public class AngabenPageVertragsdetailsSection {
 
 
     public void setVersicherungsbeginn(String versicherungsBeginn, WebDriver driver) throws InterruptedException {
+        System.out.println("Versicherungsbeginn: " + versicherungsBeginn );
+
+
         if (versicherungsBeginn != null) {
             versicherungsBeginn = versicherungsBeginn.replace("-", ".");
             Thread.sleep(1000);
@@ -216,6 +236,9 @@ public class AngabenPageVertragsdetailsSection {
     }
 
     public void setVertragsDauer(String vertragsDauer) throws InterruptedException {
+        System.out.println("Vertragsdauer: " + vertragsDauer );
+
+
         if (vertragsDauer != null) {
 
             if (vertragsDauer.contentEquals("1")) {

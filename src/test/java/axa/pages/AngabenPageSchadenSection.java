@@ -42,6 +42,9 @@ public class AngabenPageSchadenSection {
     }
 
     public void sethaftPflichtSchaden(String haftpflichtschaden) throws InterruptedException {
+
+        System.out.println("Haftpflichtschaden: " + haftpflichtschaden);
+
         if(!haftpflichtschaden.contentEquals("NA")) {
             Select realSelect = new Select(haftPflichtSchaeden);
             realSelect.selectByVisibleText(haftpflichtschaden);
@@ -49,6 +52,8 @@ public class AngabenPageSchadenSection {
     }
 
     public void setSchadenJahr(String schadenjahr) throws InterruptedException {
+
+        System.out.println("Schadenjahr: " + schadenjahr);
 
         schadenjahr = schadenjahr.substring(6, 10);
 
@@ -59,6 +64,8 @@ public class AngabenPageSchadenSection {
     }
 
     public void setDiebstahl(String diebstahl) throws InterruptedException {
+        System.out.println("Diebstahl: " + diebstahl);
+
         if(!diebstahl.contentEquals("NA")) {
 
             //TODO: add cases when more than 1 Schaden has ocurred (2 Schäden)
@@ -70,6 +77,9 @@ public class AngabenPageSchadenSection {
     }
 
     public void setParkschaden(String parkschaden) throws InterruptedException {
+
+        System.out.println("Parkschaden: " + parkschaden);
+
         if(!parkschaden.contentEquals("NA")) {
 
             //TODO: add case when more than 3 Schäden have ocurred (mehr als 3 Schäden)
@@ -90,6 +100,8 @@ public class AngabenPageSchadenSection {
     }
 
     public void setKollisionsSchaden(String kollisionsschaden) throws InterruptedException {
+        System.out.println("Kollisionsschaden: " + kollisionsschaden);
+
         if(!kollisionsschaden.contentEquals("NA")) {
 
             //TODO: add case when more than 3 Schäden have ocurred (mehr als 3 Schäden)
@@ -111,6 +123,9 @@ public class AngabenPageSchadenSection {
     }
 
     public void setkollisionSchadenJahr(String kollisionsschadenjahr) throws InterruptedException {
+
+        System.out.println("Kollisions Schadenjahr: " + kollisionsschadenjahr);
+
         if( !kollisionsschadenjahr.contentEquals("")) {
             kollisionsschadenjahr = kollisionsschadenjahr.substring(6, 10);
 

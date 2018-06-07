@@ -143,6 +143,9 @@ public class FahrzeugsuchePage {
     }
 
     public void selectInv(String inv) throws InterruptedException {
+
+        System.out.println("Erste Inverkehrssetzung: " + inv);
+
         Map<String, String> map = new HashMap<String, String>();
         map.put("01", "Januar");
         map.put("02", "Februar");
@@ -230,6 +233,8 @@ public class FahrzeugsuchePage {
 
     public void selectMarke(String marke) throws InterruptedException {
 
+        System.out.println("Marke: " + marke);
+
         //check if Marke begins with MR. If yes, then it is a motorbike. Remove the first 5 chars
         if (marke.substring(0,2).contentEquals("MR")) {
             marke = marke.substring(5);
@@ -259,6 +264,8 @@ public class FahrzeugsuchePage {
 
     public void selectModell(WebDriver driver, String model) throws InterruptedException {
 
+        System.out.println("Modell: " + model);
+
         int index  = returnIndex(driver, model);
         Select realSelect = new Select(this.model);
         realSelect.selectByIndex(index);
@@ -266,19 +273,27 @@ public class FahrzeugsuchePage {
 
     public void selectTreibstoff(String treibstoff) throws InterruptedException {
 
+
+
         if (treibstoff.contentEquals("E") || (treibstoff.contentEquals("G") || (treibstoff.contentEquals("BE")))) {
+            System.out.println("Treibstoff: andere");
             andere.click();
         }
 
         if (treibstoff.contentEquals("D")) {
+            System.out.println("Treibstoff: Diesel");
             diesel.click();
         }
         if (treibstoff.contentEquals("2T") || (treibstoff.contentEquals("A") || (treibstoff.contentEquals("B") || (treibstoff.contentEquals("S") || (treibstoff.contentEquals("TT")))))) {
+            System.out.println("Treibstoff: Benzin");
             benzin.click();
         }
     }
 
     public void selectSchaltung(String schaltung, RemoteWebDriver driver) throws InterruptedException {
+
+        System.out.println("Schaltung: " + schaltung);
+
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", automat);
         switch (schaltung) {
@@ -297,6 +312,8 @@ public class FahrzeugsuchePage {
 
 
     public void selectPS(String ps) throws InterruptedException {
+
+        System.out.println("PS: " + ps);
 
         //remove decimal separator in case it comes with Excel
         ps = ps.split("\\.", 2)[0];
@@ -321,6 +338,8 @@ public class FahrzeugsuchePage {
 
 
     public void selectSpecificModel(WebDriver driver, String specificModel) throws InterruptedException {
+
+        System.out.println("Specific model: " + specificModel);
 
         List<WebElement> list = driver.findElements(By.className("table__item__info__content"));
 

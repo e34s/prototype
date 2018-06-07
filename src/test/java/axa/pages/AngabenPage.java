@@ -111,6 +111,9 @@ public class AngabenPage {
     }
 
     public void setZubehoer(String zusatzausruestung) throws InterruptedException {
+        System.out.println("Zusatzausrüstung: " + zusatzausruestung );
+
+
         Thread.sleep(2000);
         zusatzausruestung = zusatzausruestung.replaceAll("\\.0", "");
 
@@ -119,6 +122,8 @@ public class AngabenPage {
     }
 
     public void setKontrollschild(String kontrollschild) throws InterruptedException {
+        System.out.println("Kontrollschild: " + kontrollschild );
+
         if (kontrollschild != null) {
 
             switch (kontrollschild.toUpperCase()) {
@@ -137,6 +142,8 @@ public class AngabenPage {
     }
 
     public void setLeasing(String leasing) throws InterruptedException {
+        System.out.println("Leasing: " + leasing );
+
         if (leasing != null) {
 
             switch (leasing.toUpperCase()) {
@@ -155,12 +162,16 @@ public class AngabenPage {
     }
 
     public void enterKilometer(String kilometer) {
+        System.out.println("Kilometer / Jahr: " + kilometer );
+
 
         kilometer = kilometer.replace(".0", "");
         kilometers.sendKeys(kilometer);
     }
 
     public void selectPurchaseYear(String year) throws InterruptedException {
+
+        System.out.println("Kaufjahr: " + kaufjahr );
 
         year = year.replaceAll("\\.0", "");
 
@@ -176,6 +187,8 @@ public class AngabenPage {
 
 
     public void setNotbremsassistent(String notbrems) throws InterruptedException {
+        System.out.println("Notbremsassistent: " + notbrems );
+
         if (notbrems != null) {
             switch (notbrems.toUpperCase()) {
                 case "JA" :
@@ -193,12 +206,16 @@ public class AngabenPage {
     }
 
     public void setGebDatum(String gebDatum) {
+        System.out.println("Geburtsdatum: " + gebDatum );
+
         //convert from dd-mm-yyyy to dd.mm.yyyy
         gebDatum = gebDatum.replace("-", ".");
         geburtsdatum.sendKeys(gebDatum);
     }
 
     public void selectNationality(String nationality) throws InterruptedException {
+        System.out.println("Nationalität: " + nationality );
+
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("AD - Andorra", "Andorra");
@@ -274,10 +291,14 @@ public class AngabenPage {
     }
 
     public void enterPLZ(String plz) throws InterruptedException {
+        System.out.println("PLZ: " + plz );
+
         this.plz.sendKeys(plz);
     }
 
     public void setGeschlecht(String geschlecht) throws InterruptedException {
+        System.out.println("Geschlecht: " + geschlecht );
+
         if (geschlecht != null) {
             switch (geschlecht.toUpperCase()) {
                 case "MÄNNLICH":
@@ -295,6 +316,8 @@ public class AngabenPage {
     }
 
     public void setEntzug(String entzug) throws InterruptedException {
+        System.out.println("Ausweisentzug: " + entzug );
+
         if (entzug != null) {
 
             switch (entzug.toUpperCase()) {
@@ -314,6 +337,10 @@ public class AngabenPage {
 
 
     public void setBisherigerVersicherer(String bisherigerVersicherer, String versicherer, WebDriver driver) throws InterruptedException {
+        System.out.println("Bisherige Versicherer: " + bisherigerVersicherer );
+        System.out.println("Versicherer: " + versicherer );
+
+
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", bisherigerVersichererNein);
 
@@ -341,6 +368,8 @@ public class AngabenPage {
     }
 
     public void setKuendigung(String kuendigung, RemoteWebDriver driver) throws InterruptedException {
+        System.out.println("Kündigung: " + kuendigung );
+
         Thread.sleep(1000);
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", kuendigungJa);
@@ -363,6 +392,15 @@ public class AngabenPage {
     }
 
     public void setSchaden(WebDriver driver, String schaden, String haftpflichtSchaden, String schadenJahr, String diebstahl, String parkschaden, String kollisionsSchaden, String kollisionsSchadenJahr) throws InterruptedException {
+
+        System.out.println("Frühere Schäden: " + schaden);
+        System.out.println("- Haftpflichtschaden: " + haftpflichtSchaden );
+        System.out.println("- Schadenjahr: " + schadenJahr);
+        System.out.println("- Diebstahl: " + diebstahl);
+        System.out.println("- Parkschaden: " + parkschaden );
+        System.out.println("- Kollisionsschaden: " + kollisionsSchaden );
+        System.out.println("- Kollisions Schadenjahr: " + kollisionsSchadenJahr );
+
 
         if (schaden != null) {
 
@@ -394,6 +432,8 @@ public class AngabenPage {
     }
 
     public void setVertragsdetails(String fzFuehrer, String gebDatum, String geschlecht, String nationalitaet, String plz, String kuendigung, String versBeginn, String vertragsDauer, WebDriver driver) throws InterruptedException {
+
+
         this.vertragsdetailsSection.setFahrzeugfuehrer(fzFuehrer);
 
         //additional information needed
