@@ -9,7 +9,6 @@ package axa.pages;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,51 +17,72 @@ public class PraemiePage {
 
     @FindBy(id="lp_praemie_bottom-mf_basic")
     private WebElement praemiebasic;
-
     @FindBy(id="lp_praemie_bottom-mf_compact")
     private WebElement praemiecompact;
 
     @FindBy(id="lp_kasko_option_basic")
     private WebElement kasko_basic;
-
     @FindBy(id="lp_kasko_option_compact")
     private WebElement kasko_compact;
 
+
     @FindBy(id="lp_vollkasko_selbstbehalt-mf_basic")
-    private WebElement selbstbehaltAusserKollision;
+    private WebElement selbstbehaltAusserKollision_basic;
+    @FindBy(id="lp_vollkasko_selbstbehalt-mf_compact")
+    private WebElement selbstbehaltAusserKollision_compact;
+
 
     @FindBy(id="lp_vollkasko_kollision_selbstbehalt-mf_basic")
     private WebElement selbstbehaltKollision_basic;
-
     @FindBy(id="lp_vollkasko_kollision_selbstbehalt-mf_compact")
     private WebElement selbstbehaltKollision_compact;
 
+
     @FindBy(id="lp_teilkasko_selbstbehalt-mf_basic")
-    private WebElement selbstbehaltTeilkasko;
+    private WebElement selbstbehaltTeilkasko_basic;
+    @FindBy(id="lp_teilkasko_selbstbehalt-mf_compact")
+    private WebElement selbstbehaltTeilkasko_compact;
+
 
     @FindBy(id="lp_mobilitaet-mf_basic")
-    private WebElement mobility;
+    private WebElement mobility_basic;
+    @FindBy(id="lp_mobilitaet-mf_compact")
+    private WebElement mobility_compact;
+
 
     @FindBy(id="lp_glasbruch_plus_auto-mf_compact")
     private WebElement glasbruch_compact;
 
+
     @FindBy(id="lp_mitgefuehrte_sachen-mf_basic")
-    private WebElement mitgefuehrteSachen;
+    private WebElement mitgefuehrteSachen_basic;
+    @FindBy(id="lp_mitgefuehrte_sachen-mf_compact")
+    private WebElement mitgefuehrteSachen_compact;
+
 
     @FindBy(id="lp_parkschaden-mf_basic")
-    private WebElement parkschaden;
+    private WebElement parkschaden_basic;
+    @FindBy(id="lp_parkschaden-mf_compact")
+    private WebElement parkschaden_compact;
+
 
     @FindBy(id="lp_unfall_option-mf_basic")
-    private WebElement unfallVersicherung;
+    private WebElement unfallVersicherung_basic;
+    @FindBy(id="lp_unfall_option-mf_compact")
+    private WebElement unfallVersicherung_compact;
+
 
     @FindBy(id="lp_bonusschutz_option-mf_basic")
-    private WebElement bonusschutz;
+    private WebElement bonusschutz_basic;
+    @FindBy(id="lp_bonusschutz_option-mf_compact")
+    private WebElement bonusschutz_compact;
+
 
     @FindBy(id="lp_crashrecorder_mit_rabatt_option-mf_basic")
-    private WebElement crashrecorder;
+    private WebElement crashrecorder_basic_mit_rabatt;
 
     @FindBy(id="lp_crashrecorder_option-mf_basic")
-    private WebElement crashrecorder2;
+    private WebElement crashrecorder_basic_ohne_rabatt;
 
 
     public PraemiePage(WebDriver driver) {
@@ -84,6 +104,16 @@ public class PraemiePage {
 
     //Kasko
     public void selectKasko(String produkt, String kollision, String teilKasko, String selbstbehaltAusserKollision, String selbstbehaltKollision, String selbstbehaltTeilkasko) throws InterruptedException {
+
+        System.out.println("Produkt: " + produkt);
+        System.out.println("Kollision: " + kollision);
+        System.out.println("Teilkasko: " + teilKasko);
+        System.out.println("Selbstbehalt ausser Kollision: " + selbstbehaltAusserKollision);
+        System.out.println("Selbstbehalt Kollision: " + selbstbehaltKollision);
+        System.out.println("Selbstbehalt Teilkasko: " + selbstbehaltTeilkasko);
+
+
+
 
 
         //check if basic or compact tarif
@@ -146,7 +176,7 @@ public class PraemiePage {
 //            Select realSelect = new Select(this.kasko_basic);
 //            realSelect.selectByVisibleText("Teilkasko");
 //
-//            this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko);
+//            this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko_basic);
 //
 //        }
 //        else //leave on Vollkasko which is the default
@@ -160,11 +190,11 @@ public class PraemiePage {
 //
 //
 //        if (kasko_basic.contentEquals("Vollkasko")) {
-//            this.selectSelbstbehaltausserKollision(selbstbehaltAusserKollision);
+//            this.selectSelbstbehaltausserKollision(selbstbehaltAusserKollision_basic);
 //            this.selectSelbstbehaltKollision(selbstbehaltKollision_basic);
 //        }
 //        else if (kasko_basic.contentEquals("Teilkasko")) {
-//            this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko);
+//            this.selectTeilkaskoSelbstbehalt(selbstbehaltTeilkasko_basic);
 //        }
     }
 
@@ -176,13 +206,13 @@ public class PraemiePage {
             selbstbehalt = selbstbehalt.replaceAll("\\.0", "");
             selbstbehalt = "CHF " + selbstbehalt;
 
-            Select realSelect = new Select(selbstbehaltAusserKollision);
+            Select realSelect = new Select(selbstbehaltAusserKollision_basic);
             realSelect.selectByVisibleText(selbstbehalt);
         }
 
 
 
-        Select realSelect = new Select(selbstbehaltAusserKollision);
+        Select realSelect = new Select(selbstbehaltAusserKollision_basic);
         realSelect.selectByVisibleText(selbstbehalt);
     }
 
@@ -216,7 +246,7 @@ public class PraemiePage {
             selbstbehalt = "CHF " + selbstbehalt;
 
 
-            Select realSelect = new Select(selbstbehaltTeilkasko);
+            Select realSelect = new Select(selbstbehaltTeilkasko_basic);
             realSelect.selectByVisibleText(selbstbehalt);
         }
     }
@@ -229,7 +259,7 @@ public class PraemiePage {
 
             System.out.println("Mobility: " + mobility);
             if (mobility.contentEquals("ohne")) {
-                Select realSelect = new Select(this.mobility);
+                Select realSelect = new Select(this.mobility_basic);
                 realSelect.selectByVisibleText("nein");
             }
             //no else case as "Schweiz" is already pre selected
@@ -261,12 +291,12 @@ public class PraemiePage {
             System.out.println("Mitgeführte Sachen: " + mitgefuehrteSachen);
 
             if (mitgefuehrteSachen.contentEquals("ohne")) {
-                Select realSelect = new Select(this.mitgefuehrteSachen);
+                Select realSelect = new Select(this.mitgefuehrteSachen_basic);
                 realSelect.selectByVisibleText("nein");
             }
             if (mitgefuehrteSachen.contentEquals("Normal")) {
 //                wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("lp_mitgefuehrte_sachen_leistungstext_basic"))));
-                Select realSelect = new Select(this.mitgefuehrteSachen);
+                Select realSelect = new Select(this.mitgefuehrteSachen_basic);
                 realSelect.selectByVisibleText("ja");
             }
         }
@@ -280,8 +310,8 @@ public class PraemiePage {
 
 
         try {
-            System.out.println("trying to find parkschaden");
-            Select realSelect = new Select(this.parkschaden);
+            System.out.println("trying to find parkschaden_basic");
+            Select realSelect = new Select(this.parkschaden_basic);
             if(!pSchaden.contentEquals("NA")) {
                 if (pSchaden.contentEquals("Normal")) {
                     realSelect.selectByVisibleText("ja");
@@ -294,7 +324,7 @@ public class PraemiePage {
         }
         catch (ElementNotVisibleException e) {
 
-            System.out.println("parkschaden not visible -> SKIP");
+            System.out.println("parkschaden_basic not visible -> SKIP");
         }
 
         finally {
@@ -312,7 +342,7 @@ public class PraemiePage {
             System.out.println("Unfallversicherung: " + unfallversicherung);
 
             if (unfallversicherung.contentEquals("Ja")) {
-                Select realSelect = new Select(unfallVersicherung);
+                Select realSelect = new Select(unfallVersicherung_basic);
                 realSelect.selectByVisibleText("ja");
             }
             else {
@@ -328,7 +358,7 @@ public class PraemiePage {
             System.out.println("Bonusschutz: " + bonusschutz);
 
             bonusschutz = bonusschutz.toLowerCase();
-            Select realSelect = new Select(this.bonusschutz);
+            Select realSelect = new Select(this.bonusschutz_basic);
             realSelect.selectByVisibleText(bonusschutz);
         }
     }
@@ -342,10 +372,10 @@ public class PraemiePage {
 
 
         try {
-            System.out.println("crashrecorder");
+            System.out.println("crashrecorder_basic_mit_rabatt");
 
 
-            Select realSelect = new Select(this.crashrecorder);
+            Select realSelect = new Select(this.crashrecorder_basic_mit_rabatt);
             if(!telematik.contentEquals("NA")) {
                 if (telematik.contentEquals("Crash Recorder")) {
                     realSelect.selectByVisibleText("ja");
@@ -358,9 +388,9 @@ public class PraemiePage {
         }
         catch (ElementNotVisibleException e) {
 
-            System.out.println("crashrecorder2");
+            System.out.println("crashrecorder_basic_ohne_rabatt");
 
-            Select realSelect = new Select(this.crashrecorder2);
+            Select realSelect = new Select(this.crashrecorder_basic_ohne_rabatt);
             if(!telematik.contentEquals("NA")) {
                 if (telematik.contentEquals("Crash Recorder")) {
                     realSelect.selectByVisibleText("ja");

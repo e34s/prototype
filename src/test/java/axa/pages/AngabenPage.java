@@ -171,7 +171,7 @@ public class AngabenPage {
 
     public void selectPurchaseYear(String year) throws InterruptedException {
 
-        System.out.println("Kaufjahr: " + kaufjahr );
+        System.out.println("Kaufjahr: " + year );
 
         year = year.replaceAll("\\.0", "");
 
