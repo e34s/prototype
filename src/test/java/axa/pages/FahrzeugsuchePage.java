@@ -81,11 +81,14 @@ public class FahrzeugsuchePage {
                 case "1.0":
                     if (rahmenvertrag.contentEquals("Kein Rahmenvertrag")) {
                         driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=1000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                        System.out.println("URL: https://secure.axa.ch/ei/mf_main.seam?LINKID=1000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER");
                     }
                     else {
+
                         String linkId = getLinkId(rahmenvertrag);
-                        getLinkId(rahmenvertrag);
                         driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=" + linkId +"&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                        System.out.println("https://secure.axa.ch/ei/mf_main.seam?LINKID=" + linkId +"&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER");
+
                     }
                     break;
 
@@ -109,7 +112,7 @@ public class FahrzeugsuchePage {
         linkIdMF.put("Spital Thurgau", "1011000");
         linkIdMF.put("Broker ReInvest", "1021000");
         linkIdMF.put("Sanitas", "1031000");
-        linkIdMF.put("Mitarbeiterkanal", "1041000");
+        linkIdMF.put("Mitarbeiter", "1041000");
         linkIdMF.put("Verband Musikschulen Schweiz", "1061000");
         linkIdMF.put("Swisscom", "1071000");
         linkIdMF.put("SBB", "1081000");

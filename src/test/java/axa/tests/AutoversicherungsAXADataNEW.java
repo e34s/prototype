@@ -100,6 +100,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
         PraemiePage praemie = new PraemiePage(driver);
         praemie.selectKasko(
                 (String) map.get("Produkt"),
+                (String) map.get("Selbstbehalt Haft"), //for Optima I think
                 (String) map.get("Kollision"),
                 (String) map.get("Teilkasko"),
                 (String) map.get("Selbstbehalt Teilkasko"),
@@ -130,6 +131,11 @@ public class AutoversicherungsAXADataNEW extends TestBase{
             System.out.println("Compact Prämie");
             Assert.assertEquals(praemie.getCompactPrämie(), (String) map.get("Bruttoprämie"));
         }
+        else if (product.contentEquals("Optima")) {
+            System.out.println("Optima Prämie");
+            Assert.assertEquals(praemie.getOptimaPrämie(), (String) map.get("Bruttoprämie"));
+        }
+
 
     }
 }
