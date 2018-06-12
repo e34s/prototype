@@ -41,6 +41,13 @@ public class AngabenPage {
     @FindBy(css="#fl_leasing_option > label:nth-child(4)")
     private WebElement leasingNein;
 
+    @FindBy(css="#fl_ueber45kmh_option > label:nth-child(2)")
+    private WebElement unter46kmh;
+
+    @FindBy(css="#fl_ueber45kmh_option > label:nth-child(4)")
+    private WebElement ueber46kmh;
+
+
     @FindBy(id="fl_kilometer_jahr")
     private WebElement kilometers;
 
@@ -61,6 +68,9 @@ public class AngabenPage {
 
     @FindBy(id="fl_auto_hff_geburtsdatum")
     private WebElement geburtsdatum;
+
+    @FindBy(id="fl_moto_hff_geburtsdatum")
+    private WebElement geburtsdatumMotorrad;
 
     @FindBy(id="fl_hff_nationaliatet")
     private WebElement nationalitaet;
@@ -94,6 +104,13 @@ public class AngabenPage {
 
     @FindBy(css="#fl_hff_vorversicherer_kuendigung_option > label:nth-child(4)")
     private WebElement kuendigungNein;
+
+    @FindBy(css="#fl_bestehende_police_anpassen > label:nth-child(2)")
+    private WebElement neueVersicherungAbschliessen;
+
+    @FindBy(css="#fl_bestehende_police_anpassen > label:nth-child(4)")
+    private WebElement bestehendenVertragAnpassen;
+
 
     @FindBy(css="#fl_hff_schaeden5jahre_option > label:nth-child(2)")
     private WebElement schadenJa;
@@ -161,6 +178,19 @@ public class AngabenPage {
         }
     }
 
+    public void setGeschwindigkeit(String vmax) {
+
+        vmax = vmax.replaceAll("\\.0", "");
+        int speed = Integer.valueOf(vmax);
+
+        if (speed <= 45.0) {
+            unter46kmh.click();
+        }
+        else {
+            ueber46kmh.click();
+        }
+    }
+
     public void enterKilometer(String kilometer) {
         System.out.println("Kilometer / Jahr: " + kilometer );
 
@@ -205,12 +235,18 @@ public class AngabenPage {
         }
     }
 
-    public void setGebDatum(String gebDatum) {
+    public void setGebDatum(String gebDatum, Boolean motorrad) {
         System.out.println("Geburtsdatum: " + gebDatum );
 
         //convert from dd-mm-yyyy to dd.mm.yyyy
         gebDatum = gebDatum.replace("-", ".");
-        geburtsdatum.sendKeys(gebDatum);
+
+        if (motorrad) {
+            geburtsdatumMotorrad.sendKeys(gebDatum);
+        }
+        else {
+            geburtsdatum.sendKeys(gebDatum);
+        }
     }
 
     public void selectNationality(String nationality) throws InterruptedException {
@@ -391,7 +427,21 @@ public class AngabenPage {
         }
     }
 
+    public void mutationsFrage(String mutation) {
+        if (mutation.contentEquals("neue")) {
+            neueVersicherungAbschliessen.click();
+        }
+        else if (mutation.contentEquals("0")) {
+            bestehendenVertragAnpassen.click();
+        }
+        else {
+            System.out.println("INVALID Mutationsfrage");
+        }
+    }
+
     public void setSchaden(WebDriver driver, String schaden, String haftpflichtSchaden, String schadenJahr, String diebstahl, String parkschaden, String kollisionsSchaden, String kollisionsSchadenJahr) throws InterruptedException {
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", weiterbutton);
 
         System.out.println("Frühere Schäden: " + schaden);
         System.out.println("- Haftpflichtschaden: " + haftpflichtSchaden );
@@ -439,6 +489,7 @@ public class AngabenPage {
 
     public void setVertragsdetails(String fzFuehrer, String gebDatum, String geschlecht, String nationalitaet, String plz, String kuendigung, String versBeginn, String vertragsDauer, WebDriver driver) throws InterruptedException {
 
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", weiterbutton);
 
         this.vertragsdetailsSection.setFahrzeugfuehrer(fzFuehrer);
 
@@ -464,4 +515,5 @@ public class AngabenPage {
 
         weiterbutton.click();
     }
+
 }

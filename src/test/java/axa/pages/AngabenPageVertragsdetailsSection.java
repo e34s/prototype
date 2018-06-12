@@ -220,10 +220,10 @@ public class AngabenPageVertragsdetailsSection {
             versicherungsBeginn = versicherungsBeginn.replace("-", ".");
             Thread.sleep(1000);
 
-            //check LINKID, if 1000 & 8000 then no Rahmenvertrag -> use versBeginn
+            //check LINKID, if 1000 or 8000 then no Rahmenvertrag -> use versBeginn
             //otherwise use versBeginnOther
             String url = driver.getCurrentUrl();
-            if (url.contains("LINKID=1000")) {
+            if (url.contains("LINKID=1000") || url.contains("LINKID=8000")) {
                 versBeginn.clear();
                 versBeginn.sendKeys(versicherungsBeginn);
             }
