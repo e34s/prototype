@@ -271,7 +271,7 @@ public class AngabenPage {
         map.put("BA - Bosnien-Herzegowina", "Bosnien-Herzegowina");
         map.put("BE - Belgien", "Belgien");
         map.put("BG - Bulgarien", "Bulgarien");
-        map.put("BY - Belarus", "Belarus");
+        map.put("BY - Belarus", "Weissrussland");
         map.put("CA - Kanada", "Kanada");
         map.put("CH - Schweiz", "Schweiz");
         map.put("CY - Zypern", "Zypern");
