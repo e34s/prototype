@@ -183,12 +183,20 @@ public class AngabenPage {
         vmax = vmax.replaceAll("\\.0", "");
         int speed = Integer.valueOf(vmax);
 
-        if (speed <= 45.0) {
-            unter46kmh.click();
+        try {
+            if (speed <= 45.0) {
+                unter46kmh.click();
+            }
+            else {
+                ueber46kmh.click();
+            }
         }
-        else {
-            ueber46kmh.click();
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("VMAX is no displayed");
         }
+
+
     }
 
     public void enterKilometer(String kilometer) {
