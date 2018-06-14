@@ -534,7 +534,7 @@ public class PraemiePage {
 
 
 
-//TODO: check if this can be removed
+/*//TODO: check if this can be removed
         if(!mitgefuehrteSachen.contentEquals("NA")) {
 
             System.out.println("Mitgeführte Sachen: " + mitgefuehrteSachen);
@@ -548,7 +548,7 @@ public class PraemiePage {
                 Select realSelect = new Select(this.mitgefuehrteSachen_basic);
                 realSelect.selectByVisibleText("ja");
             }
-        }
+        }*/
     }
 
     //TODO: UGLY !!!
