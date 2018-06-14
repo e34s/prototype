@@ -19,6 +19,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 public class AngabenPage {
@@ -78,7 +79,7 @@ public class AngabenPage {
     @FindBy(id="fl_hff_plz")
     private WebElement plz;
 
-    @FindBy(css="#fl_hff_geschlecht_option > label:nth-child(2)")
+    @FindBy(css = "#fl_hff_geschlecht_option > label:nth-child(2)")
     private WebElement geschlechtMann;
 
     @FindBy(css="#fl_hff_geschlecht_option > label:nth-child(4)")
@@ -318,7 +319,7 @@ public class AngabenPage {
         map.put("RU - Russland", "Russische Föderation");
         map.put("SE - Schweden", "Schweden");
         map.put("SI - Slowenien", "Slowenien");
-        map.put("SJ - Spitzbergen und Jan Mayen-Inseln", "Norwegen");
+        map.put("SJ - Spitzbergen und Jan Mayen-Inseln", "Svalbard und Jan Mayen");
         map.put("SK - Slowakei", "Slowakei");
         map.put("SM - San Marino", "San Marino");
         map.put("TR - Türkei", "Türkei");
@@ -340,10 +341,18 @@ public class AngabenPage {
         this.plz.sendKeys(plz);
     }
 
-    public void setGeschlecht(String geschlecht) throws InterruptedException {
+    public void setGeschlecht(WebDriver driver, String geschlecht) throws InterruptedException {
         System.out.println("Geschlecht: " + geschlecht );
 
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", geschlechtMann);
+
+
         if (geschlecht != null) {
+
+            WebDriverWait wait = new WebDriverWait( driver, 10);
+            wait.until(ExpectedConditions.visibilityOf(geschlechtMann));
+            //wait.until(ExpectedConditions.visibilityOf(geschlechtFrau));
+
             switch (geschlecht.toUpperCase()) {
                 case "MÄNNLICH":
                     geschlechtMann.click();
@@ -504,7 +513,7 @@ public class AngabenPage {
         //additional information needed
         if (fzFuehrer.contentEquals("nicht der häufigste Fahrzeugführer")) {
             this.vertragsdetailsSection.setGebDatum(gebDatum);
-            this.vertragsdetailsSection.setGeschlecht(geschlecht);
+            this.vertragsdetailsSection.setGeschlecht(driver, geschlecht);
             this.vertragsdetailsSection.setNationality(nationalitaet);
             this.vertragsdetailsSection.setPLZ(driver, plz);
             this.vertragsdetailsSection.setKuendigung(kuendigung);
