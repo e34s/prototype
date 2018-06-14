@@ -60,7 +60,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
             angaben.setGebDatum((String) map.get("Geburtsdatum häufigster Lenker"), false);
             angaben.selectNationality((String) map.get("Nationalität häufigster Lenker"));
             angaben.enterPLZ((String) map.get("Postleitzahl HL"));
-            angaben.setGeschlecht((String) map.get("Geschlecht häufigster Lenker"));
+            angaben.setGeschlecht(driver, (String) map.get("Geschlecht häufigster Lenker"));
             angaben.setEntzug((String) map.get("Ausweisentzug häufigster Lenker"));
             angaben.setBisherigerVersicherer((String) map.get("Vorversichererfrage häufigster Lenker"), (String) map.get("Name Vorversicherer"), driver);
 
@@ -126,7 +126,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
 
             String product = (String) map.get("Produkt");
 
-            Thread.sleep(1000);
+            Thread.sleep(5000);
 
             if (product.contentEquals("Basic")) {
                 System.out.println("Basic Prämie");
@@ -163,7 +163,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
             angaben.setGebDatum((String) map.get("Geburtsdatum häufigster Lenker"), true);
             angaben.selectNationality((String) map.get("Nationalität häufigster Lenker"));
             angaben.enterPLZ((String) map.get("Postleitzahl HL"));
-            angaben.setGeschlecht((String) map.get("Geschlecht häufigster Lenker"));
+            angaben.setGeschlecht(driver, (String) map.get("Geschlecht häufigster Lenker"));
             angaben.setEntzug((String) map.get("Ausweisentzug häufigster Lenker"));
             angaben.setBisherigerVersicherer((String) map.get("Vorversichererfrage häufigster Lenker"), (String) map.get("Name Vorversicherer"), driver);
 
@@ -220,7 +220,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
 
             String product = (String) map.get("Produkt");
 
-            Thread.sleep(1000);
+            Thread.sleep(5000);
 
             if (product.contentEquals("Basic")) {
                 System.out.println("Basic Prämie");
