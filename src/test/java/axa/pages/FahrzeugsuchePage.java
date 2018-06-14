@@ -93,8 +93,23 @@ public class FahrzeugsuchePage {
                     break;
 
                 case "2.0":
-                    driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=8000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                    if (rahmenvertrag.contentEquals("Kein Rahmenvertrag")) {
+                        driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=8000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                        System.out.println("https://secure.axa.ch/ei/mf_main.seam?LINKID=8000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER");
+                    }
+                    else {
+
+                        String linkId = getLinkIdMR(rahmenvertrag);
+                        driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=" + linkId +"&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                        System.out.println("https://secure.axa.ch/ei/mf_main.seam?LINKID=" + linkId +"&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER");
+
+                    }
                     break;
+
+
+
+                    //driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=8000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
+                    //break;
 
                 default:
                     driver.get(("https://secure.axa.ch/ei/mf_main.seam?LINKID=1000&language=01&nzrv=x1z#s=MF_FAHRZEUG_LENKER"));
@@ -140,6 +155,47 @@ public class FahrzeugsuchePage {
         linkIdMF.put("Berater Kushtrim Halili", "1311000");
         linkIdMF.put("GA ZH-West", "1321000");
         linkIdMF.put("GA Genève Rive-Gauche", "1331000");
+
+        return linkIdMF.get(rahmenvertrag);
+
+    }
+
+    public String getLinkIdMR(String rahmenvertrag) {
+        Map<String, String> linkIdMF = new HashMap<String, String>();
+        linkIdMF.put("Corporate", "8000");
+        linkIdMF.put("Justin", "6008000");
+        linkIdMF.put("Novartis", "1008000");
+        linkIdMF.put("Spital Thurgau", "1018000");
+        linkIdMF.put("Broker ReInvest", "1028000");
+        linkIdMF.put("Sanitas", "1038000");
+        linkIdMF.put("Mitarbeiter", "1048000");
+        linkIdMF.put("Verband Musikschulen Schweiz", "1068000");
+        linkIdMF.put("Swisscom", "1078000");
+        linkIdMF.put("SBB", "1088000");
+        linkIdMF.put("Broker Mark & Michel", "1098000");
+        linkIdMF.put("Bühler", "1108000");
+        linkIdMF.put("Zürcher Anwaltsverband", "1118000");
+        linkIdMF.put("Jet Aviation", "1128000");
+        linkIdMF.put("Syngenta", "1138000");
+        linkIdMF.put("the kcc group", "1148000");
+        linkIdMF.put("MIGROS", "1168000");
+        linkIdMF.put("Julius Bär", "1178000");
+        linkIdMF.put("Credit Suisse", "1188000");
+        linkIdMF.put("StuCard", "1198000");
+        linkIdMF.put("Emil Frey", "1208000");
+        linkIdMF.put("Kantonsspital Baselland", "1218000");
+        linkIdMF.put("REKA", "1228000");
+        linkIdMF.put("AON Risk", "1238000");
+        linkIdMF.put("Auto-Outlet", "1248000");
+        linkIdMF.put("Direct Sales", "1258000");
+        linkIdMF.put("Berner Kantonalbank", "1268000");
+        linkIdMF.put("ImmoInsuranceAG", "1278000");
+        linkIdMF.put("GA Uster", "1288000");
+        linkIdMF.put("GA Winterthur Nord", "1298000");
+        linkIdMF.put("Berater Carmine Sperduto", "1308000");
+        linkIdMF.put("Berater Kushtrim Halili", "1318000");
+        linkIdMF.put("GA ZH-West", "1328000");
+        linkIdMF.put("GA Genève Rive-Gauche", "1338000");
 
         return linkIdMF.get(rahmenvertrag);
 
