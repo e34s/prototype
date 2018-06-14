@@ -208,7 +208,13 @@ public class PraemiePage {
         else if (produkt.contentEquals("Optima")) {
 
             //for Junglenker only I believe
-            if (selbstbehaltHaft.contentEquals("500 / 0 (J / U)")) {
+            if (selbstbehaltHaft.contentEquals("200 / 0 (J / U)")) {
+                Select realSelect = new Select(this.haftpflicht_junglenker_sb_optima);
+                realSelect.selectByVisibleText("CHF 200");
+
+            }
+
+            else if (selbstbehaltHaft.contentEquals("500 / 0 (J / U)")) {
                 Select realSelect = new Select(this.haftpflicht_junglenker_sb_optima);
                 realSelect.selectByVisibleText("CHF 500");
 
@@ -438,25 +444,40 @@ public class PraemiePage {
         }
         //Compact
         else if (produkt.contentEquals("Compact")) {
-            if (glasbruch.contentEquals("Glasbruch")) {
-                Select realSelect = new Select(this.glasbruch_compact);
-                realSelect.selectByVisibleText("Basisschutz");
+
+            try {
+                if (glasbruch.contentEquals("Glasbruch")) {
+                    Select realSelect = new Select(this.glasbruch_compact);
+                    realSelect.selectByVisibleText("Basisschutz");
+                }
+                else if (glasbruch.contentEquals("Glasbruch Plus")) {
+                    Select realSelect = new Select(this.glasbruch_compact);
+                    realSelect.selectByVisibleText("Glasbruch Plus");
+                }
             }
-            else if (glasbruch.contentEquals("Glasbruch Plus")) {
-                Select realSelect = new Select(this.glasbruch_compact);
-                realSelect.selectByVisibleText("Glasbruch Plus");
+            catch (Exception e) {
+                System.out.println("GLASBRUCH not changeable -> Motorrad");
+                System.out.println(e.getMessage());
             }
 
         }
         //Optima
         else if (produkt.contentEquals("Optima")) {
-            if (glasbruch.contentEquals("Glasbruch")) {
-                Select realSelect = new Select(this.glasbruch_optima);
-                realSelect.selectByVisibleText("Basisschutz");
+
+
+            try {
+                if (glasbruch.contentEquals("Glasbruch")) {
+                    Select realSelect = new Select(this.glasbruch_optima);
+                    realSelect.selectByVisibleText("Basisschutz");
+                }
+                else if (glasbruch.contentEquals("Glasbruch Plus")) {
+                    Select realSelect = new Select(this.glasbruch_optima);
+                    realSelect.selectByVisibleText("Glasbruch Plus");
+                }
             }
-            else if (glasbruch.contentEquals("Glasbruch Plus")) {
-                Select realSelect = new Select(this.glasbruch_optima);
-                realSelect.selectByVisibleText("Glasbruch Plus");
+            catch (Exception e) {
+                    System.out.println("GLASBRUCH not changeable -> Motorrad");
+                    System.out.println(e.getMessage());
             }
 
         }
@@ -562,13 +583,19 @@ public class PraemiePage {
             }
             //Optima
             else if (produkt.contentEquals("Optima")) {
-                if (pSchaden.contentEquals("ohne")) {
-                    Select realSelect = new Select(this.parkschaden_optima);
-                    realSelect.selectByVisibleText("nein");
+
+                try {
+                    if (pSchaden.contentEquals("ohne")) {
+                        Select realSelect = new Select(this.parkschaden_optima);
+                        realSelect.selectByVisibleText("nein");
+                    }
+                    else if (pSchaden.contentEquals("Plus")) {
+                        Select realSelect = new Select(this.parkschaden_optima);
+                        realSelect.selectByVisibleText("ja");
+                    }
                 }
-                else if (pSchaden.contentEquals("Plus")) {
-                    Select realSelect = new Select(this.parkschaden_optima);
-                    realSelect.selectByVisibleText("ja");
+                catch (Exception e) {
+                    System.out.println("OPTIMA: no parkschaden available ");
                 }
 
             }
