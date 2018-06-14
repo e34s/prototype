@@ -11,7 +11,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -86,8 +88,14 @@ public class AngabenPageVertragsdetailsSection {
         vnGeburtstag.sendKeys(gebDatum);
     }
 
-    public void setGeschlecht(String geschlecht) throws InterruptedException {
+    public void setGeschlecht(WebDriver driver, String geschlecht) throws InterruptedException {
         System.out.println("VN Geschlecht " + geschlecht);
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", vnGeschlechtMann);
+
+
+        WebDriverWait wait = new WebDriverWait( driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(vnGeschlechtMann));
 
 
         switch (geschlecht) {
