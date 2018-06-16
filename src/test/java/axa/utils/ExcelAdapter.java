@@ -28,7 +28,9 @@ public class ExcelAdapter {
 	@DataProvider(name = "datamap", parallel = false)
 	public Object[][] dataSupplier() throws IOException {
 //		File file = new File("C:\\Users\\mpalotas\\IdeaProjects\\axaprototype\\src\\test\\resources\\motorfahrzeug.xlsx");
-		File file = new File("C:\\Users\\mpalotas\\IdeaProjects\\axaprototype\\src\\test\\resources\\Testfaelle_Motorfahrzeug-single.xlsx");
+		//File file = new File("C:\\Users\\mpalotas\\IdeaProjects\\axaprototype\\src\\test\\resources\\Testfaelle_Motorfahrzeug-single.xlsx");
+		File file = new File("C:\\Users\\mpalotas\\IdeaProjects\\axaprototype\\src\\test\\resources\\Testfaelle_Motorfahrzeug_V2.xlsx");
+		//File file = new File("C:\\Users\\mpalotas\\IdeaProjects\\axaprototype\\src\\test\\resources\\Testfaelle_Motorfahrzeug_V3.xlsx");
 		FileInputStream fis = new FileInputStream(file);
 		XSSFWorkbook wb = new XSSFWorkbook(fis);
 		XSSFSheet sheet = wb.getSheetAt(0);
@@ -45,14 +47,14 @@ public class ExcelAdapter {
 				XSSFCell cell =  sheet.getRow(i+1).getCell(j);
 
 				if(cell.getCellTypeEnum() == CellType.NUMERIC) {
-					System.out.println(cell.getCellTypeEnum());
+					//System.out.println(cell.getCellTypeEnum());
 
 					//if cell is a date, format it in dd.mm.yyyy
 					if(HSSFDateUtil.isCellDateFormatted(cell)) {
 						System.out.println("BEFORE: " + cell.getDateCellValue());
 						SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						String date = formatter.format(cell.getDateCellValue());
-						//System.out.println("AFTER:" + date );
+						System.out.println("AFTER:" + date );
 						cell.setCellValue(date.toString());
 					}
 
@@ -66,7 +68,8 @@ public class ExcelAdapter {
 						switch(cell.getCachedFormulaResultType()) {
 							case Cell.CELL_TYPE_NUMERIC:
 								System.out.println("MUMERIC - Last evaluated as: " + cell.getNumericCellValue());
-								cell.setCellValue(cell.getNumericCellValue());
+								double value = cell.getNumericCellValue();
+								cell.setCellValue(value);
 								break;
 							case Cell.CELL_TYPE_STRING:
 								System.out.println("STRING - Last evaluated as" + cell.getRichStringCellValue());

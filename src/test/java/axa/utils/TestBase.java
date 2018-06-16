@@ -59,13 +59,14 @@ public class TestBase {
         else {
             capability.setCapability("browserName", browser);
         }
-        capability.setCapability("e34:token", "72aa4d82");
-        capability.setCapability("e34:l_testName", "Selenium Test");
+        capability.setCapability("e34:token", "19705d15-03b8-4f");
+        capability.setCapability("e34:l_testName", "AXA Selenium Test");
         capability.setCapability("video", true);
         capability.setCapability("e34_timeout_per_test_ms", 60000);
 
 
         driver.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability));
+        //driver.set(new RemoteWebDriver(new URL("https://vm-106.element34.net/wd/hub"), capability));
 
         driver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 

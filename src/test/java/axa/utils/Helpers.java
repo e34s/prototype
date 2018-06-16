@@ -10,9 +10,12 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class Helpers {
 
+    //TODO: change to c:\\eplatform\\....
     public static final String SCREENSHOT_DIRECTORY = "C:\\Users\\mpalotas\\IdeaProjects\\axaprototype\\screenshots\\";
 
     public static boolean isElementPresent(WebDriver driver, By by) {
@@ -40,6 +43,7 @@ public class Helpers {
     }
 
     public static void screenshot(RemoteWebDriver driver) {
+
         File tmp = driver.getScreenshotAs(OutputType.FILE);
         File ss = new File(SCREENSHOT_DIRECTORY + System.currentTimeMillis() + ".png");
         tmp.renameTo(ss);

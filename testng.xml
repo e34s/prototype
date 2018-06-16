@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="100" name="Suite" parallel="methods" data-provider-thread-count="1">
+<suite thread-count="100" name="Suite" parallel="methods" data-provider-thread-count="2">
     <test name="ChromeTests" thread-count="5" parallel="methods">
         <parameter name="browser" value="chrome"/>
         <classes>
