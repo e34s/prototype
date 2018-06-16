@@ -18,6 +18,9 @@ public class PraemiePage {
     @FindBy(id="lp_haft_sb_jung_dd-mf_optima")
     private WebElement haftpflicht_junglenker_sb_optima;
 
+    @FindBy(id="lp_haft_sb_jung_klein-mf_optima")
+    private WebElement haftpflicht_junglenker_sb_klein_optima;
+
     @FindBy(id="lp_praemie_bottom-mf_basic")
     private WebElement praemiebasic;
     @FindBy(id="lp_praemie_bottom-mf_compact")
@@ -209,19 +212,41 @@ public class PraemiePage {
 
             //for Junglenker only I believe
             if (selbstbehaltHaft.contentEquals("200 / 0 (J / U)")) {
-                Select realSelect = new Select(this.haftpflicht_junglenker_sb_optima);
-                realSelect.selectByVisibleText("CHF 200");
+
+                try {
+                    Select realSelect = new Select(this.haftpflicht_junglenker_sb_optima);
+                    realSelect.selectByVisibleText("CHF 200");
+                }
+                catch (Exception e) { //TODO not sure when this is displayed
+                    Select realSelect = new Select(this.haftpflicht_junglenker_sb_klein_optima);
+                    realSelect.selectByVisibleText("CHF 200");
+                }
 
             }
 
             else if (selbstbehaltHaft.contentEquals("500 / 0 (J / U)")) {
-                Select realSelect = new Select(this.haftpflicht_junglenker_sb_optima);
-                realSelect.selectByVisibleText("CHF 500");
+
+                try {
+                    Select realSelect = new Select(this.haftpflicht_junglenker_sb_optima);
+                    realSelect.selectByVisibleText("CHF 500");
+                }
+                catch (Exception e) {
+                    Select realSelect = new Select(this.haftpflicht_junglenker_sb_klein_optima);
+                    realSelect.selectByVisibleText("CHF 500");
+                }
 
             }
             else if (selbstbehaltHaft.contentEquals("1000 / 0 (J / U)")) {
-                Select realSelect = new Select(this.haftpflicht_junglenker_sb_optima);
-                realSelect.selectByVisibleText("CHF 1000");
+
+                try {
+                    Select realSelect = new Select(this.haftpflicht_junglenker_sb_optima);
+                    realSelect.selectByVisibleText("CHF 1000");
+
+                }
+                catch (Exception e) {
+                    Select realSelect = new Select(this.haftpflicht_junglenker_sb_klein_optima);
+                    realSelect.selectByVisibleText("CHF 1000");
+                }
             }
             else {
                 System.out.println("no Haftpflicht Junglenker");
