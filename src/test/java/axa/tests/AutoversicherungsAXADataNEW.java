@@ -37,12 +37,6 @@ public class AutoversicherungsAXADataNEW extends TestBase{
             writer.close();
     }
 
-    @Test
-    public void writeToFile() {
-
-        System.out.println("hello world");
-    }
-
 
     @Test(dataProvider="datamap", dataProviderClass = ExcelAdapter.class)
     public void newTest(Map<Object, Object> map) throws InterruptedException, IOException {
