@@ -8,20 +8,48 @@ import axa.utils.StatusListener;
 import axa.utils.TestBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Map;
+
+import static java.lang.Integer.valueOf;
 
 @Listeners(StatusListener.class)
 public class AutoversicherungsAXADataNEW extends TestBase{
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @BeforeSuite
+    public void openFile() throws IOException {
+
+            String str = "Hello";
+            BufferedWriter writer = new BufferedWriter(new FileWriter("result.txt"));
+            writer.write(str);
+            writer.close();
+    }
+
+    @Test
+    public void writeToFile() {
+
+        System.out.println("hello world");
+    }
+
+
     @Test(dataProvider="datamap", dataProviderClass = ExcelAdapter.class)
-    public void newTest(Map<Object, Object> map) throws InterruptedException {
+    public void newTest(Map<Object, Object> map) throws InterruptedException, IOException {
 
         RemoteWebDriver driver = (RemoteWebDriver) getDriver();
         System.out.println("TESTCASE: " + (String)map.get("Testfall")) ;
+        logger.debug("TESTCASE: " + (String)map.get("Testfall"));
 
         //Fahrzeugsuche
         FahrzeugsuchePage fahrzeugsuche = new FahrzeugsuchePage(driver);
@@ -128,18 +156,7 @@ public class AutoversicherungsAXADataNEW extends TestBase{
 
             Thread.sleep(5000);
 
-            if (product.contentEquals("Basic")) {
-                System.out.println("Basic Prämie");
-                Assert.assertEquals(praemie.getBasicPraemie(), (String) map.get("Bruttoprämie"));
-            }
-            else if (product.contentEquals("Compact")) {
-                System.out.println("Compact Prämie");
-                Assert.assertEquals(praemie.getCompactPrämie(), (String) map.get("Bruttoprämie"));
-            }
-            else if (product.contentEquals("Optima")) {
-                System.out.println("Optima Prämie");
-                Assert.assertEquals(praemie.getOptimaPrämie(), (String) map.get("Bruttoprämie"));
-            }
+            doAssert(map, praemie, product);
 
         }
 
@@ -222,20 +239,71 @@ public class AutoversicherungsAXADataNEW extends TestBase{
 
             Thread.sleep(5000);
 
-            if (product.contentEquals("Basic")) {
-                System.out.println("Basic Prämie");
-                Assert.assertEquals(praemie.getBasicPraemie(), (String) map.get("Bruttoprämie"));
-            }
-            else if (product.contentEquals("Compact")) {
-                System.out.println("Compact Prämie");
-                Assert.assertEquals(praemie.getCompactPrämie(), (String) map.get("Bruttoprämie"));
-            }
-            else if (product.contentEquals("Optima")) {
-                System.out.println("Optima Prämie");
-                Assert.assertEquals(praemie.getOptimaPrämie(), (String) map.get("Bruttoprämie"));
-            }
+            doAssert(map, praemie, product);
 
         }
 
+    }
+
+    private void doAssert(Map<Object, Object> map, PraemiePage praemie, String product) throws IOException {
+
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        String premium = "";
+        switch (product) {
+            case "Basic":
+                premium = praemie.getBasicPraemie();
+                break;
+            case "Compact":
+                premium = praemie.getCompactPrämie();
+                break;
+            case "Optima":
+                premium = praemie.getOptimaPrämie();
+                break;
+        }
+
+        premium = premium.replace("CHF ", "");
+        Double actual = Double.valueOf(premium);
+
+
+        String exp = (String) map.get("Bruttoprämie");
+        Double expected = Double.valueOf(exp);
+
+
+        Double diff = actual - expected;
+        String testcase = (String) map.get("Testfall");
+
+        if (diff <= 1.0 && diff >= -1.0) {
+            writeResults(testcase, actual, expected,true );
+            Assert.assertTrue(true);
+        }
+        else {
+            writeResults(testcase, actual, expected,false );
+            Assert.assertEquals(actual, expected);
+        }
+
+
+
+/*        if (product.contentEquals("Basic")) {
+            System.out.println("Basic Prämie");
+            Assert.assertEquals(praemie.getBasicPraemie(), (String) map.get("Bruttoprämie"));
+        }
+        else if (product.contentEquals("Compact")) {
+            System.out.println("Compact Prämie");
+            Assert.assertEquals(praemie.getCompactPrämie(), (String) map.get("Bruttoprämie"));
+        }
+        else if (product.contentEquals("Optima")) {
+            System.out.println("Optima Prämie");
+            Assert.assertEquals(praemie.getOptimaPrämie(), (String) map.get("Bruttoprämie"));
+        }*/
+    }
+
+    public void writeResults(String testcase, Double actual, Double expected, Boolean pass) throws IOException {
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter("results.txt", true));
+        writer.append('\n');
+        writer.append("Testfall: " + testcase + "  --- Pass: " + pass.toString() + " --- Actual: " +actual.toString() + " --- Expected:  " + expected.toString());
+
+        writer.close();
     }
 }
